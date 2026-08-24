@@ -1776,3 +1776,19 @@ Stage Summary:
 - VLM critique: 8.5/10 — "significant upgrade... density without chaos... looks like YOUR codebase, not a stock photo... blue 'smarter' anchor pulls from the syntax highlighting behind it... serif vs monospace = Human vs Machine juxtaposition"; mobile "legible and atmospheric, headline perfectly readable"
 - Committed e841586; server stable via double-fork daemon
 - Next candidates if user wants more: code-language tinting per block, subtle scanline, or interactive parallax on mouse — but restraint rule says wait for feedback first
+
+---
+Task ID: 18
+Agent: main (Z.ai Code)
+Task: Round 18 — Code bg fills whole header + hero height reduced (user: "coding bg should be in the whole header... header is too large")
+
+Work Log:
+- Diagnosed why the header zone looked empty: the canvas draw() applied a symmetric exit-fade at the TOP edge (lines dissolved before reaching the navbar) — legacy of the pre-v2 design
+- Removed the top-edge fade: lines now stay solid to the very top and clip cleanly at the canvas boundary; only the bottom-edge soft entry remains
+- Hero height: min-h-[92svh] → min-h-[70svh] (measured 599px desktop / 595px mobile), padding pt-36/pb-24 → pt-28/pb-16 (md: pt-32/pb-20)
+- Radial clearing retuned: ellipse 47%x34% @ 50%/47% → 45%x30% @ 50%/50% — keeps the serif headline pristine while the top/header zone and edges stay code-dense
+
+Stage Summary:
+- Verification: lint 0 errors · console clean · top 90px strip behind navbar now paints 1,600 pixels of code (was ~0 before fix) · canvas covers hero 100% (599px) · mobile no overflow
+- VLM: "code extends seamlessly behind the navbar and logo, unified top-sheet effect, no awkward cutoffs... height well-proportioned, not a full-screen scroll trap" 8/10; mobile: "compact, cohesive visual unit"
+- Committed ca46ae7; server stable via double-fork daemon pattern
