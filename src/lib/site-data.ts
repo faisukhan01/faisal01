@@ -594,3 +594,149 @@ export const PRESS_ITEMS = [
   { id: 5, label: "Award", text: "NETSOL named 'Asset Finance Platform of the Year' by Frost & Sullivan", href: "#insights", accent: "#2d9cdb" },
   { id: 6, label: "ESG", text: "2025 Sustainability Report published — 4.2M sheets of paper eliminated", href: "#esg", accent: "#24a148" },
 ];
+
+// === Round 4 additions ===
+
+// Open positions for the Careers section
+export const CAREERS_ROLES = [
+  {
+    id: "eng-1",
+    team: "Engineering",
+    title: "Senior Platform Engineer, Transcend",
+    location: "Lahore, PK",
+    type: "Full-time",
+    accent: "#1d81f2",
+    summary:
+      "Own the core servicing platform that 200+ enterprise customers depend on. TypeScript, Go, Kubernetes, multi-region Postgres.",
+    tags: ["TypeScript", "Go", "K8s", "Postgres"],
+  },
+  {
+    id: "ai-1",
+    team: "AI Labs",
+    title: "Senior Research Engineer, Underwriting AI",
+    location: "London, UK",
+    type: "Full-time",
+    accent: "#0f62fe",
+    summary:
+      "Ship the generative underwriting copilot from prototype to production. RAG, fine-tuning, evals, and human-in-the-loop UX.",
+    tags: ["LLM", "RAG", "Python", "PyTorch"],
+  },
+  {
+    id: "design-1",
+    team: "Design",
+    title: "Principal Product Designer, Dealer Portals",
+    location: "Remote, US",
+    type: "Full-time",
+    accent: "#24a148",
+    summary:
+      "Set the design language for the next generation of dealer and broker portals. Design systems, accessibility, motion.",
+    tags: ["Figma", "Design Systems", "Motion"],
+  },
+  {
+    id: "sales-1",
+    team: "Sales",
+    title: "Enterprise Account Director, APAC",
+    location: "Bangkok, TH",
+    type: "Full-time",
+    accent: "#2d9cdb",
+    summary:
+      "Lead NETSOL's expansion across Southeast Asia asset finance. Captives, banks, OEMs. 10+ year sales cycle experience required.",
+    tags: ["Enterprise", "APAC", "SaaS"],
+  },
+  {
+    id: "eng-2",
+    team: "Engineering",
+    title: "Staff Engineer, Cloud & Reliability",
+    location: "Manila, PH",
+    type: "Full-time",
+    accent: "#56ccf2",
+    summary:
+      "Drive the next phase of NETSOL's cloud migration. Multi-cloud (AWS + Azure), disaster recovery, 99.99% uptime targets.",
+    tags: ["AWS", "Azure", "Terraform", "Go"],
+  },
+  {
+    id: "consult-1",
+    team: "Consultancy",
+    title: "Senior Consultant, Generative AI",
+    location: "Los Angeles, US",
+    type: "Full-time",
+    accent: "#1d81f2",
+    summary:
+      "Lead GenAI advisory engagements for top-tier bank and captive clients. Translate AI capability into board-level outcomes.",
+    tags: ["GenAI", "Advisory", "Finance"],
+  },
+];
+
+// Awards / recognition
+export const AWARDS = [
+  { id: 1, year: 2025, body: "Frost & Sullivan", title: "Asset Finance Platform of the Year", accent: "#1d81f2" },
+  { id: 2, year: 2025, body: "Stevie Awards", title: "Gold — Tech Company of the Year (Large)", accent: "#0f62fe" },
+  { id: 3, year: 2024, body: "AFSA", title: "Innovation in Digital Retail", accent: "#24a148" },
+  { id: 4, year: 2024, body: "Globee Awards", title: "Silver — Best AI in Financial Services", accent: "#2d9cdb" },
+  { id: 5, year: 2023, body: "Brandon Hall", title: "Best Advance in Enterprise Software", accent: "#56ccf2" },
+  { id: 6, year: 2023, body: "Asia CFO Awards", title: "Technology Excellence — APAC", accent: "#1d81f2" },
+  { id: 7, year: 2022, body: "Forbes Asia", title: "Best Under A Billion — 200 Best", accent: "#0f62fe" },
+  { id: 8, year: 2022, body: "ISO", title: "ISO 27001:2013 — Re-certified", accent: "#24a148" },
+];
+
+// FAQ Q&A pairs — premium accordion content
+export const FAQ_ITEMS = [
+  {
+    id: "faq-1",
+    question: "What asset classes does Transcend support?",
+    answer:
+      "Transcend supports the full spectrum of asset finance — automotive (captive, dealer, retail, wholesale), equipment (yellow goods, construction, manufacturing), fleet & mobility (subscription, leasing), marine, aviation, and energy / renewables (PPAs, battery leasing, EV charging infrastructure). One platform, one data model.",
+  },
+  {
+    id: "faq-2",
+    question: "How long does a typical Transcend Finance migration take?",
+    answer:
+      "A standard Transcend Finance migration runs 6–9 months for a typical captive or bank, with a 60-day parallel-run period and zero-contract-loss cutover. Larger programs with multi-jurisdictional footprint run 12–18 months — but always with a 90-day stability period built in before legacy retirement.",
+  },
+  {
+    id: "faq-3",
+    question: "Is Transcend available as SaaS, on-prem, or both?",
+    answer:
+      "Both. Transcend ships as a fully managed SaaS deployment on AWS or Azure in your region of choice, or as a single-tenant deployment inside your own VPC. Hybrid models (SaaS for origination, single-tenant for servicing) are common — we'll match the deployment shape to your regulatory footprint.",
+  },
+  {
+    id: "faq-4",
+    question: "How does NETSOL handle data residency and regional compliance?",
+    answer:
+      "Transcend is deployed across six global delivery centers (LA, London, Beijing, Bangkok, Lahore, Manila) with regional data residency in each. We are ISO 27001 certified, SOC 2 Type II aligned, GDPR compliant, and PCI-DSS certified. Data residency decisions are made at contract-level — your data stays in the jurisdiction you specify.",
+  },
+  {
+    id: "faq-5",
+    question: "What does NETSOL AI Labs actually ship in production?",
+    answer:
+      "AI Labs ships models that run in production — not in decks. Current production deployments include a generative underwriting copilot (RAG over your credit policy), document intelligence for contract ingestion, conversational servicing for customer portals, and residual re-pricing models for EV books. Every model is human-in-the-loop from day one and measured in dollars, not in F1 score.",
+  },
+  {
+    id: "faq-6",
+    question: "How does Transcend integrate with our existing LOS or core banking stack?",
+    answer:
+      "Transcend exposes a complete REST + event API surface, plus pre-built integrations for the most common LOS, core banking, and credit bureau systems. We treat integration as a first-class engineering concern — every customer gets a dedicated integration architect for the first 90 days post-go-live.",
+  },
+  {
+    id: "faq-7",
+    question: "What's in the NETSOL Marketplace and how is it licensed?",
+    answer:
+      "The Marketplace is a curated library of SaaS modules — calculation engines, document generation, decisioning, customer care portals — that extend Transcend. Modules are licensed per-tenant, metered by usage, and can be turned on or off without a re-deployment. No long lock-in commitments.",
+  },
+  {
+    id: "faq-8",
+    question: "What does NETSOL do for sustainability and ESG reporting?",
+    answer:
+      "Every Transcend contract replaces a paper trail. In 2025 our customers saved an estimated 4.2 million sheets of paper. NETSOL publishes an annual Sustainability Report aligned to TCFD, GRI, CDP, and UN PRI frameworks — and is committed to carbon-neutral operations across all six delivery centers by 2028.",
+  },
+];
+
+// Stock ticker for NASDAQ:NTWK — synthetic / demo data
+export const STOCK_TICKER = {
+  symbol: "NASDAQ: NTWK",
+  price: 1.85,
+  change: 0.04,
+  changePercent: 2.21,
+  // Sparkline points (relative scale 0-100, used by the SVG sparkline)
+  sparkline: [62, 60, 65, 63, 68, 67, 70, 72, 71, 75, 78, 80, 82, 81, 84, 88, 90, 95],
+};

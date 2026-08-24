@@ -21,7 +21,7 @@ export function CTAButton({
   onClick,
 }: CTAButtonProps) {
   const base =
-    'btn-glow group relative inline-flex items-center gap-2.5 rounded-[10px] px-7 py-3.5 font-semibold text-[15px] transition-all duration-300';
+    'btn-glow btn-shine group relative inline-flex items-center gap-2.5 rounded-[10px] px-7 py-3.5 font-semibold text-[15px] transition-all duration-300';
   const variants = {
     primary: 'bg-[#1d81f2] text-white hover:bg-[#0f62fe] shadow-[0_8px_24px_-8px_rgba(15,98,254,0.55)]',
     light: 'bg-white text-[#161616] hover:bg-[#f5f7fa] shadow-[0_8px_24px_-8px_rgba(0,0,0,0.15)]',

@@ -13,10 +13,13 @@ export const SCROLLSPY_SECTIONS = [
   { id: 'industries', label: 'Industries' },
   { id: 'why-netsol', label: 'Why NETSOL' },
   { id: 'about', label: 'About' },
+  { id: 'awards', label: 'Awards' },
   { id: 'leadership', label: 'Leadership' },
   { id: 'esg', label: 'Sustainability' },
+  { id: 'careers', label: 'Careers' },
   { id: 'testimonials', label: 'Stories' },
   { id: 'insights', label: 'Insights' },
+  { id: 'faq', label: 'FAQ' },
   { id: 'contact', label: 'Contact' },
 ];
 

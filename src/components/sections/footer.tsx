@@ -2,6 +2,7 @@
 
 import { Reveal } from '@/components/site/reveal';
 import { NetsolLogo } from '@/components/site/logo';
+import { CursorSpotlight } from '@/components/site/cursor-spotlight';
 import { FOOTER_LINKS, CONTACT_INFO } from '@/lib/site-data';
 
 function SocialIcon({ name }: { name: string }) {
@@ -56,7 +57,7 @@ export function Footer() {
       {/* Top accent gradient */}
       <div className="h-px bg-gradient-to-r from-transparent via-[#1d81f2]/60 to-transparent" />
 
-      <div className="mx-auto max-w-[1320px] px-5 lg:px-8 pt-16 lg:pt-20 pb-10">
+      <CursorSpotlight color="#1d81f2" size={460} intensity={0.10} className="mx-auto max-w-[1320px] px-5 lg:px-8 pt-16 lg:pt-20 pb-10">
         <Reveal>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
             {/* Brand + about */}
@@ -187,7 +188,7 @@ export function Footer() {
             )}
           </div>
         </div>
-      </div>
+      </CursorSpotlight>
     </footer>
   );
 }

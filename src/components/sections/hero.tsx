@@ -117,7 +117,7 @@ export function Hero() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="pointer-events-auto relative h-[260px] w-[260px] sm:h-[340px] sm:w-[340px] lg:h-[380px] lg:w-[380px]"
               >
-                <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/70 to-white/20 backdrop-blur-md border border-white/40 shadow-[0_30px_80px_-20px_rgba(15,98,254,0.3)] overflow-hidden">
+                <div className="absolute inset-0 rounded-[28px] glass-card-premium overflow-hidden">
                   <img
                     src={HERO_SLIDES[activeSlide].image}
                     alt={HERO_SLIDES[activeSlide].alt}
