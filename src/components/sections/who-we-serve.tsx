@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Reveal, Stagger, staggerItem } from '@/components/site/reveal';
 import { CTAButton } from '@/components/site/cta-button';
+import { Magnetic } from '@/components/site/magnetic';
 import { WHO_WE_SERVE } from '@/lib/site-data';
 import { cn } from '@/lib/utils';
 
@@ -100,7 +101,9 @@ export function WhoWeServe() {
         </Stagger>
 
         <Reveal delay={0.2} className="mt-12 flex justify-center">
-          <CTAButton href="#contact">Connect with us</CTAButton>
+          <Magnetic as="div" strength={0.25} className="inline-block">
+            <CTAButton href="#contact">Connect with us</CTAButton>
+          </Magnetic>
         </Reveal>
       </div>
     </section>

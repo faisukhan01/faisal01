@@ -1,7 +1,9 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { Reveal } from '@/components/site/reveal';
 import { CTAButton } from '@/components/site/cta-button';
+import { Magnetic } from '@/components/site/magnetic';
 
 export function CTABanner() {
   return (
@@ -18,6 +20,19 @@ export function CTABanner() {
       <div
         aria-hidden
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[480px] w-[480px] rounded-full bg-[#1d81f2]/5 blur-3xl"
+      />
+      {/* Animated rotating ring */}
+      <motion.div
+        aria-hidden
+        animate={{ rotate: 360 }}
+        transition={{ duration: 80, ease: 'linear', repeat: Infinity }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[300px] rounded-full border border-dashed border-[#1d81f2]/20 pointer-events-none hidden sm:block"
+      />
+      <motion.div
+        aria-hidden
+        animate={{ rotate: -360 }}
+        transition={{ duration: 120, ease: 'linear', repeat: Infinity }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[420px] w-[420px] rounded-full border border-[#1d81f2]/10 pointer-events-none hidden sm:block"
       />
 
       <div className="relative mx-auto max-w-[760px] px-5 lg:px-8 text-center">
@@ -37,7 +52,9 @@ export function CTABanner() {
             gets you there.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <CTAButton href="#contact">Contact Us</CTAButton>
+            <Magnetic as="div" strength={0.25} className="inline-block">
+              <CTAButton href="#contact">Contact Us</CTAButton>
+            </Magnetic>
             <a
               href="#marketplace"
               className="inline-flex items-center gap-2 text-[15px] font-medium text-[#161616] hover:text-[#1d81f2] transition-colors"
@@ -47,6 +64,22 @@ export function CTABanner() {
                 <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
+          </div>
+
+          {/* Trust indicators */}
+          <div className="mt-12 pt-10 border-t border-[#e0e0e0] flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[12px] text-[#6b7280]">
+            <span className="inline-flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#24a148]" />
+              25+ years on NASDAQ: NTWK
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#24a148]" />
+              200+ enterprise customers
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#24a148]" />
+              ISO 27001 certified
+            </span>
           </div>
         </Reveal>
       </div>

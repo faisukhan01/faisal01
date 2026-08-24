@@ -2,13 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Menu, X, Globe } from 'lucide-react';
+import { ChevronDown, Menu, X, Globe, Search } from 'lucide-react';
 import { NAV_ITEMS } from '@/lib/site-data';
 import { NetsolLogo } from '@/components/site/logo';
 import { CTAButton } from '@/components/site/cta-button';
+import { Magnetic } from '@/components/site/magnetic';
 import { cn } from '@/lib/utils';
 
-export function SiteHeader() {
+interface SiteHeaderProps {
+  onSearchOpen?: () => void;
+}
+
+export function SiteHeader({ onSearchOpen }: SiteHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -39,16 +44,18 @@ export function SiteHeader() {
       >
         <div className="mx-auto flex h-16 max-w-[1320px] items-center justify-between px-5 lg:px-8">
           {/* Logo */}
-          <a href="#" className="flex items-center" aria-label="NETSOL Technologies home">
-            <NetsolLogo />
-          </a>
+          <Magnetic as="a" href="#" strength={0.25} ariaLabel="NETSOL Technologies home">
+            <span className="flex items-center" aria-hidden>
+              <NetsolLogo />
+            </span>
+          </Magnetic>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-7" aria-label="Primary">
             {NAV_ITEMS.map((item) => (
               <div
                 key={item.label}
-                className="relative"
+                className="relative group"
                 onMouseEnter={() => item.children && setOpenDropdown(item.label)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
@@ -67,6 +74,9 @@ export function SiteHeader() {
                   )}
                 </a>
 
+                {/* Underline indicator */}
+                <span className="pointer-events-none absolute -bottom-1 left-0 h-0.5 w-0 bg-[#1d81f2] transition-all duration-300 group-hover:w-full" />
+
                 <AnimatePresence>
                   {item.children && openDropdown === item.label && (
                     <motion.div
@@ -81,9 +91,10 @@ export function SiteHeader() {
                         <a
                           key={sub.label}
                           href={sub.href}
-                          className="block rounded-lg px-3 py-2 text-[14px] text-[#525252] transition-colors hover:bg-[#f5f7fa] hover:text-[#1d81f2]"
+                          className="flex items-center justify-between rounded-lg px-3 py-2 text-[14px] text-[#525252] transition-colors hover:bg-[#f5f7fa] hover:text-[#1d81f2] group/sub"
                         >
-                          {sub.label}
+                          <span>{sub.label}</span>
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#1d81f2]/0 group-hover/sub:bg-[#1d81f2] transition-all duration-200" />
                         </a>
                       ))}
                     </motion.div>
@@ -94,7 +105,20 @@ export function SiteHeader() {
           </nav>
 
           {/* Right side actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            {/* Search trigger */}
+            <button
+              aria-label="Open search (Cmd+K)"
+              onClick={onSearchOpen}
+              className="hidden sm:flex items-center gap-2 h-9 pl-2.5 pr-2 rounded-full border border-black/15 text-[#525252] hover:border-[#1d81f2] hover:text-[#1d81f2] hover:bg-[#1d81f2]/5 transition-all"
+            >
+              <Search className="h-3.5 w-3.5" />
+              <span className="text-[12px]">Search</span>
+              <kbd className="hidden lg:inline-flex items-center gap-0.5 ml-1 px-1.5 py-0.5 rounded bg-[#f5f7fa] border border-[#e0e0e0] text-[10px] font-mono text-[#6b7280]">
+                ⌘K
+              </kbd>
+            </button>
+
             <button
               aria-label="Select language"
               className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/15 text-[#525252] transition-colors hover:border-[#1d81f2] hover:text-[#1d81f2]"
@@ -154,7 +178,21 @@ export function SiteHeader() {
                   {item.children && <ChevronDown className="h-4 w-4 text-[#6b7280]" />}
                 </a>
               ))}
-              <div className="mt-6">
+              <div className="mt-6 space-y-3">
+                <button
+                  onClick={() => {
+                    setMobileOpen(false);
+                    onSearchOpen?.();
+                  }}
+                  className="w-full flex items-center justify-between rounded-xl border border-[#e0e0e0] px-4 py-3 text-[14px] text-[#525252]"
+                >
+                  <span className="flex items-center gap-2">
+                    <Search className="h-4 w-4" /> Search
+                  </span>
+                  <kbd className="px-1.5 py-0.5 rounded bg-[#f5f7fa] border border-[#e0e0e0] text-[10px] font-mono">
+                    ⌘K
+                  </kbd>
+                </button>
                 <CTAButton href="#contact" className="w-full justify-center">
                   Get in touch
                 </CTAButton>

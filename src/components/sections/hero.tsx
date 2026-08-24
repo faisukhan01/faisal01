@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { ArrowUpRight } from 'lucide-react';
 import { Typewriter } from '@/components/site/typewriter';
 import { CTAButton } from '@/components/site/cta-button';
+import { Magnetic } from '@/components/site/magnetic';
 import { Parallax } from '@/components/site/parallax';
 import { HERO_SLIDES } from '@/lib/site-data';
 
@@ -71,7 +72,9 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <CTAButton href="#contact">Get in touch</CTAButton>
+            <Magnetic as="div" strength={0.25} className="inline-block">
+              <CTAButton href="#contact">Get in touch</CTAButton>
+            </Magnetic>
             <a
               href="#platform"
               className="inline-flex items-center gap-2 text-[15px] font-medium text-[#161616] hover:text-[#1d81f2] transition-colors"
@@ -134,18 +137,25 @@ export function Hero() {
             </AnimatePresence>
           </div>
 
-          {/* Slide indicators */}
-          <div className="absolute bottom-2 left-1/2 z-20 -translate-x-1/2 flex items-center gap-2">
-            {HERO_SLIDES.map((s, i) => (
-              <button
-                key={s.id}
-                onClick={() => setActiveSlide(i)}
-                aria-label={`Slide ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  activeSlide === i ? 'w-8 bg-[#1d81f2]' : 'w-1.5 bg-[#1d81f2]/30'
-                }`}
-              />
-            ))}
+          {/* Slide indicators + counter */}
+          <div className="absolute bottom-2 left-1/2 z-20 -translate-x-1/2 flex items-center gap-3">
+            <span className="text-[11px] font-mono tracking-widest text-[#6b7280] hidden sm:inline">
+              {String(activeSlide + 1).padStart(2, '0')}
+              <span className="mx-1 text-[#9ca3af]">/</span>
+              {String(HERO_SLIDES.length).padStart(2, '0')}
+            </span>
+            <div className="flex items-center gap-2">
+              {HERO_SLIDES.map((s, i) => (
+                <button
+                  key={s.id}
+                  onClick={() => setActiveSlide(i)}
+                  aria-label={`Slide ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    activeSlide === i ? 'w-8 bg-[#1d81f2]' : 'w-1.5 bg-[#1d81f2]/30 hover:bg-[#1d81f2]/50'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Floating badge cards */}

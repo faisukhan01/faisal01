@@ -379,3 +379,155 @@ export const CONTACT_INFO = {
   address: "16000 Ventura Blvd, Suite 770 Encino, CA 91436, USA",
   phone: "+1 818 222 9195",
 };
+
+// === Round 2 additions ===
+
+export const DIFFERENTIATORS = [
+  {
+    id: "platform",
+    title: "One connected platform",
+    short: "One mesh",
+    description:
+      "Originations, servicing, marketplace and analytics on a single data model — no fragile handoffs, no nightly batch reconciliations.",
+    metric: "1",
+    metricLabel: "unified data layer",
+    icon: "mesh",
+    accent: "#1d81f2",
+  },
+  {
+    id: "scale",
+    title: "Proven at enterprise scale",
+    short: "Enterprise scale",
+    description:
+      "From 14-language rollouts to 30+ country deployments, Transcend powers some of the largest captives, banks, and OEMs in the world.",
+    metric: "$500B+",
+    metricLabel: "assets managed",
+    icon: "globe",
+    accent: "#24a148",
+  },
+  {
+    id: "ai",
+    title: "Applied AI, not vaporware",
+    short: "Applied AI",
+    description:
+      "NETSOL AI Labs ships underwriting, document intelligence, and conversational servicing models that run in production — not in decks.",
+    metric: "9",
+    metricLabel: "production AI models",
+    icon: "spark",
+    accent: "#0f62fe",
+  },
+  {
+    id: "trust",
+    title: "Built for regulated finance",
+    short: "Compliance-first",
+    description:
+      "ISO 27001 certified, SOC 2 Type II aligned, with regional data residency across 6 global delivery centers — audited annually.",
+    metric: "ISO 27001",
+    metricLabel: "certified security",
+    icon: "shield",
+    accent: "#2d9cdb",
+  },
+];
+
+// Rich article body content for the insight modal (rendered as paragraphs)
+export const INSIGHT_BODIES: Record<
+  number,
+  { paragraphs: string[]; bullets?: string[]; pullQuote?: string }
+> = {
+  1: {
+    paragraphs: [
+      "Every digital promise your website makes — a payment quote, an approval, a delivery date — is a promise your back office has to honour in ink. Yet at most captives and lenders, the bridge between showroom and back office is a stack of nightly batch jobs and a queue of exception cases.",
+      "The result is well-documented: contract rework, dealer friction, and the slow erosion of trust that costs a brand its premium positioning. Leading lenders are now rebuilding that bridge in real time, treating the digital channel not as a lead funnel but as the first hop of a continuous contract.",
+      "The most successful teams start by mapping every 'promise' the website can make — rate, term, residual, document set — and giving each one a single owner in the servicing stack. From there, version control, audit, and exception workflows follow naturally.",
+    ],
+    bullets: [
+      "Treat the website quote as the first version of the contract, not a teaser",
+      "Move from nightly reconciliation to event-level sync between LOS and servicing",
+      "Give dealers a real-time view of where each promise sits in the pipeline",
+    ],
+    pullQuote:
+      "The website is not a funnel. It is the first version of the contract.",
+  },
+  2: {
+    paragraphs: [
+      "A dealer portal is how a captive sees its own distribution channel. Yet most portals in production today are little more than a thin web layer over a 1990s LOS — long load times, brittle dropdowns, and no concept of state.",
+      "Modern distribution finance lives or dies by visibility. Captives that can see — in real time — which dealer is structuring which contract, against which programme, with which residual set, are the ones that can move pricing and inventory quickly enough to win.",
+      "The shift is from 'application dashboard' to 'operating console' — a portal that lets the captive act, not just observe.",
+    ],
+    pullQuote:
+      "Visibility is the new currency of distribution finance.",
+  },
+  3: {
+    paragraphs: [
+      "Equipment finance software has to hold two things at once: a schedule and a meter. The schedule is the contract — the legal promise of when payments are due. The meter is reality — hours, miles, cycles, uptime.",
+      "From usage-based billing to residual optimisation, modern equipment finance lives or dies by the integrity of its schedule engine. A platform that can't reconcile the two ends up either overbilling loyal customers or undercharging on contracts that bleed the book.",
+      "The teams winning in this space treat the schedule and the meter as a single source of truth — versioned, audited, and exposed through a unified API that lets dealers, OEMs, and the captive itself agree on the same number at the same moment.",
+    ],
+    bullets: [
+      "Unify contract schedule and asset meter in one data model",
+      "Expose both through a single audited API",
+      "Enable usage-based billing without nightly reconciliation jobs",
+    ],
+  },
+  4: {
+    paragraphs: [
+      "Thailand's EV penetration is accelerating despite macro headwinds. For captives and lenders across Southeast Asia, that creates both an opportunity and a real risk — residual books built on combustion assumptions, with infrastructure investment racing to catch up.",
+      "The 2026 inflection is being driven less by consumer demand than by fleet and ride-hail operators swapping combustion assets for electric ones — a different buyer profile, with different residual behaviour.",
+      "Lenders that survive the shift will be the ones that re-underwrite their residual books against actual EV usage data — not legacy combustion curves.",
+    ],
+    pullQuote:
+      "Re-underwrite your residual book against actual EV usage — not combustion curves.",
+  },
+  5: {
+    paragraphs: [
+      "When a top-3 European bank set out to replace a 14-year-old core with Transcend Finance in nine months, the question was not whether the new platform could do the job — it was whether a cutover of that size could happen without dropping a single live contract.",
+      "The team chose a parallel-run strategy: every contract was mirrored between legacy and Transcend for 60 days, with daily reconciliation reports surfaced to the CFO. Discrepancies were triaged within hours, not weeks.",
+      "On day 61, the legacy core was read-only. On day 90, it was off. Not a single live contract was lost in the migration.",
+    ],
+    bullets: [
+      "60-day parallel run with daily reconciliation reports to the CFO",
+      "Every discrepancy triaged within hours, not weeks",
+      "Zero contract loss across the full cutover",
+    ],
+    pullQuote: "Zero contract loss. Nine months. A 14-year core retired.",
+  },
+  6: {
+    paragraphs: [
+      "Three patterns separate the AI servicing pilots that ship from the ones that stall — drawn from NETSOL AI Labs engagements across captives and lenders in 2025–2026.",
+      "First, the pilots that ship start with a known, narrow, expensive workflow — not a horizontal 'AI for servicing' vision. Second, they put a human in the loop from day one, treating the model as a copilot rather than an autonomous agent. Third, they measure model drift in dollars, not in F1 score.",
+      "Pilots that ignore any of the three tend to stall inside 90 days — and quietly become case studies of why 'AI doesn't work in finance'.",
+    ],
+    bullets: [
+      "Start narrow — one expensive workflow, not a horizontal vision",
+      "Human-in-the-loop from day one, not bolted on at the end",
+      "Measure drift in dollars, not in F1 score",
+    ],
+  },
+  7: {
+    paragraphs: [
+      "Residual setting is part science, part policy. The science is the forecast — what will this asset be worth in 36 months? The policy is the brand decision — what residual are we willing to underwrite to defend our positioning?",
+      "Most captives conflate the two. The result is residual books that are neither defensible to the board nor competitive in the market.",
+      "A modern framework separates forecast from policy, exposes both to the right stakeholders, and creates an audit trail for every residual decision the captive commits to.",
+    ],
+    pullQuote: "Residual setting is part science, part policy. Most captives conflate the two.",
+  },
+  8: {
+    paragraphs: [
+      "The hidden cost of the originations-to-servicing handoff is not the cost of the handoff itself — it's the cost of the data reconciliation that has to happen every night to make the two systems agree.",
+      "A unified data model — where origination and servicing read and write the same contract record — removes the handoff entirely. There is no reconciliation, because there is nothing to reconcile.",
+      "The teams that have made the switch report a 40–60% reduction in back-office exception volume, and a corresponding drop in customer-facing errors.",
+    ],
+    bullets: [
+      "Eliminate nightly reconciliation between LOS and servicing",
+      "Cut back-office exception volume by 40–60%",
+      "Reduce customer-facing errors proportionally",
+    ],
+  },
+  9: {
+    paragraphs: [
+      "At this year's Auto Finance Summit, NETSOL is announcing three new Transcend releases: a generative underwriting copilot, a real-time residual re-pricing engine, and a unified dealer portal that brings inventory, finance, and contract status into a single console.",
+      "Three sessions to add to your agenda: 'Re-underwriting residuals in an EV world', 'Generative AI in production servicing', and 'The death of the nightly reconciliation'.",
+      "The NETSOL booth will feature live demos of all three new releases, plus a private preview of the 2027 Transcend roadmap for captives and banks.",
+    ],
+  },
+};

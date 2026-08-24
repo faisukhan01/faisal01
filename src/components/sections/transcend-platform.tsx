@@ -139,8 +139,31 @@ export function TranscendPlatform() {
             </div>
 
             {/* Right marquee of categories */}
-            <div className="lg:col-span-5 rounded-2xl bg-white border border-[#e0e0e0] p-8 lg:p-10 flex flex-col justify-between">
-              <div>
+            <div className="lg:col-span-5 relative rounded-2xl bg-white border border-[#e0e0e0] p-8 lg:p-10 flex flex-col justify-between overflow-hidden">
+              {/* Animated gradient border on hover */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: `linear-gradient(135deg, ${current.accent}, transparent 35%, transparent 65%, ${current.accent})`,
+                  padding: '1px',
+                  WebkitMask:
+                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                  backgroundSize: '200% 200%',
+                  animation: 'gradient-sweep 8s ease infinite',
+                }}
+              />
+              {/* Top accent strip */}
+              <span
+                aria-hidden
+                className="absolute top-0 left-0 right-0 h-[3px]"
+                style={{
+                  background: `linear-gradient(90deg, ${current.accent}, transparent)`,
+                }}
+              />
+              <div className="relative z-10">
                 <div className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
                   What's inside
                 </div>
@@ -150,7 +173,7 @@ export function TranscendPlatform() {
               </div>
 
               {/* Vertical infinite marquee */}
-              <div className="relative h-[220px] overflow-hidden mt-6">
+              <div className="relative h-[220px] overflow-hidden mt-6 z-10">
                 <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white to-transparent z-10" />
                 <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white to-transparent z-10" />
                 <div className="flex flex-col gap-3 animate-marquee-vertical">
@@ -158,7 +181,7 @@ export function TranscendPlatform() {
                     (cat, i) => (
                       <div
                         key={i}
-                        className="flex items-center gap-3 rounded-xl border border-[#f0f0f0] bg-[#f5f7fa]/50 px-4 py-3"
+                        className="flex items-center gap-3 rounded-xl border border-[#f0f0f0] bg-[#f5f7fa]/50 px-4 py-3 hover:bg-[#f5f7fa] hover:border-[#e0e0e0] transition-colors"
                       >
                         <span
                           className="h-8 w-8 rounded-lg flex items-center justify-center text-white"
@@ -173,7 +196,7 @@ export function TranscendPlatform() {
                 </div>
               </div>
 
-              <div className="mt-4 flex items-center justify-between text-[12px] text-[#6b7280]">
+              <div className="mt-4 flex items-center justify-between text-[12px] text-[#6b7280] z-10 relative">
                 <span>{current.categories.length} modules</span>
                 <span className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#24a148] animate-pulse" />
