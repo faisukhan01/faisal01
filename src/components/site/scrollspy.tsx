@@ -23,6 +23,8 @@ export const SCROLLSPY_SECTIONS = [
   { id: 'careers', label: 'Careers' },
   { id: 'testimonials', label: 'Quotes' },
   { id: 'roi', label: 'ROI' },
+  { id: 'investors', label: 'Investors' },
+  { id: 'press', label: 'Press' },
   { id: 'insights', label: 'Insights' },
   { id: 'glossary', label: 'Glossary' },
   { id: 'faq', label: 'FAQ' },

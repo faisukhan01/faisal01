@@ -39,6 +39,10 @@ export function Testimonials() {
   }, [focused]);
 
   const current = TESTIMONIALS[active];
+  // Premium zero-padded counter indicator (e.g. "01 / 03")
+  const counter = `${String(active + 1).padStart(2, '0')} / ${String(
+    TESTIMONIALS.length,
+  ).padStart(2, '0')}`;
 
   return (
     <section
@@ -56,17 +60,28 @@ export function Testimonials() {
         }}
       />
 
+      {/* Premium spotlight gradient overlay (behind content) */}
+      <div
+        aria-hidden
+        className="spotlight-gradient pointer-events-none absolute inset-0"
+      />
+
       <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8">
         <Reveal className="max-w-[820px] mx-auto text-center">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="h-2 w-2 rounded-full bg-[#1d81f2]" />
-            <span className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
-              Customer Stories
-            </span>
-          </div>
-          <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
+          {/* Premium section heading chip */}
+          <span className="section-heading-chip">
+            <span
+              className="category-dot"
+              style={{ color: '#1d81f2' }}
+              aria-hidden
+            />
+            VOICES
+          </span>
+          <h2 className="mt-5 text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
             What our customers say
           </h2>
+          {/* Premium gradient hairline under heading */}
+          <div className="section-rule mx-auto mt-6" aria-hidden />
         </Reveal>
 
         {/* Carousel */}
@@ -89,85 +104,124 @@ export function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0 grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-[24px] bg-white shadow-premium-lg overflow-hidden border border-white relative"
+                className="absolute inset-0"
               >
-                {/* Animated gradient border overlay */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute -inset-[1px] rounded-[24px] opacity-30"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #1d81f2, transparent 35%, transparent 65%, #56ccf2)',
-                    padding: '1px',
-                    WebkitMask:
-                      'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                    WebkitMaskComposite: 'xor',
-                    maskComposite: 'exclude',
-                    backgroundSize: '200% 200%',
-                    animation: 'gradient-sweep 12s ease infinite',
-                  }}
-                />
-                {/* Text side */}
-                <div className="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-between relative">
-                  <Quote className="h-10 w-10 text-[#1d81f2]/15" fill="currentColor" />
-                  <div className="mt-2 flex-1 flex items-center">
-                    <p className="text-[16px] lg:text-[20px] leading-[1.6] text-[#161616] font-normal">
-                      "{current.quote}"
-                    </p>
-                  </div>
-                  <div className="mt-6">
-                    <div className="text-[20px] lg:text-[24px] font-semibold text-[#161616]">
-                      {current.person}
+                {/*
+                  Premium stack wrapper (no overflow-hidden so the
+                  card-stack-3d ::before/::after pseudo-elements can extend
+                  past the card edge and render the layered "stack" effect).
+                */}
+                <div className="card-stack-3d h-full rounded-[24px]">
+                  <div className="gradient-border-animated lift-on-hover shadow-depth-lg h-full grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-[24px] bg-white overflow-hidden">
+                    {/* Text side */}
+                    <div className="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-between relative">
+                      <div className="flex items-start gap-3">
+                        {/* Premium gradient-animated opening quote mark */}
+                        <span
+                          className="text-gradient-animated text-[64px] leading-none font-bold select-none -mt-2"
+                          aria-hidden
+                        >
+                          &ldquo;
+                        </span>
+                        <Quote
+                          className="h-10 w-10 text-[#1d81f2]/15 mt-1"
+                          fill="currentColor"
+                        />
+                      </div>
+                      <div className="mt-2 flex-1 flex items-center">
+                        <p className="text-[16px] lg:text-[20px] leading-[1.6] text-[#161616] font-normal">
+                          {current.quote}
+                        </p>
+                      </div>
+                      <div className="mt-6">
+                        {/* Premium accent dot before the person name */}
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="h-1 w-1 rounded-full bg-[#1d81f2]"
+                            aria-hidden
+                          />
+                          <div className="text-[20px] lg:text-[24px] font-semibold text-[#161616]">
+                            {current.person}
+                          </div>
+                        </div>
+                        {/* Premium tabular-numerics title */}
+                        <div className="mt-1 text-[15px] text-[#6b7280] font-mono-numeric">
+                          {current.title}
+                        </div>
+                        {/* Premium chip-selected company badge */}
+                        <div className="mt-3">
+                          <span className="chip-selected inline-flex items-center rounded-full px-3 py-1 text-[12px] font-semibold text-white">
+                            {current.company}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-1 text-[15px] text-[#6b7280]">{current.title}</div>
-                    <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#1d81f2]/8 px-3 py-1 text-[12px] font-semibold text-[#1d81f2]">
-                      {current.company}
+
+                    {/* Portrait side */}
+                    <div className="lg:col-span-5 relative h-[200px] lg:h-auto">
+                      {/*
+                        Premium gradient-border-animated ring around the
+                        portrait. Inline style ensures position:absolute
+                        wins over the gradient-border-animated class's
+                        position:relative (class + utility conflict at the
+                        cascade boundary).
+                      */}
+                      <div
+                        className="gradient-border-animated shadow-depth rounded-[24px] overflow-hidden"
+                        style={{ position: 'absolute', inset: 0 }}
+                      >
+                        <img
+                          src={current.portrait}
+                          alt={current.person}
+                          className="absolute inset-0 h-full w-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f62fe]/30 to-transparent lg:bg-gradient-to-l" />
+                      </div>
+
+                      {current.hasVideo && (
+                        <button
+                          onClick={() => setVideoOpen(true)}
+                          className="btn-shine btn-glow group absolute inset-0 m-auto h-16 w-16 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-premium hover:scale-110 transition-transform"
+                          aria-label={`Play video testimonial from ${current.person}`}
+                        >
+                          <span className="absolute inset-0 rounded-full bg-[#1d81f2]/30 animate-pulse-ring" />
+                          <Play
+                            className="relative h-6 w-6 text-[#1d81f2] ml-1"
+                            fill="currentColor"
+                          />
+                        </button>
+                      )}
                     </div>
                   </div>
-                </div>
-
-                {/* Portrait side */}
-                <div className="lg:col-span-5 relative h-[200px] lg:h-auto">
-                  <img
-                    src={current.portrait}
-                    alt={current.person}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f62fe]/30 to-transparent lg:bg-gradient-to-l" />
-
-                  {current.hasVideo && (
-                    <button
-                      onClick={() => setVideoOpen(true)}
-                      className="group absolute inset-0 m-auto h-16 w-16 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-premium hover:scale-110 transition-transform"
-                      aria-label={`Play video testimonial from ${current.person}`}
-                    >
-                      <span className="absolute inset-0 rounded-full bg-[#1d81f2]/30 animate-pulse-ring" />
-                      <Play className="relative h-6 w-6 text-[#1d81f2] ml-1" fill="currentColor" />
-                    </button>
-                  )}
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Nav arrows */}
+          {/* Nav arrows — premium shine + lift on hover */}
           <button
             aria-label="Previous testimonial"
-            onClick={() => setActive((a) => (a - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-premium flex items-center justify-center text-[#161616] hover:bg-[#1d81f2] hover:text-white transition-colors"
+            onClick={() =>
+              setActive((a) => (a - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)
+            }
+            className="btn-shine lift-on-hover absolute left-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-premium flex items-center justify-center text-[#161616] hover:bg-[#1d81f2] hover:text-white transition-colors"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             aria-label="Next testimonial"
             onClick={() => setActive((a) => (a + 1) % TESTIMONIALS.length)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-premium flex items-center justify-center text-[#161616] hover:bg-[#1d81f2] hover:text-white transition-colors"
+            className="btn-shine lift-on-hover absolute right-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-premium flex items-center justify-center text-[#161616] hover:bg-[#1d81f2] hover:text-white transition-colors"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
 
-          {/* Dot navigation + keyboard hint */}
+          {/* Dot navigation + counter + keyboard hint */}
           <div className="mt-6 flex items-center justify-center gap-4">
+            {/* Premium tabular counter indicator (e.g. "01 / 03") */}
+            <span className="font-mono-numeric text-[12px] text-[#6b7280] tabular-nums">
+              {counter}
+            </span>
             <div className="flex items-center gap-2.5">
               {TESTIMONIALS.map((t, i) => (
                 <button
@@ -176,7 +230,9 @@ export function Testimonials() {
                   aria-current={active === i}
                   onClick={() => setActive(i)}
                   className={`h-2 rounded-full transition-all duration-300 ${
-                    active === i ? 'w-8 bg-[#1d81f2]' : 'w-2 bg-[#1d81f2]/25'
+                    active === i
+                      ? 'live-pulse-dot w-8 bg-gradient-to-r from-[#1d81f2] to-[#56ccf2]'
+                      : 'lift-on-hover w-2 bg-[#1d81f2]/25'
                   }`}
                 />
               ))}
@@ -184,8 +240,12 @@ export function Testimonials() {
             {focused && (
               <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-[#6b7280]">
                 <Keyboard className="h-3.5 w-3.5" />
-                <kbd className="px-1.5 py-0.5 rounded bg-[#f5f7fa] border border-[#e0e0e0] text-[10px] font-mono">←</kbd>
-                <kbd className="px-1.5 py-0.5 rounded bg-[#f5f7fa] border border-[#e0e0e0] text-[10px] font-mono">→</kbd>
+                <kbd className="px-1.5 py-0.5 rounded bg-[#f5f7fa] border border-[#e0e0e0] text-[10px] font-mono">
+                  ←
+                </kbd>
+                <kbd className="px-1.5 py-0.5 rounded bg-[#f5f7fa] border border-[#e0e0e0] text-[10px] font-mono">
+                  →
+                </kbd>
               </span>
             )}
           </div>

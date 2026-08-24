@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, ArrowUpRight, Briefcase, Sparkles, Users, Heart } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
 import { CTAButton } from '@/components/site/cta-button';
+import { CareerDetailModal } from '@/components/site/career-detail-modal';
 import { CAREERS_ROLES } from '@/lib/site-data';
 
 const TEAMS = ['All', 'Engineering', 'AI Labs', 'Design', 'Sales', 'Consultancy'] as const;
@@ -17,11 +18,18 @@ type Team = (typeof TEAMS)[number];
  */
 export function Careers() {
   const [activeTeam, setActiveTeam] = useState<Team>('All');
+  const [openRoleId, setOpenRoleId] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const filteredRoles = useMemo(() => {
     if (activeTeam === 'All') return CAREERS_ROLES;
     return CAREERS_ROLES.filter((r) => r.team === activeTeam);
   }, [activeTeam]);
+
+  const openRoleDetails = (id: string) => {
+    setOpenRoleId(id);
+    setModalOpen(true);
+  };
 
   return (
     <section
@@ -130,7 +138,16 @@ export function Careers() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.5, delay: Math.min(i, 5) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative rounded-2xl bg-white border border-[#e0e0e0] p-6 overflow-hidden hover:shadow-premium-lg lift-on-hover"
+                onClick={() => openRoleDetails(role.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openRoleDetails(role.id);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                className="group relative rounded-2xl bg-white border border-[#e0e0e0] p-6 overflow-hidden hover:shadow-premium-lg lift-on-hover cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1d81f2]/40"
               >
                 {/* Top accent strip */}
                 <span
@@ -185,14 +202,18 @@ export function Careers() {
                       <MapPin className="h-3.5 w-3.5" />
                       {role.location}
                     </span>
-                    <a
-                      href="#contact"
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openRoleDetails(role.id);
+                      }}
                       className="inline-flex items-center gap-1 text-[13px] font-semibold group-hover:gap-1.5 transition-all"
                       style={{ color: role.accent }}
                     >
                       Apply
                       <ArrowUpRight className="h-3.5 w-3.5" />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </motion.article>
@@ -218,6 +239,12 @@ export function Careers() {
           </div>
         </Reveal>
       </div>
+
+      <CareerDetailModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        roleId={openRoleId}
+      />
     </section>
   );
 }

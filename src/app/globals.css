@@ -924,3 +924,205 @@ section[id] {
 .nav-link-underline:hover::after {
   width: 100%;
 }
+
+/* ===========================================================================
+   ROUND 7 — Premium Styling Enhancements
+   =========================================================================== */
+
+/* Premium bar chart bar — animated gradient fill */
+@keyframes bar-grow {
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+.bar-grow {
+  transform-origin: bottom;
+  animation: bar-grow 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Premium "ticker" vertical flash for live stock price */
+@keyframes ticker-flash {
+  0%, 100% { background-color: transparent; }
+  50% { background-color: rgba(36, 161, 72, 0.18); }
+}
+.ticker-flash {
+  animation: ticker-flash 1.2s ease-out;
+}
+
+/* Premium financial-grade sparkline stroke draw */
+@keyframes sparkline-draw {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+.sparkline-draw {
+  stroke-dasharray: 1000;
+  animation: sparkline-draw 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Premium "trading day" candlestick-style bar */
+@keyframes candle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.candle-pulse {
+  animation: candle-pulse 3s ease-in-out infinite;
+}
+
+/* Premium sparkline glow */
+.sparkline-glow {
+  filter: drop-shadow(0 0 6px rgba(29, 129, 242, 0.4));
+}
+
+/* Premium timeline line for events */
+.timeline-line {
+  background: linear-gradient(180deg, #1d81f2 0%, #56ccf2 30%, transparent 100%);
+}
+
+/* Premium archive card hover with lift + tilt */
+.archive-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+.archive-card:hover {
+  transform: translateY(-4px) rotateZ(-0.5deg);
+}
+
+/* Premium "category dot" for archive category chips */
+.category-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+/* Premium "evidence" checkmark badge */
+.evidence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(36, 161, 72, 0.12), rgba(36, 161, 72, 0.06));
+  border: 1px solid rgba(36, 161, 72, 0.3);
+  color: #24a148;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* Premium "rule of 40" gauge — half-circle */
+.rule-of-40-track {
+  background: conic-gradient(
+    from 180deg at 50% 100%,
+    #ef4444 0deg 70deg,
+    #f59e0b 70deg 110deg,
+    #24a148 110deg 180deg
+  );
+  border-radius: 999px 999px 0 0;
+}
+
+/* Premium "ticker" digit for stock price */
+.ticker-digit {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", monospace;
+}
+
+/* Premium spotlight overlay for investor relations hero */
+.investor-spotlight {
+  background: radial-gradient(
+    ellipse at top right,
+    rgba(29, 129, 242, 0.08) 0%,
+    transparent 60%
+  );
+}
+
+/* Premium "financial line chart" double-line (revenue + ARR) */
+.chart-axis-line {
+  stroke: rgba(15, 23, 42, 0.12);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+/* Premium "share price" highlight chip */
+.price-chip {
+  background: linear-gradient(135deg, rgba(36, 161, 72, 0.1), rgba(36, 161, 72, 0.04));
+  border: 1px solid rgba(36, 161, 72, 0.3);
+  color: #24a148;
+}
+
+/* Premium "investor events" date chip */
+.event-date-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(29, 129, 242, 0.1), rgba(86, 204, 242, 0.04));
+  border: 1px solid rgba(29, 129, 242, 0.2);
+}
+
+/* Premium press release category tag */
+.press-category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+
+/* Premium featured press card with image-like glow */
+.press-featured {
+  background: linear-gradient(135deg, rgba(29, 129, 242, 0.05), rgba(255, 255, 255, 0) 60%);
+  position: relative;
+}
+.press-featured::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #1d81f2, #56ccf2);
+  border-radius: 16px 0 0 16px;
+}
+
+/* Premium "load more" button shimmer */
+.load-more-shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(29, 129, 242, 0.15), transparent);
+  transform: skewX(-20deg);
+  animation: load-more-shine 2s infinite;
+  pointer-events: none;
+}
+@keyframes load-more-shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* Premium career detail modal sticky aside */
+.career-aside {
+  position: sticky;
+  top: 88px;
+  align-self: flex-start;
+}
+
+/* Premium perks row with subtle accent strip */
+.perks-strip {
+  background: linear-gradient(135deg, rgba(29, 129, 242, 0.05), rgba(36, 161, 72, 0.04));
+  border: 1px solid rgba(29, 129, 242, 0.18);
+}

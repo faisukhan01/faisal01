@@ -1344,3 +1344,371 @@ export const GLOSSARY = {
     },
   ],
 };
+
+// ---------------------------------------------------------------------------
+// Round 7: Investor Relations — NTWK financial KPIs
+// ---------------------------------------------------------------------------
+export const INVESTOR_RELATIONS = {
+  title: "Investor relations",
+  subtitle:
+    "NETSOL Technologies (NASDAQ: NTWK) — 25+ years listed, profitable, and trusted by 200+ enterprise customers across 6 continents.",
+  cta: "View full investor kit",
+  // Headline KPIs
+  kpis: [
+    {
+      id: "revenue",
+      label: "FY25 Revenue",
+      value: 248.6,
+      prefix: "$",
+      suffix: "M",
+      trend: 11.4,
+      trendLabel: "YoY",
+      accent: "#1d81f2",
+    },
+    {
+      id: "arr",
+      label: "Annual Recurring Revenue",
+      value: 184.2,
+      prefix: "$",
+      suffix: "M",
+      trend: 18.2,
+      trendLabel: "YoY",
+      accent: "#24a148",
+    },
+    {
+      id: "ebitda",
+      label: "Adjusted EBITDA",
+      value: 42.8,
+      prefix: "$",
+      suffix: "M",
+      trend: 14.7,
+      trendLabel: "YoY",
+      accent: "#0f62fe",
+    },
+    {
+      id: "fcf",
+      label: "Free Cash Flow",
+      value: 28.4,
+      prefix: "$",
+      suffix: "M",
+      trend: 22.1,
+      trendLabel: "YoY",
+      accent: "#2d9cdb",
+    },
+  ],
+  // 6-quarter revenue trend (in $M) — for sparkline / bar chart
+  quarterly: [
+    { quarter: "Q1'24", value: 51.2, arr: 121.0 },
+    { quarter: "Q2'24", value: 56.8, arr: 132.5 },
+    { quarter: "Q3'24", value: 58.4, arr: 145.2 },
+    { quarter: "Q4'24", value: 61.0, arr: 155.8 },
+    { quarter: "Q1'25", value: 60.4, arr: 168.1 },
+    { quarter: "Q2'25", value: 63.2, arr: 184.2 },
+  ],
+  // Backlog & retention
+  retention: [
+    { label: "Services backlog", value: "$312M", trend: "+22% YoY", accent: "#1d81f2" },
+    { label: "Net revenue retention", value: "118%", trend: "+6pp YoY", accent: "#24a148" },
+    { label: "Gross revenue retention", value: "97%", trend: "+2pp YoY", accent: "#0f62fe" },
+    { label: "Rule of 40", value: "47", trend: "+8pts", accent: "#2d9cdb" },
+  ],
+  // Stock snapshot (simulated)
+  stock: {
+    ticker: "NTWK",
+    exchange: "NASDAQ",
+    price: 8.42,
+    change: 0.18,
+    changePercent: 2.19,
+    volume: "284K",
+    dayRange: "$8.21 – $8.51",
+    yearRange: "$5.94 – $9.18",
+    marketCap: "$98.4M",
+  },
+  // Upcoming events
+  events: [
+    { id: "e1", date: "Aug 14, 2026", type: "Earnings", title: "Q4 FY26 earnings release", location: "Webcast", accent: "#1d81f2" },
+    { id: "e2", date: "Sep 09, 2026", type: "Conference", title: "B Riley Industrial Conference", location: "San Francisco", accent: "#0f62fe" },
+    { id: "e3", date: "Oct 22, 2026", type: "Annual Meeting", title: "Annual Shareholder Meeting", location: "Beverly Hills, CA", accent: "#24a148" },
+    { id: "e4", date: "Nov 12, 2026", type: "Investor Day", title: "NETSOL Investor Day 2026", location: "New York", accent: "#2d9cdb" },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Round 7: Press / Media Center archive — filterable press releases
+// ---------------------------------------------------------------------------
+export const PRESS_CENTER = {
+  title: "Press & media center",
+  subtitle:
+    "The latest from NETSOL's newsroom — product launches, customer wins, executive moves, and analyst recognitions. Filter by category or date.",
+  categories: [
+    { id: "all", label: "All" },
+    { id: "product", label: "Product" },
+    { id: "customer", label: "Customer wins" },
+    { id: "investor", label: "Investor" },
+    { id: "award", label: "Awards" },
+    { id: "esg", label: "ESG" },
+  ],
+  releases: [
+    {
+      id: "pr-1",
+      date: "2026-04-14",
+      displayDate: "Apr 14, 2026",
+      category: "product",
+      categoryLabel: "Product",
+      title: "NETSOL launches generative underwriting copilot for Transcend Finance customers",
+      excerpt:
+        "New copilot accelerates underwriter productivity by 38% on mid-ticket applications, with regulator-grade SHAP explanations on every decision.",
+      accent: "#1d81f2",
+      featured: true,
+    },
+    {
+      id: "pr-2",
+      date: "2026-03-21",
+      displayDate: "Mar 21, 2026",
+      category: "customer",
+      categoryLabel: "Customer win",
+      title: "NETSOL and a top-3 European bank complete 9-month core migration",
+      excerpt:
+        "The bank consolidated 4 legacy lessor platforms onto a single Transcend tenant — 4 months ahead of the regulator's deadline.",
+      accent: "#24a148",
+      featured: true,
+    },
+    {
+      id: "pr-3",
+      date: "2026-02-08",
+      displayDate: "Feb 08, 2026",
+      category: "award",
+      categoryLabel: "Award",
+      title: "NETSOL named 'Asset Finance Platform of the Year' by Frost & Sullivan",
+      excerpt:
+        "Recognition for the third consecutive year — citing Transcend's measurable customer outcomes and NETSOL's investments in AI Labs.",
+      accent: "#0f62fe",
+      featured: false,
+    },
+    {
+      id: "pr-4",
+      date: "2026-01-22",
+      displayDate: "Jan 22, 2026",
+      category: "investor",
+      categoryLabel: "Investor",
+      title: "Q2 FY26 results: revenue up 11.4% YoY, services backlog at record $312M",
+      excerpt:
+        "Net revenue retention reaches 118%. Company raises FY26 full-year guidance on continued strong new logo momentum.",
+      accent: "#2d9cdb",
+      featured: false,
+    },
+    {
+      id: "pr-5",
+      date: "2025-12-04",
+      displayDate: "Dec 04, 2025",
+      category: "esg",
+      categoryLabel: "ESG",
+      title: "2025 Sustainability Report published — 4.2M sheets of paper eliminated",
+      excerpt:
+        "Company reports 38% reduction in customer-tenant paper usage, 41% renewable energy mix across delivery centers, and ISO 27001 re-certification.",
+      accent: "#24a148",
+      featured: false,
+    },
+    {
+      id: "pr-6",
+      date: "2025-11-18",
+      displayDate: "Nov 18, 2025",
+      category: "product",
+      categoryLabel: "Product",
+      title: "NETSOL AI Labs ships Document AI 2.0 with 99.6% field-level accuracy",
+      excerpt:
+        "Document AI 2.0 adds support for 14 new document types and a low-confidence human-in-the-loop review queue that cuts exception handling by 71%.",
+      accent: "#1d81f2",
+      featured: false,
+    },
+    {
+      id: "pr-7",
+      date: "2025-10-09",
+      displayDate: "Oct 09, 2025",
+      category: "customer",
+      categoryLabel: "Customer win",
+      title: "Pan-APAC fleet operator onboards 38,000 vehicles in 7 months on Transcend",
+      excerpt:
+        "Post-IPO operator consolidates 6 regional leasing entities onto one platform — passing its reporting audit and avoiding delisting risk.",
+      accent: "#56ccf2",
+      featured: false,
+    },
+    {
+      id: "pr-8",
+      date: "2025-09-22",
+      displayDate: "Sep 22, 2025",
+      category: "investor",
+      categoryLabel: "Investor",
+      title: "NETSOL announces $25M share repurchase program",
+      excerpt:
+        "Board authorises repurchase of up to $25M of common stock over 24 months — signalling confidence in long-term free cash flow generation.",
+      accent: "#2d9cdb",
+      featured: false,
+    },
+    {
+      id: "pr-9",
+      date: "2025-08-15",
+      displayDate: "Aug 15, 2025",
+      category: "award",
+      categoryLabel: "Award",
+      title: "NETSOL wins Stevie Gold — Tech Company of the Year (Large)",
+      excerpt:
+        "Recognition cited NETSOL's compound annual growth rate, customer retention metrics, and AI Labs investments over the prior 36 months.",
+      accent: "#0f62fe",
+      featured: false,
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Round 7: Careers detail data — extended role info for modal
+// ---------------------------------------------------------------------------
+export const CAREER_DETAILS = {
+  // Maps to existing CAREERS_ROLES by id — adds detail fields
+  details: {
+    "eng-1": {
+      team: "Platform Engineering",
+      reportsTo: "VP, Platform Engineering",
+      compensation: "$180K – $240K base + equity",
+      responsibilities: [
+        "Own end-to-end reliability for the Transcend core servicing platform serving 200+ enterprise customers.",
+        "Design and ship multi-region Postgres replication, Kubernetes blue/green deploys, and 99.98% uptime SLAs.",
+        "Lead architecture review for new Marketplace modules — calculating blast radius before activation.",
+        "Mentor 4–6 senior engineers across the Lahore, Manila, and Bangkok delivery centers.",
+        "Partner with AI Labs to ship the generative underwriting copilot without regressing core SLAs.",
+      ],
+      requirements: [
+        "10+ years building production distributed systems in TypeScript and Go.",
+        "Deep Postgres operational expertise — including logical replication, partitioning, and PITR.",
+        "Kubernetes at production scale (200+ services, multi-region).",
+        "Track record of 99.9%+ uptime on a Tier-1 financial system.",
+      ],
+      perks: [
+        "Above-market compensation + meaningful equity grant.",
+        "$3,500 annual learning budget (books, conferences, certifications).",
+        "Annual travel to one of the six delivery centers for in-person collaboration week.",
+        "Wellness stipend + premium health coverage for the engineer and dependents.",
+      ],
+    },
+    "ai-1": {
+      team: "AI Labs",
+      reportsTo: "Director, AI Labs",
+      compensation: "£140K – £180K base + equity",
+      responsibilities: [
+        "Drive the generative underwriting copilot from prototype to GA across 14 tenant customers.",
+        "Build RAG pipelines over customer document corpora (pay stubs, bank statements, tax returns).",
+        "Design offline + online evals — including SHAP-based explanations for every model decision.",
+        "Partner with the customer's chief risk officer to onboard the model into their audit framework.",
+        "Publish internal research notes and present at one industry conference per year.",
+      ],
+      requirements: [
+        "8+ years shipping ML/AI systems in production — at least 3 with LLM applications.",
+        "Deep Python + PyTorch + Hugging Face stack expertise.",
+        "Production RAG experience including chunking, retrieval, and re-ranking strategies.",
+        "Strong written communication — must be able to explain AI to a regulator.",
+      ],
+      perks: [
+        "Above-market compensation + meaningful equity grant.",
+        "Dedicated GPU budget — 4 H100s reserved for your use.",
+        "Annual $5,000 conference + paper-reading learning budget.",
+        "Co-author papers accepted at NeurIPS, ICML, or similar.",
+      ],
+    },
+    "design-1": {
+      team: "Product Design",
+      reportsTo: "VP, Product",
+      compensation: "$170K – $220K base + equity",
+      responsibilities: [
+        "Set the design language for the next generation of NETSOL dealer and broker portals.",
+        "Lead the design system overhaul — accessibility, motion, dark mode.",
+        "Partner with PM + engineering to ship 4 portal launches in the first year.",
+        "Mentor 3 mid-level designers and run weekly design critiques.",
+        "Represent NETSOL design at one industry event per year.",
+      ],
+      requirements: [
+        "12+ years designing enterprise SaaS products — at least 5 in financial services.",
+        "Mastery of Figma — including variables, component libraries, and design tokens.",
+        "Track record of shipping accessible (WCAG 2.2 AA) products.",
+        "Strong motion design skills (Framer, Rive, or similar).",
+      ],
+      perks: [
+        "Above-market compensation + meaningful equity grant.",
+        "Annual design conference budget (Config, AWWWARDS, etc.).",
+        "Choice of hardware + calibrated displays for home office.",
+        "Annual team offsite at one of the six delivery centers.",
+      ],
+    },
+    "sales-1": {
+      team: "Sales",
+      reportsTo: "VP, APAC Sales",
+      compensation: "$220K – $280K OTE (50/50 base + variable)",
+      responsibilities: [
+        "Own NETSOL's expansion across Southeast Asia asset finance — captives, banks, OEMs.",
+        "Build and execute the regional GTM plan with marketing, product, and leadership.",
+        "Close 4–6 new enterprise logos per year at $1M+ ACV.",
+        "Hire and mentor 2–3 account executives in years 2–3.",
+        "Represent NETSOL at major APAC financial services events.",
+      ],
+      requirements: [
+        "12+ years enterprise SaaS sales — at least 5 in financial services.",
+        "Demonstrated $5M+ ARR closed in APAC over the prior 24 months.",
+        "Existing relationships at Tier-1 banks and OEM captives in the region.",
+        "Fluent English + one of Bahasa, Thai, or Vietnamese.",
+      ],
+      perks: [
+        "Above-market OTE with uncapped accelerators.",
+        "Annual President's Club trip for top performers.",
+        "Travel budget + premium airline status.",
+        "Stocked apartment in Bangkok during initial 12 months.",
+      ],
+    },
+    "eng-2": {
+      team: "Cloud & Reliability",
+      reportsTo: "Director, Cloud Engineering",
+      compensation: "$160K – $210K base + equity",
+      responsibilities: [
+        "Lead NETSOL's multi-cloud (AWS + Azure) migration for the next generation of customer tenants.",
+        "Design disaster recovery and business continuity — including 99.99% uptime targets.",
+        "Own the Terraform module library and CI/CD pipeline for infrastructure.",
+        "Drive cost optimisation — target 18% reduction in cloud unit cost over 24 months.",
+        "Mentor 3–4 engineers and lead a quarterly reliability game day.",
+      ],
+      requirements: [
+        "8+ years operating production cloud infrastructure at scale.",
+        "Deep AWS + Azure expertise (solutions architect or equivalent).",
+        "Terraform at production scale (100+ modules).",
+        "Track record of measurable cost reductions in a previous role.",
+      ],
+      perks: [
+        "Above-market compensation + meaningful equity grant.",
+        "Annual AWS re:Invent + KubeCon attendance.",
+        "$3,500 annual learning budget.",
+        "Wellness stipend + premium health coverage.",
+      ],
+    },
+    "consult-1": {
+      team: "Consultancy",
+      reportsTo: "VP, Consultancy",
+      compensation: "$200K – $260K base + bonus",
+      responsibilities: [
+        "Lead GenAI advisory engagements for top-tier bank and captive clients.",
+        "Translate AI capability into board-level outcomes — measurable, defensible, fundable.",
+        "Author 2 thought-leadership pieces per year for NETSOL's insights channel.",
+        "Mentor 2–3 senior consultants on GenAI delivery patterns.",
+        "Speak at 2 industry conferences per year on NETSOL's behalf.",
+      ],
+      requirements: [
+        "15+ years in financial services consulting — at least 3 in GenAI delivery.",
+        "Demonstrated $10M+ in consulting revenue sourced personally.",
+        "Existing relationships with C-suite at Tier-1 banks or captives.",
+        "Excellent written and verbal communication — must be able to brief a board.",
+      ],
+      perks: [
+        "Above-market compensation + meaningful equity grant.",
+        "Thought-leadership platform — publish under your name.",
+        "Premium travel + business development budget.",
+        "Annual team offsite at one of the six delivery centers.",
+      ],
+    },
+  },
+};

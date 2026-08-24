@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
 import { DIFFERENTIATORS } from '@/lib/site-data';
 
@@ -12,28 +13,35 @@ export function Differentiators() {
       className="relative w-full bg-white py-20 lg:py-28 overflow-hidden"
       aria-label="Why NETSOL"
     >
-      {/* Decorative top accent line + barcode */}
+      {/* Decorative top accent line */}
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#1d81f2]/30 to-transparent"
       />
+      {/* Subtle barcode texture */}
       <div aria-hidden className="absolute inset-0 bg-barcode opacity-25 pointer-events-none" />
+      {/* Premium mesh-gradient overlay on section background */}
+      <div
+        aria-hidden
+        className="mesh-gradient pointer-events-none absolute inset-0"
+      />
 
       <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8">
         <Reveal className="max-w-[820px]">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="h-2 w-2 rounded-full bg-[#1d81f2]" />
-            <span className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
-              Why NETSOL
-            </span>
-          </div>
-          <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
-            Four reasons the world's leading asset finance brands choose us
+          {/* Premium heading chip */}
+          <span className="section-heading-chip">
+            <span aria-hidden className="category-dot text-[#1d81f2]" />
+            WHAT SETS US APART
+          </span>
+          <h2 className="mt-4 text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
+            Four reasons the world&apos;s leading asset finance brands choose us
           </h2>
+          {/* Premium gradient hairline under heading */}
+          <div aria-hidden className="section-rule mt-5" />
           <p className="mt-4 text-[15px] lg:text-[17px] text-[#525252] leading-[1.6] max-w-[640px]">
-            We're not a feature vendor. We're the operating system beneath
-            some of the largest asset finance books on the planet — and we
-            have the receipts to prove it.
+            We&apos;re not a feature vendor. We&apos;re the operating system
+            beneath some of the largest asset finance books on the planet — and
+            we have the receipts to prove it.
           </p>
         </Reveal>
 
@@ -45,25 +53,18 @@ export function Differentiators() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative rounded-2xl bg-white border border-[#e0e0e0] p-6 lg:p-7 overflow-hidden hover:shadow-premium-lg transition-all duration-300"
+              className="group relative rounded-2xl bg-white border border-[#e0e0e0] p-6 lg:p-7 card-stack-3d lift-on-hover shadow-depth-lg"
             >
-              {/* Animated gradient border on hover */}
+              {/* Top accent stripe — 3px gradient per-card accent → light-blue fade */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                className="absolute left-0 right-0 top-0 h-[3px] rounded-t-2xl"
                 style={{
-                  background: `linear-gradient(135deg, ${d.accent}, transparent 40%, transparent 60%, ${d.accent})`,
-                  padding: '1px',
-                  WebkitMask:
-                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
-                  backgroundSize: '200% 200%',
-                  animation: 'gradient-sweep 6s ease infinite',
+                  background: `linear-gradient(90deg, ${d.accent}, #56ccf2)`,
                 }}
               />
 
-              {/* Hover glow */}
+              {/* Hover glow blob (extends beyond card edges — premium bleed) */}
               <span
                 aria-hidden
                 className="pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-2xl"
@@ -71,32 +72,32 @@ export function Differentiators() {
               />
 
               <div className="relative z-10 flex flex-col h-full">
-                {/* Icon */}
-                <div className="flex items-center justify-between mb-5">
+                {/* Header: icon tile + evidence badge */}
+                <div className="flex items-start justify-between gap-3 mb-5">
                   <span
-                    className="inline-flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-soft"
+                    className="gradient-border-animated glow-halo relative inline-flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-soft"
                     style={{ backgroundColor: d.accent }}
                   >
-                    <DifferentiatorIcon name={d.icon} />
+                    <span className="relative z-10 inline-flex items-center justify-center">
+                      <DifferentiatorIcon name={d.icon} />
+                    </span>
                   </span>
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-[#9ca3af]">
-                    0{i + 1}
+                  <span className="evidence-badge">
+                    <Check className="h-3 w-3" aria-hidden />
+                    VERIFIED
                   </span>
                 </div>
 
-                <h3 className="text-[18px] lg:text-[20px] font-semibold text-[#161616] leading-snug">
+                <h3 className="nav-link-underline inline-block text-[18px] lg:text-[20px] font-semibold text-[#161616] leading-snug">
                   {d.title}
                 </h3>
                 <p className="mt-2.5 text-[13.5px] lg:text-[14.5px] text-[#525252] leading-[1.65] flex-1">
                   {d.description}
                 </p>
 
-                {/* Metric */}
+                {/* Metric — premium gradient + tabular numerics */}
                 <div className="mt-6 pt-5 border-t border-[#f0f0f0]">
-                  <div
-                    className="text-[22px] lg:text-[26px] font-semibold leading-none tracking-tight"
-                    style={{ color: d.accent }}
-                  >
+                  <div className="text-[22px] lg:text-[26px] font-semibold leading-none tracking-tight text-gradient-animated font-mono-numeric">
                     {d.metric}
                   </div>
                   <div className="mt-1 text-[12px] text-[#6b7280]">

@@ -22,6 +22,8 @@ import { ROICalculator } from '@/components/sections/roi-calculator';
 import { Insights } from '@/components/sections/insights';
 import { Glossary } from '@/components/sections/glossary';
 import { FAQ } from '@/components/sections/faq';
+import { InvestorRelations } from '@/components/sections/investor-relations';
+import { PressCenter } from '@/components/sections/press-center';
 import { CTABanner } from '@/components/sections/cta-banner';
 import { Newsletter } from '@/components/sections/newsletter';
 import { Footer } from '@/components/sections/footer';
@@ -82,6 +84,12 @@ export default function Home() {
 
         {/* NEW (Round 5): Interactive ROI Calculator — premium dark widget */}
         <ROICalculator />
+
+        {/* NEW (Round 7): Investor Relations — NTWK financial KPIs + share price snapshot */}
+        <InvestorRelations />
+
+        {/* NEW (Round 7): Press / Media Center archive */}
+        <PressCenter />
 
         <Insights />
 

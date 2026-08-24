@@ -7,6 +7,8 @@ import { Magnetic } from '@/components/site/magnetic';
 import { WHO_WE_SERVE } from '@/lib/site-data';
 import { cn } from '@/lib/utils';
 
+const AUDIENCE_LABELS = ['Captives', 'OEMs', 'Brokers'] as const;
+
 function ServeIcon({ icon }: { icon: string }) {
   if (icon === 'building') {
     return (
@@ -44,17 +46,19 @@ export function WhoWeServe() {
       className="relative w-full bg-white py-20 lg:py-28 overflow-hidden"
       aria-label="Who We Serve"
     >
-      <div className="mx-auto max-w-[1320px] px-5 lg:px-8">
+      {/* Premium mesh-gradient overlay */}
+      <div aria-hidden className="mesh-gradient absolute inset-0 pointer-events-none" />
+
+      <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8">
         <Reveal className="max-w-[820px]">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-7 w-[2px] bg-[#1d81f2]" />
-            <span className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
-              Who We Serve
-            </span>
-          </div>
-          <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
+          <span className="section-heading-chip">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#1d81f2] live-pulse-dot" aria-hidden />
+            Who We Serve
+          </span>
+          <h2 className="mt-5 text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
             Built for every actor in the asset finance value chain
           </h2>
+          <div className="section-rule mt-6" aria-hidden />
           <p className="mt-4 text-[15px] lg:text-[17px] text-[#525252] leading-[1.6] max-w-[680px]">
             From captives and OEMs to brokers and aggregators — Transcend adapts
             to your operating model, your channels, and your regulatory perimeter.
@@ -67,35 +71,54 @@ export function WhoWeServe() {
               key={col.id}
               variants={staggerItem}
               className={cn(
-                'relative p-7 lg:p-8 rounded-2xl border border-[#f0f0f0] bg-white hover:bg-[#f5f7fa]/40 transition-colors duration-300 group',
+                'card-stack-3d lift-on-hover-strong shadow-depth-lg group relative rounded-2xl border border-[#f0f0f0] bg-white p-7 lg:p-8 hover:bg-[#f5f7fa]/40',
                 i < 2 && 'md:border-r-0'
               )}
             >
-              {/* Top accent */}
-              <div className="absolute top-0 left-7 right-7 h-[3px] bg-gradient-to-r from-[#1d81f2] to-transparent rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* Top accent stripe (premium gradient) */}
+              <div
+                aria-hidden
+                className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl"
+                style={{
+                  background:
+                    'linear-gradient(90deg, #1d81f2 0%, #56ccf2 60%, transparent 100%)',
+                }}
+              />
 
-              <div className="flex items-center justify-center h-16 w-16 rounded-xl border border-[#e0e0e0] bg-white text-[#1d81f2] group-hover:bg-[#1d81f2] group-hover:text-white transition-colors duration-300">
+              {/* Editorial faded number behind card content */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute top-2 right-3 select-none font-mono-numeric text-[80px] font-bold leading-none"
+                style={{ color: 'rgba(29, 129, 242, 0.08)' }}
+              >
+                0{i + 1}
+              </span>
+
+              {/* Audience badge (top-right corner) */}
+              <span className="absolute top-4 right-5 z-10 inline-flex items-center gap-1.5 rounded-full border border-[#1d81f2]/20 bg-[#1d81f2]/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#1d81f2]">
+                <span className="h-1 w-1 rounded-full bg-[#1d81f2]" aria-hidden />
+                {AUDIENCE_LABELS[i]}
+              </span>
+
+              {/* Icon tile with gradient border + glow halo */}
+              <div className="gradient-border-animated glow-halo relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-[#1d81f2] transition-colors duration-300 group-hover:bg-[#1d81f2] group-hover:text-white">
                 <ServeIcon icon={col.icon} />
               </div>
 
-              <h3 className="mt-6 text-[20px] lg:text-[22px] font-semibold tracking-tight text-[#161616]">
+              <h3 className="nav-link-underline mt-6 inline-block text-[20px] lg:text-[22px] font-semibold tracking-tight text-[#161616]">
                 {col.title}
               </h3>
               <p className="mt-3 text-[14px] lg:text-[15px] text-[#525252] leading-[1.65]">
                 {col.description}
               </p>
 
-              <div className="mt-6 flex items-center gap-2 text-[14px] font-medium text-[#1d81f2] opacity-0 group-hover:opacity-100 transition-opacity">
+              {/* CTA link inside card */}
+              <div className="nav-link-underline mt-6 inline-flex items-center gap-2 text-[14px] font-medium text-[#1d81f2] opacity-0 transition-opacity group-hover:opacity-100">
                 Learn more
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-
-              {/* Decorative number */}
-              <span className="absolute top-4 right-5 text-[64px] font-bold leading-none text-[#1d81f2]/5 select-none">
-                0{i + 1}
-              </span>
             </motion.div>
           ))}
         </Stagger>
