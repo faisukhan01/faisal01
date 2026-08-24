@@ -1,214 +1,149 @@
-'use client';
+import { ArrowRight } from 'lucide-react';
+import { Reveal } from '@/components/site/reveal';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import dynamic from 'next/dynamic';
-import { ArrowUpRight, Globe } from 'lucide-react';
-import { Typewriter } from '@/components/site/typewriter';
-import { CTAButton } from '@/components/site/cta-button';
-import { Magnetic } from '@/components/site/magnetic';
-import { Parallax } from '@/components/site/parallax';
-import { HERO_SLIDES } from '@/lib/site-data';
+const TRUST_STATS = [
+  { value: '200+', label: 'Enterprise customers' },
+  { value: '30+', label: 'Countries served' },
+  { value: '$500B+', label: 'Assets managed' },
+];
 
-const HeroScene3D = dynamic(
-  () => import('@/components/three/scenes').then((m) => m.HeroScene3D),
-  { ssr: false }
-);
+/**
+ * Static orbital line-art — thin concentric rings, two orbital ellipses,
+ * one dashed crimson arc, quiet nodes. Zero JavaScript, zero animation.
+ */
+function OrbitalArt() {
+  return (
+    <svg
+      viewBox="0 0 720 480"
+      className="h-full w-full"
+      aria-hidden="true"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      {/* Axes */}
+      <line x1="360" y1="28" x2="360" y2="452" stroke="#1A1815" strokeOpacity="0.06" strokeWidth="1" />
+      <line x1="52" y1="240" x2="668" y2="240" stroke="#1A1815" strokeOpacity="0.06" strokeWidth="1" />
+
+      {/* Concentric rings */}
+      <circle cx="360" cy="240" r="70" fill="none" stroke="#1A1815" strokeOpacity="0.13" strokeWidth="1" />
+      <circle cx="360" cy="240" r="130" fill="none" stroke="#1A1815" strokeOpacity="0.10" strokeWidth="1" />
+      <circle cx="360" cy="240" r="190" fill="none" stroke="#1A1815" strokeOpacity="0.08" strokeWidth="1" />
+
+      {/* Orbital ellipses */}
+      <ellipse
+        cx="360" cy="240" rx="238" ry="86"
+        fill="none" stroke="#1A1815" strokeOpacity="0.12" strokeWidth="1"
+        transform="rotate(-16 360 240)"
+      />
+      <ellipse
+        cx="360" cy="240" rx="238" ry="86"
+        fill="none" stroke="#1A1815" strokeOpacity="0.12" strokeWidth="1"
+        transform="rotate(16 360 240)"
+      />
+
+      {/* Single crimson arc segment */}
+      <circle
+        cx="360" cy="240" r="160"
+        fill="none" stroke="#A6192E" strokeOpacity="0.42" strokeWidth="1.25"
+        strokeDasharray="185 820" strokeLinecap="round"
+        transform="rotate(-32 360 240)"
+      />
+
+      {/* Center */}
+      <circle cx="360" cy="240" r="5" fill="#1A1815" />
+
+      {/* Nodes */}
+      <circle cx="430" cy="240" r="3.5" fill="#1A1815" fillOpacity="0.55" />
+      <circle cx="360" cy="110" r="3.5" fill="#1A1815" fillOpacity="0.55" />
+      <circle cx="170" cy="240" r="3.5" fill="#1A1815" fillOpacity="0.55" />
+      <circle cx="502" cy="196" r="3" fill="#1A1815" fillOpacity="0.4" />
+      <circle cx="236" cy="296" r="3" fill="#1A1815" fillOpacity="0.4" />
+      <circle cx="268" cy="148" r="3" fill="#1A1815" fillOpacity="0.4" />
+      <circle cx="360" cy="400" r="4.5" fill="#A6192E" fillOpacity="0.75" />
+
+      {/* Corner registration ticks */}
+      <g stroke="#1A1815" strokeOpacity="0.22" strokeWidth="1">
+        <path d="M44 40h12M50 34v12" />
+        <path d="M664 40h12M670 34v12" />
+        <path d="M44 440h12M50 434v12" />
+        <path d="M664 440h12M670 434v12" />
+      </g>
+    </svg>
+  );
+}
 
 export function Hero() {
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setActiveSlide((s) => (s + 1) % HERO_SLIDES.length);
-    }, 4200);
-    return () => clearInterval(t);
-  }, []);
-
   return (
-    <section
-      className="relative w-full overflow-hidden bg-white pt-14 pb-16 lg:pt-20 lg:pb-24 mesh-gradient"
-      aria-label="Hero"
-    >
-      {/* Background vertical line pattern */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-barcode opacity-60 pointer-events-none"
-      />
-      {/* Soft green shape accent — parallax on scroll */}
-      <Parallax speed={0.08} max={40} className="absolute -top-24 right-[12%] pointer-events-none">
-        <div className="h-[420px] w-[420px] rounded-full bg-[#24a148]/8 blur-3xl animate-float-slow" />
-      </Parallax>
-      {/* Secondary accent — blue glow top-left */}
-      <Parallax speed={0.12} max={60} className="absolute -top-32 -left-32 pointer-events-none">
-        <div className="h-[480px] w-[480px] rounded-full bg-[#1d81f2]/6 blur-3xl" />
-      </Parallax>
-
-      <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-center">
-        {/* LEFT: text content */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10"
-        >
-          {/* Tag — premium chip badge */}
-          <div className="mb-6">
-            <span className="section-heading-chip">Shaping Smarter Finance</span>
+    <section id="top" className="relative overflow-hidden bg-background">
+      <div className="container-luxe relative pb-16 pt-32 text-center md:pb-24 md:pt-44">
+        <Reveal>
+          <div className="flex items-center justify-center gap-4">
+            <span aria-hidden="true" className="h-px w-10 bg-hairline" />
+            <p className="eyebrow text-muted-foreground">
+              Shaping smarter finance since 1997
+            </p>
+            <span aria-hidden="true" className="h-px w-10 bg-hairline" />
           </div>
+        </Reveal>
 
-          <h1 className="font-semibold leading-[1.05] tracking-[-0.02em] text-[#161616] text-[42px] sm:text-[52px] lg:text-[58px] xl:text-[64px]">
-            AI-enabled ecosystems that make commerce{' '}
-            <span className="text-gradient-animated drop-shadow-sm">
-              <Typewriter />
-            </span>
+        <Reveal delay={0.08}>
+          <h1 className="mx-auto mt-7 max-w-4xl font-serif text-[46px] leading-[1.04] tracking-[-0.02em] text-ink sm:text-6xl md:text-7xl lg:text-[84px]">
+            Shaping <em className="font-light italic text-crimson">smarter</em>
+            <br className="hidden sm:block" /> finance.
           </h1>
+        </Reveal>
 
-          <p className="mt-6 max-w-[520px] border-l-2 border-[#1d81f2]/40 pl-4 text-[16px] lg:text-[18px] leading-[1.6] text-[#525252]">
-            We remove complexity from the asset lifecycle — from originations and
-            servicing to remarketing. One connected platform for lenders, OEMs,
-            dealers and fleets, powered by AI.
+        <Reveal delay={0.16}>
+          <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-[1.75] text-muted-foreground md:text-base">
+            NETSOL&rsquo;s Transcend platform unifies origination, servicing, and
+            AI-powered decisioning for the world&rsquo;s leading captives, banks,
+            OEMs, and fleets — across 30+ countries and every asset class.
           </p>
+        </Reveal>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            {/* CTA with glow halo + shine wrapper */}
-            <div className="relative inline-block">
-              <div className="glow-halo absolute inset-0 -z-10" aria-hidden />
-              <Magnetic as="div" strength={0.25} className="btn-shine inline-block rounded-[10px]">
-                <CTAButton href="#contact">Get in touch</CTAButton>
-              </Magnetic>
-            </div>
+        <Reveal delay={0.24}>
+          <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
+            <a href="#contact" className="btn-primary h-12 px-7 text-sm">
+              Request a demo
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
             <a
               href="#platform"
-              className="nav-link-underline inline-flex items-center gap-2 text-[15px] font-medium text-[#161616] hover:text-[#1d81f2] transition-colors"
+              className="link-underline text-[14px] font-medium text-ink/75 transition-colors hover:text-ink"
             >
               Explore the platform
-              <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>
+        </Reveal>
 
-          {/* Trust strip — premium glass pill */}
-          <div className="mt-10 inline-flex items-center gap-6 bg-white/60 backdrop-blur-sm border border-[#e0e0e0] rounded-full px-4 py-2 shadow-depth">
-            <div className="flex items-center gap-2">
-              <Globe className="h-3.5 w-3.5 text-[#1d81f2]" />
-              <span className="h-2 w-2 rounded-full bg-[#24a148] animate-pulse" />
-              <span className="text-[12px] text-[#6b7280] font-medium">
-                NASDAQ: NTWK · 25+ years listed
-              </span>
-            </div>
-            <div className="hidden sm:block h-4 w-px bg-[#e0e0e0]" />
-            <span className="hidden sm:inline text-[12px] text-[#6b7280] font-medium">
-              $500B+ assets managed globally
+        {/* — The framed showpiece: static orbital line art — */}
+        <Reveal delay={0.18} y={36} className="mt-14 md:mt-20">
+          <figure className="relative overflow-hidden rounded-2xl border border-hairline bg-gradient-to-b from-white to-[#F2F0E9] shadow-[0_48px_100px_-44px_rgb(26_24_21/0.3)]">
+            {/* Blueprint micro-labels */}
+            <span className="eyebrow absolute left-5 top-5 z-10 text-ink/35">
+              Transcend&reg; Platform
             </span>
-          </div>
-        </motion.div>
+            <span className="eyebrow absolute right-5 top-5 z-10 hidden text-ink/35 sm:block">
+              Est. 1997 — NASDAQ: NTWK
+            </span>
 
-        {/* RIGHT: 3D scene + auto-rotating image carousel */}
-        <div className="relative h-[420px] sm:h-[520px] lg:h-[600px]">
-          {/* Spotlight gradient — soft radial highlight behind 3D scene */}
-          <div className="spotlight-gradient absolute inset-0 pointer-events-none" aria-hidden />
+            <OrbitalArt />
 
-          {/* 3D canvas background */}
-          <div className="absolute inset-0 z-0">
-            <HeroScene3D />
-          </div>
-
-          {/* Floating image carousel */}
-          <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeSlide}
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 1.05, y: -10 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="pointer-events-auto relative h-[260px] w-[260px] sm:h-[340px] sm:w-[340px] lg:h-[380px] lg:w-[380px] gradient-border-animated"
-              >
-                <div className="absolute inset-0 rounded-[28px] glass-card-premium overflow-hidden">
-                  <img
-                    src={HERO_SLIDES[activeSlide].image}
-                    alt={HERO_SLIDES[activeSlide].alt}
-                    className="h-full w-full object-cover mix-blend-multiply opacity-95"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f62fe]/30 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <div className="text-[10px] font-semibold uppercase tracking-[1.5px] text-white/80">
-                      {HERO_SLIDES[activeSlide].label}
-                    </div>
-                    <div className="text-[15px] font-semibold text-white mt-0.5">
-                      {HERO_SLIDES[activeSlide].title}
-                    </div>
+            {/* Trust strip */}
+            <figcaption className="relative z-10 grid grid-cols-3 divide-x divide-hairline border-t border-hairline bg-cream/70 backdrop-blur-sm">
+              {TRUST_STATS.map((stat) => (
+                <div key={stat.label} className="px-4 py-4 text-center md:py-5">
+                  <div className="tabular font-serif text-lg text-ink md:text-[22px]">
+                    {stat.value}
+                  </div>
+                  <div className="eyebrow mt-1 text-[9.5px] text-muted-foreground/80">
+                    {stat.label}
                   </div>
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Slide indicators + counter — premium glass pill */}
-          <div className="absolute bottom-2 left-1/2 z-20 -translate-x-1/2">
-            <div className="flex items-center gap-3 bg-white/70 backdrop-blur-md border border-white/60 rounded-full px-3 py-2 shadow-depth">
-              <span className="text-[11px] font-mono tracking-widest text-[#6b7280] hidden sm:inline">
-                {String(activeSlide + 1).padStart(2, '0')}
-                <span className="mx-1 text-[#9ca3af]">/</span>
-                {String(HERO_SLIDES.length).padStart(2, '0')}
-              </span>
-              <div className="flex items-center gap-2">
-                {HERO_SLIDES.map((s, i) => (
-                  <button
-                    key={s.id}
-                    onClick={() => setActiveSlide(i)}
-                    aria-label={`Slide ${i + 1}`}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      activeSlide === i ? 'w-8 bg-[#1d81f2]' : 'w-1.5 bg-[#1d81f2]/30 hover:bg-[#1d81f2]/50'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Floating badge cards */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6, duration: 0.7 }}
-            className="absolute top-4 right-2 sm:right-6 z-20 rounded-2xl bg-white/85 backdrop-blur-md border border-white/60 shadow-depth shadow-premium p-3 pr-4 flex items-center gap-2.5"
-          >
-            <span className="live-pulse-dot h-8 w-8 rounded-lg bg-[#1d81f2]/10 flex items-center justify-center text-[#1d81f2]">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12L9 18L21 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-            <div>
-              <div className="text-[11px] text-[#6b7280] leading-none">Live origination</div>
-              <div className="text-[14px] font-semibold text-[#161616] leading-tight">1,284 today</div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.9, duration: 0.7 }}
-            className="absolute bottom-20 left-0 sm:left-2 z-20 rounded-2xl bg-white/85 backdrop-blur-md border border-white/60 shadow-depth shadow-premium p-3 pr-4 flex items-center gap-2.5"
-          >
-            {/* Live status dot */}
-            <span className="live-pulse-dot absolute top-2 right-2 h-2 w-2 rounded-full bg-[#24a148] shadow-[0_0_0_3px_rgba(36,161,72,0.18)]" aria-hidden />
-            <span className="h-8 w-8 rounded-lg bg-[#24a148]/10 flex items-center justify-center text-[#24a148]">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                <path d="M2 17L12 22L22 17M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-              </svg>
-            </span>
-            <div>
-              <div className="text-[11px] text-[#6b7280] leading-none">Servicing</div>
-              <div className="text-[14px] font-semibold text-[#161616] leading-tight">99.98% uptime</div>
-            </div>
-          </motion.div>
-        </div>
+              ))}
+            </figcaption>
+          </figure>
+        </Reveal>
       </div>
-
-      {/* Bottom wave divider */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#1d81f2]/20 to-transparent" />
     </section>
   );
 }

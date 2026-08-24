@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "NETSOL Technologies — Shaping Smarter Finance",
   description:
-    "NETSOL Technologies is a global leader in asset finance and leasing software, providing AI-enabled platforms for lenders, OEMs, dealers, and fleets. Shaping smarter finance across the asset lifecycle.",
+    "NETSOL Technologies is a global leader in asset finance and leasing software. The Transcend platform unifies origination, servicing, and AI-powered decisioning for lenders, OEMs, dealers, and fleets.",
   keywords: [
     "NETSOL",
     "asset finance software",
@@ -45,7 +51,6 @@ export const metadata: Metadata = {
   },
 };
 
-// JSON-LD structured data for SEO (Organization + WebSite + Product)
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -59,8 +64,6 @@ const jsonLd = {
       description:
         "Global leader in asset finance and leasing software, providing AI-enabled platforms for lenders, OEMs, dealers, and fleets.",
       foundingDate: "1997",
-      naics: "5112",
-      isic: "6202",
       tickerSymbol: "NTWK",
       exchangeName: "NASDAQ",
       address: {
@@ -71,15 +74,6 @@ const jsonLd = {
         postalCode: "91436",
         addressCountry: "US",
       },
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          telephone: "+1-818-222-9195",
-          contactType: "sales",
-          areaServed: "US",
-          availableLanguage: ["English", "Spanish"],
-        },
-      ],
       sameAs: [
         "https://www.linkedin.com/company/netsol-technologies",
         "https://twitter.com/NETSOLTech",
@@ -93,11 +87,6 @@ const jsonLd = {
       url: "https://netsoltech.com/",
       name: "NETSOL Technologies",
       publisher: { "@id": "https://netsoltech.com/#organization" },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: "https://netsoltech.com/?s={search_term_string}",
-        "query-input": "required name=search_term_string",
-      },
     },
     {
       "@type": "Product",
@@ -105,16 +94,6 @@ const jsonLd = {
       description:
         "AI-enabled ecosystem for asset finance — unifies digital retail, finance, AI labs, marketplace, and consultancy on one connected mesh.",
       brand: { "@id": "https://netsoltech.com/#organization" },
-      offers: {
-        "@type": "Offer",
-        availability: "https://schema.org/InStock",
-        priceCurrency: "USD",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.8",
-        reviewCount: "200",
-      },
     },
   ],
 };
@@ -133,7 +112,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} antialiased bg-background text-foreground`}
+        className={`${fraunces.variable} ${inter.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />

@@ -1,42 +1,58 @@
 import { cn } from '@/lib/utils';
 
-/** NETSOL logo - blue geometric N mark + wordmark. */
+/**
+ * NETSOL wordmark — ink monogram, crimson full-stop.
+ * Restrained, print-grade logotype for the luxury editorial system.
+ */
 export function NetsolLogo({
   className,
-  variant = 'default',
+  variant = 'dark',
 }: {
   className?: string;
-  variant?: 'default' | 'light';
+  variant?: 'dark' | 'light';
 }) {
-  const textColor = variant === 'light' ? '#ffffff' : '#454648';
+  const isLight = variant === 'light';
   return (
-    <div className={cn('flex items-center gap-2 select-none', className)}>
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-        <rect width="36" height="36" rx="7" fill="#1D81F2" />
+    <a
+      href="#top"
+      aria-label="NETSOL Technologies — back to top"
+      className={cn('group flex select-none items-center gap-2.5', className)}
+    >
+      <svg
+        width="30"
+        height="30"
+        viewBox="0 0 30 30"
+        aria-hidden="true"
+        className="shrink-0"
+      >
+        <rect width="30" height="30" rx="6" fill={isLight ? '#F5F2EA' : '#1A1815'} />
         <path
-          d="M10 26V10H13.5L22.5 19.5V10H26V26H22.5L13.5 16.5V26H10Z"
-          fill="white"
+          d="M9 21.5v-13h2.9l7.2 8.2V8.5H22v13h-2.9l-7.2-8.2v8.2H9Z"
+          fill={isLight ? '#14120F' : '#FAF9F5'}
         />
       </svg>
       <span
-        className="font-semibold tracking-tight"
-        style={{ color: textColor, fontSize: '20px', lineHeight: 1 }}
+        className={cn(
+          'text-[17px] font-semibold leading-none tracking-[0.02em]',
+          isLight ? 'text-[#F5F2EA]' : 'text-ink'
+        )}
       >
-        NETSOL
+        NETSOL<span className="text-crimson">.</span>
       </span>
-    </div>
+    </a>
   );
 }
 
-/** Wordmark for a brand logo slot. */
+/**
+ * Serif brand wordmark for the customer marquee.
+ */
 export function BrandWordmark({ name, className }: { name: string; className?: string }) {
   return (
     <span
       className={cn(
-        'font-semibold tracking-tight text-[#525252]/70 hover:text-[#161616] transition-colors',
+        'whitespace-nowrap font-serif text-[19px] tracking-tight text-ink/40 transition-colors duration-500 hover:text-ink',
         className
       )}
-      style={{ fontSize: '20px', letterSpacing: '-0.01em' }}
     >
       {name}
     </span>

@@ -1,265 +1,168 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Quote, Play, ChevronLeft, ChevronRight, Keyboard } from 'lucide-react';
-import { Reveal } from '@/components/site/reveal';
-import { VideoModal } from '@/components/site/video-modal';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { TESTIMONIALS } from '@/lib/site-data';
+import { Reveal } from '@/components/site/reveal';
+import { cn } from '@/lib/utils';
+
+const AUTO_ADVANCE_MS = 7500;
 
 export function Testimonials() {
-  const [active, setActive] = useState(0);
+  const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false);
-  // track section focus to enable keyboard nav
-  const [focused, setFocused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  const go = useCallback(
+    (dir: 1 | -1) => {
+      setIndex((prev) => (prev + dir + TESTIMONIALS.length) % TESTIMONIALS.length);
+    },
+    []
+  );
 
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => {
-      setActive((a) => (a + 1) % TESTIMONIALS.length);
-    }, 6500);
-    return () => clearInterval(t);
-  }, [paused]);
+    timerRef.current = setInterval(() => go(1), AUTO_ADVANCE_MS);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [paused, go]);
 
-  // Keyboard navigation (left/right) when carousel region is focused
+  // Keyboard navigation — Arrow keys while the section holds focus
   useEffect(() => {
-    if (!focused) return;
-    const onKey = (e: KeyboardEvent) => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        setActive((a) => (a - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+        setPaused(true);
+        go(-1);
       } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        setActive((a) => (a + 1) % TESTIMONIALS.length);
+        setPaused(true);
+        go(1);
       }
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [focused]);
+    section.addEventListener('keydown', onKeyDown);
+    return () => section.removeEventListener('keydown', onKeyDown);
+  }, [go]);
 
-  const current = TESTIMONIALS[active];
-  // Premium zero-padded counter indicator (e.g. "01 / 03")
-  const counter = `${String(active + 1).padStart(2, '0')} / ${String(
-    TESTIMONIALS.length,
-  ).padStart(2, '0')}`;
+  const t = TESTIMONIALS[index];
+  const initials = t.person
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('');
 
   return (
     <section
-      id="testimonials"
-      className="relative w-full bg-[#f0f8ff] py-20 lg:py-28 overflow-hidden"
-      aria-label="Customer testimonials"
+      id="stories"
+      ref={sectionRef}
+      tabIndex={0}
+      role="group"
+      aria-roledescription="carousel"
+      aria-label="Customer testimonials — use arrow keys to browse"
+      className="border-y border-hairline bg-white py-24 outline-none transition-shadow duration-300 focus-visible:shadow-[inset_0_0_0_2px_rgb(166_25_46/0.35)] md:py-32"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
     >
-      {/* Vertical stripe pattern */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-50 pointer-events-none"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(29,129,242,0.04) 14px, rgba(29,129,242,0.04) 16px)',
-        }}
-      />
-
-      {/* Premium spotlight gradient overlay (behind content) */}
-      <div
-        aria-hidden
-        className="spotlight-gradient pointer-events-none absolute inset-0"
-      />
-
-      <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8">
-        <Reveal className="max-w-[820px] mx-auto text-center">
-          {/* Premium section heading chip */}
-          <span className="section-heading-chip">
-            <span
-              className="category-dot"
-              style={{ color: '#1d81f2' }}
-              aria-hidden
-            />
-            VOICES
-          </span>
-          <h2 className="mt-5 text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
-            What our customers say
-          </h2>
-          {/* Premium gradient hairline under heading */}
-          <div className="section-rule mx-auto mt-6" aria-hidden />
+      <div className="container-luxe">
+        <Reveal className="text-center">
+          <p className="eyebrow text-muted-foreground">Customer voices</p>
         </Reveal>
 
-        {/* Carousel */}
         <div
-          className="relative mt-12 outline-none"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          tabIndex={0}
-          role="group"
-          aria-roledescription="carousel"
-          aria-label="Customer testimonials carousel — use arrow keys to navigate"
+          className="relative mx-auto mt-10 max-w-3xl text-center"
+          aria-live="polite"
+          aria-atomic="true"
         >
-          <div className="relative h-[440px] sm:h-[360px] lg:h-[420px]">
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 select-none font-serif text-[110px] leading-none text-crimson/15"
+          >
+            &ldquo;
+          </span>
+
+          <div className="min-h-[260px] sm:min-h-[220px]">
             <AnimatePresence mode="wait">
-              <motion.div
-                key={current.id}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
+              <motion.figure
+                key={t.id}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0"
               >
-                {/*
-                  Premium stack wrapper (no overflow-hidden so the
-                  card-stack-3d ::before/::after pseudo-elements can extend
-                  past the card edge and render the layered "stack" effect).
-                */}
-                <div className="card-stack-3d h-full rounded-[24px]">
-                  <div className="gradient-border-animated lift-on-hover shadow-depth-lg h-full grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-[24px] bg-white overflow-hidden">
-                    {/* Text side */}
-                    <div className="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-between relative">
-                      <div className="flex items-start gap-3">
-                        {/* Premium gradient-animated opening quote mark */}
-                        <span
-                          className="text-gradient-animated text-[64px] leading-none font-bold select-none -mt-2"
-                          aria-hidden
-                        >
-                          &ldquo;
-                        </span>
-                        <Quote
-                          className="h-10 w-10 text-[#1d81f2]/15 mt-1"
-                          fill="currentColor"
-                        />
-                      </div>
-                      <div className="mt-2 flex-1 flex items-center">
-                        <p className="text-[16px] lg:text-[20px] leading-[1.6] text-[#161616] font-normal">
-                          {current.quote}
-                        </p>
-                      </div>
-                      <div className="mt-6">
-                        {/* Premium accent dot before the person name */}
-                        <div className="flex items-center gap-2">
-                          <span
-                            className="h-1 w-1 rounded-full bg-[#1d81f2]"
-                            aria-hidden
-                          />
-                          <div className="text-[20px] lg:text-[24px] font-semibold text-[#161616]">
-                            {current.person}
-                          </div>
-                        </div>
-                        {/* Premium tabular-numerics title */}
-                        <div className="mt-1 text-[15px] text-[#6b7280] font-mono-numeric">
-                          {current.title}
-                        </div>
-                        {/* Premium chip-selected company badge */}
-                        <div className="mt-3">
-                          <span className="chip-selected inline-flex items-center rounded-full px-3 py-1 text-[12px] font-semibold text-white">
-                            {current.company}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Portrait side */}
-                    <div className="lg:col-span-5 relative h-[200px] lg:h-auto">
-                      {/*
-                        Premium gradient-border-animated ring around the
-                        portrait. Inline style ensures position:absolute
-                        wins over the gradient-border-animated class's
-                        position:relative (class + utility conflict at the
-                        cascade boundary).
-                      */}
-                      <div
-                        className="gradient-border-animated shadow-depth rounded-[24px] overflow-hidden"
-                        style={{ position: 'absolute', inset: 0 }}
-                      >
-                        <img
-                          src={current.portrait}
-                          alt={current.person}
-                          className="absolute inset-0 h-full w-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0f62fe]/30 to-transparent lg:bg-gradient-to-l" />
-                      </div>
-
-                      {current.hasVideo && (
-                        <button
-                          onClick={() => setVideoOpen(true)}
-                          className="btn-shine btn-glow group absolute inset-0 m-auto h-16 w-16 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-premium hover:scale-110 transition-transform"
-                          aria-label={`Play video testimonial from ${current.person}`}
-                        >
-                          <span className="absolute inset-0 rounded-full bg-[#1d81f2]/30 animate-pulse-ring" />
-                          <Play
-                            className="relative h-6 w-6 text-[#1d81f2] ml-1"
-                            fill="currentColor"
-                          />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+                <blockquote className="font-serif text-[21px] leading-[1.5] tracking-[-0.005em] text-ink md:text-[27px]">
+                  {t.quote}
+                </blockquote>
+                <figcaption className="mt-9 flex items-center justify-center gap-4">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline font-serif text-[15px] text-ink/60"
+                  >
+                    {initials}
+                  </span>
+                  <span className="text-left">
+                    <span className="block text-[14px] font-medium text-ink">
+                      {t.person}
+                    </span>
+                    <span className="block text-[12.5px] text-muted-foreground">
+                      {t.title}
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="ml-1 hidden h-8 w-px bg-hairline sm:block"
+                  />
+                  <span className="eyebrow ml-1 hidden text-crimson sm:block">
+                    {t.company}
+                  </span>
+                </figcaption>
+              </motion.figure>
             </AnimatePresence>
           </div>
 
-          {/* Nav arrows — premium shine + lift on hover */}
-          <button
-            aria-label="Previous testimonial"
-            onClick={() =>
-              setActive((a) => (a - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)
-            }
-            className="btn-shine lift-on-hover absolute left-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-premium flex items-center justify-center text-[#161616] hover:bg-[#1d81f2] hover:text-white transition-colors"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            aria-label="Next testimonial"
-            onClick={() => setActive((a) => (a + 1) % TESTIMONIALS.length)}
-            className="btn-shine lift-on-hover absolute right-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-premium flex items-center justify-center text-[#161616] hover:bg-[#1d81f2] hover:text-white transition-colors"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+          {/* Minimal controls */}
+          <div className="mt-12 flex items-center justify-center gap-6">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Previous testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-hairline text-ink/60 transition-all duration-300 hover:border-ink/35 hover:text-ink"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            </button>
 
-          {/* Dot navigation + counter + keyboard hint */}
-          <div className="mt-6 flex items-center justify-center gap-4">
-            {/* Premium tabular counter indicator (e.g. "01 / 03") */}
-            <span className="font-mono-numeric text-[12px] text-[#6b7280] tabular-nums">
-              {counter}
-            </span>
-            <div className="flex items-center gap-2.5">
-              {TESTIMONIALS.map((t, i) => (
+            <div className="flex items-center gap-2" role="tablist" aria-label="Testimonial selector">
+              {TESTIMONIALS.map((item, i) => (
                 <button
-                  key={t.id}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                  aria-current={active === i}
-                  onClick={() => setActive(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    active === i
-                      ? 'live-pulse-dot w-8 bg-gradient-to-r from-[#1d81f2] to-[#56ccf2]'
-                      : 'lift-on-hover w-2 bg-[#1d81f2]/25'
-                  }`}
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === index}
+                  aria-label={`Show testimonial from ${item.person}, ${item.company}`}
+                  onClick={() => setIndex(i)}
+                  className={cn(
+                    'h-[2px] rounded-full transition-all duration-500',
+                    i === index ? 'w-10 bg-ink' : 'w-5 bg-ink/20 hover:bg-ink/40'
+                  )}
                 />
               ))}
             </div>
-            {focused && (
-              <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-[#6b7280]">
-                <Keyboard className="h-3.5 w-3.5" />
-                <kbd className="px-1.5 py-0.5 rounded bg-[#f5f7fa] border border-[#e0e0e0] text-[10px] font-mono">
-                  ←
-                </kbd>
-                <kbd className="px-1.5 py-0.5 rounded bg-[#f5f7fa] border border-[#e0e0e0] text-[10px] font-mono">
-                  →
-                </kbd>
-              </span>
-            )}
+
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-hairline text-ink/60 transition-all duration-300 hover:border-ink/35 hover:text-ink"
+            >
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
           </div>
         </div>
       </div>
-
-      {/* Video modal */}
-      <VideoModal
-        open={videoOpen}
-        onClose={() => setVideoOpen(false)}
-        title={`${current.person} — ${current.title}`}
-        subtitle={`${current.company} · NETSOL customer story`}
-        backdropImage={current.portrait}
-      />
     </section>
   );
 }

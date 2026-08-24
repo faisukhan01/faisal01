@@ -1,127 +1,127 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import { Reveal } from '@/components/site/reveal';
-import { Counter } from '@/components/site/counter';
-import { Lazy3D } from '@/components/site/lazy-3d';
+import { useEffect, useRef, useState } from 'react';
+import { useInView } from 'framer-motion';
 import { STATS } from '@/lib/site-data';
+import { Reveal } from '@/components/site/reveal';
 
-const StatsScene3D = dynamic(
-  () => import('@/components/three/scenes').then((m) => m.StatsScene3D),
-  { ssr: false }
-);
+const WHY_NETSOL = [
+  {
+    title: 'One connected platform',
+    metric: '1',
+    line: 'unified data layer — originations to analytics, no nightly batch reconciliation.',
+  },
+  {
+    title: 'Proven at enterprise scale',
+    metric: '$500B+',
+    line: 'assets managed across 30+ country deployments for captives, banks, and OEMs.',
+  },
+  {
+    title: 'Applied AI, in production',
+    metric: '9',
+    line: 'production models — underwriting, document intelligence, conversational servicing.',
+  },
+  {
+    title: 'Built for regulated finance',
+    metric: 'ISO 27001',
+    line: 'certified, SOC 2 aligned, with regional data residency in six delivery centers.',
+  },
+];
+
+function CountUp({
+  value,
+  prefix = '',
+  suffix = '',
+}: {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: '0px 0px -15% 0px' });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const duration = 1600;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 4);
+      setDisplay(Math.round(eased * value));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value]);
+
+  return (
+    <span ref={ref} className="tabular">
+      {prefix}
+      {display}
+      {suffix}
+    </span>
+  );
+}
 
 export function StatsSection() {
   return (
     <section
-      id="about"
-      className="relative w-full bg-[#f5f7fa] py-20 lg:py-28 overflow-hidden"
-      aria-label="Technology partner"
+      className="relative overflow-hidden bg-night py-24 text-cream md:py-32"
+      aria-label="NETSOL at a glance"
     >
-      {/* Faint background image */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.04] pointer-events-none bg-cover bg-center"
-        style={{
-          backgroundImage:
-            'url(https://images.unsplash.com/photo-1492144534245-b3aa4f9b9e9b?auto=format&fit=crop&w=2000&q=60)',
-        }}
-      />
-      {/* Mesh gradient overlay (premium SaaS backdrop) */}
-      <div
-        aria-hidden
-        className="absolute inset-0 mesh-gradient opacity-60 pointer-events-none"
-      />
-      <div className="absolute inset-0 bg-barcode opacity-30 pointer-events-none" />
+      <div className="container-luxe relative">
+        <Reveal className="text-center">
+          <p className="eyebrow text-cream/45">NETSOL at a glance</p>
+          <h2 className="mx-auto mt-5 max-w-2xl font-serif text-4xl leading-[1.08] tracking-[-0.015em] md:text-5xl">
+            The numbers behind the trust.
+          </h2>
+        </Reveal>
 
-      <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        {/* Left: text + 3D globe */}
-        <div className="lg:col-span-7">
-          <Reveal>
-            <span className="section-heading-chip">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#1d81f2]" aria-hidden />
-              By the numbers
-            </span>
-            <h2 className="mt-5 text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight max-w-[640px]">
-              Technology partner to the world&apos;s leading brands
-            </h2>
-            <div className="section-rule mt-6" aria-hidden />
-          </Reveal>
+        {/* Big serif stats */}
+        <div className="mt-16 grid grid-cols-2 gap-y-12 md:grid-cols-4 md:gap-y-0 md:divide-x md:divide-cream/10">
+          {STATS.map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 0.08}>
+              <div className="px-2 text-center md:px-8">
+                <div className="font-serif text-[44px] leading-none tracking-[-0.01em] md:text-[56px]">
+                  <CountUp value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
+                </div>
+                <p className="eyebrow mt-4 text-cream/50">{stat.label}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
 
-          {/* Dual-paragraph copy with reveal-from-side animation */}
-          <p className="reveal-from-side mt-5 text-[15px] lg:text-[17px] text-[#525252] leading-[1.65] max-w-[620px]">
-            For more than two decades, NETSOL has been the quiet infrastructure
-            behind the world&apos;s most recognised captives, banks, OEMs and
-            dealers. We originate, service and remarket assets across
-            automotive, equipment, and fleet — on six continents, in fourteen
-            languages.
-          </p>
-          <p
-            className="reveal-from-side mt-4 text-[15px] lg:text-[17px] text-[#525252] leading-[1.65] max-w-[620px]"
-            style={{ animationDelay: '0.12s' }}
-          >
-            From our delivery centers in Los Angeles, London, Bangkok, Beijing,
-            Lahore and Sydney, we operate 24/7 — so your contracts never sleep,
-            and your customers never wait.
-          </p>
-
-          {/* Stats row — 4-column premium cards */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4">
-            {STATS.map((s, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="gradient-border-animated lift-on-hover shadow-depth h-full rounded-2xl border border-[#e0e0e0] bg-white p-5">
-                  <div className="text-[36px] sm:text-[44px] lg:text-[52px] font-bold leading-none tracking-tight">
-                    <span className="text-gradient-animated font-mono-numeric">
-                      {s.prefix}
-                      <Counter end={s.value} suffix={s.suffix} />
-                    </span>
-                  </div>
-                  <div className="mt-3 flex items-center gap-2 text-[13px] sm:text-[14px] text-[#525252] leading-snug">
-                    <span
-                      className="h-1 w-1 rounded-full bg-[#1d81f2]"
-                      aria-hidden
-                    />
-                    {s.label}
-                  </div>
+        {/* Why NETSOL — folded editorial strip */}
+        <div className="mt-20 border-t border-cream/10 pt-14">
+          <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            {WHY_NETSOL.map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.07}>
+                <div>
+                  <span className="tabular text-[11px] tracking-[0.2em] text-cream/35">
+                    0{i + 1}
+                  </span>
+                  <h3 className="mt-3 text-[15px] font-medium text-cream">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2.5 text-[13px] leading-[1.7] text-cream/50">
+                    <span className="font-serif text-[14px] text-cream/80">
+                      {item.metric}
+                    </span>{' '}
+                    {item.line}
+                  </p>
                 </div>
               </Reveal>
             ))}
           </div>
-
-          {/* Live indicator chip */}
-          <Reveal delay={0.2}>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5">
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-emerald-500 live-pulse-dot"
-                aria-hidden
-              />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-emerald-700">
-                Updated real-time
-              </span>
-            </div>
-          </Reveal>
         </div>
 
-        {/* Right: 3D globe with spotlight overlay + premium depth shadow */}
-        <div className="shadow-depth-lg relative lg:col-span-5 h-[320px] sm:h-[420px] lg:h-[500px] rounded-3xl overflow-hidden">
-          {/* Spotlight gradient behind the globe */}
-          <div
-            aria-hidden
-            className="absolute inset-0 spotlight-gradient pointer-events-none"
-          />
-          <Lazy3D
-            className="relative z-10 h-full w-full"
-            fallback={
-              <div
-                aria-hidden
-                className="relative z-10 h-full w-full rounded-full bg-gradient-to-br from-[#1d81f2]/15 to-[#56ccf2]/10 blur-2xl"
-                style={{ maxWidth: '60%', margin: '0 auto' }}
-              />
-            }
-          >
-            <StatsScene3D />
-          </Lazy3D>
-        </div>
+        <Reveal delay={0.1}>
+          <p className="mt-16 text-center text-[11.5px] tracking-[0.08em] text-cream/35">
+            Figures as of FY2025 · NASDAQ: NTWK · ISO 27001 · SOC 2 Type II
+          </p>
+        </Reveal>
       </div>
     </section>
   );
