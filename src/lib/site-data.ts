@@ -1023,3 +1023,324 @@ export const SOLUTION_CASES = [
     duration: "14 months",
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Round 6: Live Operations Pulse — animated real-time-feel metrics stream
+// ---------------------------------------------------------------------------
+export const LIVE_PULSE = {
+  // Headline metric (animated ticker)
+  headline: {
+    label: "Live contracts originated (last 24h)",
+    baseValue: 18462,
+    jitterMin: 1,
+    jitterMax: 14,
+    suffix: "",
+  },
+  // 4 satellite metrics
+  metrics: [
+    {
+      id: "decisions",
+      label: "AI decisions / min",
+      baseValue: 312,
+      jitterMin: 1,
+      jitterMax: 9,
+      suffix: "",
+      trend: "+18%",
+      trendDir: "up" as const,
+      accent: "#1d81f2",
+    },
+    {
+      id: "volume",
+      label: "Funded (24h)",
+      baseValue: 412_800_000,
+      jitterMin: 50_000,
+      jitterMax: 950_000,
+      prefix: "$",
+      suffix: "",
+      trend: "+6.4%",
+      trendDir: "up" as const,
+      accent: "#24a148",
+    },
+    {
+      id: "sla",
+      label: "Decision SLA",
+      baseValue: 4.2,
+      jitterMin: -0.18,
+      jitterMax: 0.22,
+      suffix: "h",
+      trend: "-12%",
+      trendDir: "down" as const,
+      accent: "#0f62fe",
+    },
+    {
+      id: "uptime",
+      label: "Servicing uptime",
+      baseValue: 99.98,
+      jitterMin: -0.012,
+      jitterMax: 0.014,
+      suffix: "%",
+      trend: "Stable",
+      trendDir: "flat" as const,
+      accent: "#2d9cdb",
+    },
+  ],
+  // Region activity feed — top 6 regions processed in last hour
+  regions: [
+    { id: "na", label: "North America", volume: 38, color: "#1d81f2" },
+    { id: "eu", label: "Europe", volume: 28, color: "#0f62fe" },
+    { id: "apac", label: "Asia-Pacific", volume: 22, color: "#2d9cdb" },
+    { id: "latam", label: "Latin America", volume: 7, color: "#24a148" },
+    { id: "mea", label: "Middle East / Africa", volume: 3, color: "#56ccf2" },
+    { id: "oce", label: "Oceania", volume: 2, color: "#1d81f2" },
+  ],
+  // Live activity stream messages
+  activityStream: [
+    { type: "originated", text: "Pensioner lease originated · Munich", amount: "$48,200" },
+    { type: "decisioned", text: "Mid-ticket app auto-approved · Singapore", amount: "$214,500" },
+    { type: "funded", text: "Aircraft lease funded · Dubai", amount: "$8.2M" },
+    { type: "originated", text: "EV retail contract signed · Oslo", amount: "$52,900" },
+    { type: "decisioned", text: "Equipment refinance approved · Houston", amount: "$1.1M" },
+    { type: "originated", text: "Fleet vehicle onboarded · Bangkok", amount: "$32,400" },
+    { type: "funded", text: "Solar residential loan funded · Phoenix", amount: "$28,100" },
+    { type: "decisioned", text: "Marine lease auto-approved · Sydney", amount: "$172,000" },
+    { type: "originated", text: "Auto contract originated · Mexico City", amount: "$34,800" },
+    { type: "funded", text: "Construction equipment funded · Dubai", amount: "$642,000" },
+    { type: "originated", text: "Hybrid SUV lease originated · Tokyo", amount: "$58,300" },
+    { type: "decisioned", text: "Used-vehicle loan approved · Madrid", amount: "$21,400" },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Round 6: Product Tour — interactive guided walkthrough of Transcend
+// ---------------------------------------------------------------------------
+export const PRODUCT_TOUR = {
+  title: "Tour the Transcend platform",
+  subtitle: "Click through a 5-step interactive walkthrough of NETSOL's flagship asset finance platform.",
+  cta: "Start the tour",
+  steps: [
+    {
+      id: "dashboard",
+      number: 1,
+      label: "Dashboard",
+      title: "One pane of glass across the asset lifecycle",
+      description:
+        "Operators see originations, servicing, residuals, and dealer activity in a single live view. Filter by book, region, asset class, or stage — drill into any contract in two clicks.",
+      accent: "#1d81f2",
+      moduleLabel: "Transcend Command Center",
+      moduleCode: "CC-01",
+      kpis: [
+        { label: "Live originations", value: "1,284", trend: "+18%" },
+        { label: "Decisions / min", value: "312", trend: "+6%" },
+        { label: "Funded (24h)", value: "$412M", trend: "+6.4%" },
+        { label: "Decision SLA", value: "4.2h", trend: "-12%" },
+      ],
+    },
+    {
+      id: "origination",
+      number: 2,
+      label: "Origination",
+      title: "Originations in 36 hours, not 11 days",
+      description:
+        "Digital application capture, AI credit decisioning, document generation, and e-signature in one workflow. Dealer portal syncs showroom activity back to the lender in real time.",
+      accent: "#24a148",
+      moduleLabel: "Transcend Digital Retail",
+      moduleCode: "DR-02",
+      kpis: [
+        { label: "Avg cycle time", value: "36h", trend: "-93%" },
+        { label: "Approval conversion", value: "+27%", trend: "+27%" },
+        { label: "Doc accuracy", value: "99.6%", trend: "+4.2pp" },
+        { label: "Dealer NPS", value: "78", trend: "+22" },
+      ],
+    },
+    {
+      id: "decisioning",
+      number: 3,
+      label: "AI Decisioning",
+      title: "96% of mid-ticket apps auto-decisioned",
+      description:
+        "NETSOL AI Labs trains tenant-specific models on your historical book. Full audit logs, regulator-grade explanations, human-in-the-loop override on edge cases — no black box.",
+      accent: "#0f62fe",
+      moduleLabel: "NETSOL AI Labs",
+      moduleCode: "AI-03",
+      kpis: [
+        { label: "Auto-decisioned", value: "96%", trend: "+71pp" },
+        { label: "Per-decision cost", value: "-71%", trend: "-71%" },
+        { label: "Avg SLA", value: "4.2h", trend: "-12%" },
+        { label: "Model AUC", value: "0.91", trend: "+0.04" },
+      ],
+    },
+    {
+      id: "servicing",
+      number: 4,
+      label: "Servicing",
+      title: "99.98% servicing uptime across 7 markets",
+      description:
+        "Multi-currency, multi-jurisdiction ledger. Lease schedules, billing, collections, payoffs, residuals, and remarketing in one book of record — with telemetry on every asset.",
+      accent: "#2d9cdb",
+      moduleLabel: "Transcend Finance",
+      moduleCode: "SF-04",
+      kpis: [
+        { label: "Servicing uptime", value: "99.98%", trend: "Stable" },
+        { label: "Recon breaks", value: "0", trend: "0" },
+        { label: "Markets live", value: "7", trend: "+2" },
+        { label: "Vehicles tracked", value: "38K", trend: "+12K" },
+      ],
+    },
+    {
+      id: "marketplace",
+      number: 5,
+      label: "Marketplace",
+      title: "42 modules, one mesh, zero redeploys",
+      description:
+        "Calculation engines, document generation, compliance packs, telematics adapters — extend Transcend without a re-deployment. Activate a module in hours, not quarters.",
+      accent: "#56ccf2",
+      moduleLabel: "NETSOL Marketplace",
+      moduleCode: "MK-05",
+      kpis: [
+        { label: "Modules live", value: "42", trend: "+6" },
+        { label: "Activation time", value: "8h", trend: "-94%" },
+        { label: "API calls / day", value: "14M", trend: "+3M" },
+        { label: "Partner integrations", value: "120+", trend: "+18" },
+      ],
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Round 6: Glossary / Knowledge Hub — filterable industry dictionary
+// ---------------------------------------------------------------------------
+export const GLOSSARY = {
+  title: "Asset Finance Knowledge Hub",
+  subtitle:
+    "A curated glossary of the terms, regulations, and platform concepts that define modern asset finance. Filter by category or search to jump straight to a definition.",
+  categories: [
+    { id: "all", label: "All terms" },
+    { id: "origination", label: "Origination" },
+    { id: "servicing", label: "Servicing" },
+    { id: "ai", label: "AI / Decisioning" },
+    { id: "regulatory", label: "Regulatory" },
+    { id: "platform", label: "Platform" },
+  ],
+  terms: [
+    {
+      id: "term-1",
+      term: "Captive finance company",
+      category: "origination",
+      short: "A finance company owned by a manufacturer (OEM) to finance the parent company's products.",
+      long: "Captive finance companies — like Ford Motor Credit or Toyota Financial Services — exist primarily to drive sales of the parent manufacturer's products. They typically offer subsidised rates, residuals, and lease structures that third-party lenders cannot match. Captives are the largest single channel for new-vehicle finance globally.",
+      accent: "#1d81f2",
+    },
+    {
+      id: "term-2",
+      term: "Origination cycle time",
+      category: "origination",
+      short: "The elapsed time from application submission to funded contract.",
+      long: "Origination cycle time is the single most-watched operational metric in retail asset finance. Industry average sits between 4 and 11 days for automotive; Transcend customers routinely cut this to under 36 hours. Cycle time compresses conversion lift and dealer NPS — it is the lever most correlated with margin.",
+      accent: "#24a148",
+    },
+    {
+      id: "term-3",
+      term: "E-contracting",
+      category: "origination",
+      short: "Digital execution of finance contracts — replacing paper signatures with e-signature.",
+      long: "E-contracting replaces wet-ink signatures with compliant e-signature, digital document generation, and secure archive. Transcend's e-contracting module supports ESIGN, UETA, and EBA e-IDAS requirements across 14 jurisdictions. Customers report a 4.2pp lift in document accuracy and a 27% lift in approval conversion post-implementation.",
+      accent: "#0f62fe",
+    },
+    {
+      id: "term-4",
+      term: "Lease schedule",
+      category: "servicing",
+      short: "The contractual payment timetable that governs a lease — base rent, taxes, fees, residuals.",
+      long: "A lease schedule defines every payment, every date, and every obligation across the lease term. Modern lease schedules must accommodate variable usage, mileage true-ups, balloon structures, and multi-currency settlements. Transcend's schedule engine supports 41 schedule types out of the box — and a calculation-engine Marketplace module for the long tail.",
+      accent: "#2d9cdb",
+    },
+    {
+      id: "term-5",
+      term: "Residual value",
+      category: "servicing",
+      short: "The forecast value of an asset at the end of a lease — set at origination, true at maturity.",
+      long: "Residual value is the single largest driver of lease profitability. Setting residuals too low loses deals; setting them too high loses money at remarketing. AI residual models — like those built in NETSOL AI Labs — typically cut residual loss variance by 38% versus book-value approaches.",
+      accent: "#56ccf2",
+    },
+    {
+      id: "term-6",
+      term: "Payoff & payoff quote",
+      category: "servicing",
+      short: "The amount required to settle a finance contract before scheduled maturity.",
+      long: "A payoff quote is a per-day accrual calculation that includes principal, interest, fees, and any early-termination charge. Transcend's payoff engine supports same-day, good-through-date, and 10-day quotes — with per-jurisdiction regulatory disclosure packs. Customers report 96% of payoff quotes now auto-generated, freeing servicing agents for exception handling.",
+      accent: "#1d81f2",
+    },
+    {
+      id: "term-7",
+      term: "Underwriting model",
+      category: "ai",
+      short: "A statistical model that predicts the probability of default for a given applicant.",
+      long: "Modern underwriting models are gradient-boosted tree ensembles — sometimes with deep-learning overlays for unstructured income/bank data. NETSOL AI Labs builds tenant-specific models — never shared across customers — and ships them with full audit logs and SHAP-based explanations for every decision. AUC routinely exceeds 0.90 on real customer books.",
+      accent: "#24a148",
+    },
+    {
+      id: "term-8",
+      term: "Document AI",
+      category: "ai",
+      short: "AI that extracts structured data from unstructured documents — pay stubs, IDs, bank statements.",
+      long: "Document AI replaces manual data entry with an extraction pipeline that reads pay stubs, government IDs, bank statements, and tax returns — and structures the output for the origination workflow. Transcend's Document AI module achieves 99.6% field-level accuracy on the top 30 document types, with human-in-the-loop review on low-confidence fields.",
+      accent: "#0f62fe",
+    },
+    {
+      id: "term-9",
+      term: "Explainability (SHAP)",
+      category: "ai",
+      short: "A technique that attributes a model's prediction back to its input features.",
+      long: "SHAP (SHapley Additive exPlanations) is the dominant explainability framework for credit decisioning. It produces a per-feature contribution for every prediction — letting a lender explain to a regulator why a specific applicant was declined. Transcend ships SHAP explanations with every decision by default.",
+      accent: "#2d9cdb",
+    },
+    {
+      id: "term-10",
+      term: "ISO 27001",
+      category: "regulatory",
+      short: "International standard for information security management systems.",
+      long: "ISO 27001 is the global benchmark for information security management. NETSOL holds ISO 27001 certification across all 6 delivery centers — audited annually by an accredited registrar. Certification covers access control, cryptography, operations security, and supplier relationships.",
+      accent: "#56ccf2",
+    },
+    {
+      id: "term-11",
+      term: "SOC 2 Type II",
+      category: "regulatory",
+      short: "AICPA attestation covering security, availability, processing integrity, confidentiality, and privacy.",
+      long: "SOC 2 Type II attests that a service organisation's controls are not just designed but operated effectively over a minimum 6-month observation window. NETSOL publishes a SOC 2 Type II report annually — available to customers under NDA via our Trust Center.",
+      accent: "#1d81f2",
+    },
+    {
+      id: "term-12",
+      term: "PCI-DSS",
+      category: "regulatory",
+      short: "Payment Card Industry Data Security Standard — required for any system that touches card data.",
+      long: "PCI-DSS governs how cardholder data is stored, processed, and transmitted. Transcend's payment modules are PCI-DSS Level 1 certified — the highest tier — letting customers process card data without scope bleeding into their own audit. Net Sol's tokenisation layer further reduces customer scope by up to 80%.",
+      accent: "#24a148",
+    },
+    {
+      id: "term-13",
+      term: "Multi-tenant SaaS",
+      category: "platform",
+      short: "A single shared software instance serving multiple customers — with logical isolation per tenant.",
+      long: "Multi-tenant SaaS lets every customer benefit from a single, continuously-improved codebase. Transcend ships quarterly feature releases with zero re-deployment cost — every customer is always on the current version. Tenants are logically isolated at the database row, network, and encryption-key level.",
+      accent: "#0f62fe",
+    },
+    {
+      id: "term-14",
+      term: "Marketplace module",
+      category: "platform",
+      short: "A self-contained extension that adds capability to Transcend without a re-deployment.",
+      long: "Marketplace modules are NETSOL-curated capabilities — calculation engines, document packs, compliance kits, telematics adapters — that activate in hours, not quarters. Customers switch them on from the Marketplace catalog and pay per active module. 42 modules are live today.",
+      accent: "#2d9cdb",
+    },
+    {
+      id: "term-15",
+      term: "Follow-the-sun delivery",
+      category: "platform",
+      short: "A 24/7 engineering and support model that hands off work across global centers by time zone.",
+      long: "NETSOL operates 6 delivery centers — Beijing, Bangkok, Lahore, Manchester, São Paulo, and San Ramon — with continuous handoff. A blocking issue raised at end-of-day in one center is picked up at start-of-day in the next. Customers see round-the-clock delivery without premium night-shift pricing.",
+      accent: "#56ccf2",
+    },
+  ],
+};

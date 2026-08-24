@@ -5,11 +5,13 @@ import { SiteHeader } from '@/components/sections/header';
 import { Hero } from '@/components/sections/hero';
 import { BrandLogos } from '@/components/sections/brand-logos';
 import { TranscendPlatform } from '@/components/sections/transcend-platform';
+import { ProductTourCTA } from '@/components/sections/product-tour-cta';
 import { WhoWeServe } from '@/components/sections/who-we-serve';
 import { IndustriesWePower } from '@/components/sections/industries';
 import { Differentiators } from '@/components/sections/differentiators';
 import { Solutions } from '@/components/sections/solutions';
 import { StatsSection } from '@/components/sections/stats';
+import { LivePulse } from '@/components/sections/live-pulse';
 import { Comparison } from '@/components/sections/comparison';
 import { Leadership } from '@/components/sections/leadership';
 import { Awards } from '@/components/sections/awards';
@@ -18,6 +20,7 @@ import { Careers } from '@/components/sections/careers';
 import { Testimonials } from '@/components/sections/testimonials';
 import { ROICalculator } from '@/components/sections/roi-calculator';
 import { Insights } from '@/components/sections/insights';
+import { Glossary } from '@/components/sections/glossary';
 import { FAQ } from '@/components/sections/faq';
 import { CTABanner } from '@/components/sections/cta-banner';
 import { Newsletter } from '@/components/sections/newsletter';
@@ -47,6 +50,10 @@ export default function Home() {
 
         <BrandLogos />
         <TranscendPlatform />
+
+        {/* NEW (Round 6): Interactive Product Tour — premium guided walkthrough */}
+        <ProductTourCTA />
+
         <WhoWeServe />
         <IndustriesWePower />
         <Differentiators />
@@ -55,6 +62,9 @@ export default function Home() {
         <Solutions />
 
         <StatsSection />
+
+        {/* NEW (Round 6): Live Operations Pulse — animated real-time-feel metrics */}
+        <LivePulse />
 
         {/* NEW (Round 5): Comparison table — Transcend vs Legacy / On-prem / Custom */}
         <Comparison />
@@ -74,6 +84,10 @@ export default function Home() {
         <ROICalculator />
 
         <Insights />
+
+        {/* NEW (Round 6): Knowledge Hub — searchable glossary */}
+        <Glossary />
+
         <FAQ />
 
         {/* Wave divider: FAQ (gradient bg) → CTA banner (white) */}

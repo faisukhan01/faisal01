@@ -27,61 +27,94 @@ export function StatsSection() {
             'url(https://images.unsplash.com/photo-1492144534245-b3aa4f9b9e9b?auto=format&fit=crop&w=2000&q=60)',
         }}
       />
+      {/* Mesh gradient overlay (premium SaaS backdrop) */}
+      <div
+        aria-hidden
+        className="absolute inset-0 mesh-gradient opacity-60 pointer-events-none"
+      />
       <div className="absolute inset-0 bg-barcode opacity-30 pointer-events-none" />
 
       <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         {/* Left: text + 3D globe */}
         <div className="lg:col-span-7">
           <Reveal>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="h-7 w-[2px] bg-[#1d81f2]" />
-              <span className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
-                Technology Partner
-              </span>
-            </div>
-            <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight max-w-[640px]">
-              Technology partner to the world's leading brands
+            <span className="section-heading-chip">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#1d81f2]" aria-hidden />
+              By the numbers
+            </span>
+            <h2 className="mt-5 text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight max-w-[640px]">
+              Technology partner to the world&apos;s leading brands
             </h2>
-            <p className="mt-5 text-[15px] lg:text-[17px] text-[#525252] leading-[1.65] max-w-[620px]">
-              For more than two decades, NETSOL has been the quiet infrastructure
-              behind the world's most recognised captives, banks, OEMs and
-              dealers. We originate, service and remarket assets across
-              automotive, equipment, and fleet — on six continents, in fourteen
-              languages.
-            </p>
-            <p className="mt-4 text-[15px] lg:text-[17px] text-[#525252] leading-[1.65] max-w-[620px]">
-              From our delivery centers in Los Angeles, London, Bangkok, Beijing,
-              Lahore and Sydney, we operate 24/7 — so your contracts never sleep,
-              and your customers never wait.
-            </p>
+            <div className="section-rule mt-6" aria-hidden />
           </Reveal>
 
-          {/* Stats row */}
+          {/* Dual-paragraph copy with reveal-from-side animation */}
+          <p className="reveal-from-side mt-5 text-[15px] lg:text-[17px] text-[#525252] leading-[1.65] max-w-[620px]">
+            For more than two decades, NETSOL has been the quiet infrastructure
+            behind the world&apos;s most recognised captives, banks, OEMs and
+            dealers. We originate, service and remarket assets across
+            automotive, equipment, and fleet — on six continents, in fourteen
+            languages.
+          </p>
+          <p
+            className="reveal-from-side mt-4 text-[15px] lg:text-[17px] text-[#525252] leading-[1.65] max-w-[620px]"
+            style={{ animationDelay: '0.12s' }}
+          >
+            From our delivery centers in Los Angeles, London, Bangkok, Beijing,
+            Lahore and Sydney, we operate 24/7 — so your contracts never sleep,
+            and your customers never wait.
+          </p>
+
+          {/* Stats row — 4-column premium cards */}
           <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4">
             {STATS.map((s, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="border-l-2 border-[#1d81f2]/30 pl-4">
-                  <div className="text-[36px] sm:text-[44px] lg:text-[52px] font-bold leading-none text-[#1d81f2] tracking-tight">
-                    {s.prefix}
-                    <Counter end={s.value} suffix={s.suffix} />
+                <div className="gradient-border-animated lift-on-hover shadow-depth h-full rounded-2xl border border-[#e0e0e0] bg-white p-5">
+                  <div className="text-[36px] sm:text-[44px] lg:text-[52px] font-bold leading-none tracking-tight">
+                    <span className="text-gradient-animated font-mono-numeric">
+                      {s.prefix}
+                      <Counter end={s.value} suffix={s.suffix} />
+                    </span>
                   </div>
-                  <div className="mt-2 text-[13px] sm:text-[14px] text-[#525252] leading-snug">
+                  <div className="mt-3 flex items-center gap-2 text-[13px] sm:text-[14px] text-[#525252] leading-snug">
+                    <span
+                      className="h-1 w-1 rounded-full bg-[#1d81f2]"
+                      aria-hidden
+                    />
                     {s.label}
                   </div>
                 </div>
               </Reveal>
             ))}
           </div>
+
+          {/* Live indicator chip */}
+          <Reveal delay={0.2}>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5">
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-emerald-500 live-pulse-dot"
+                aria-hidden
+              />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-emerald-700">
+                Updated real-time
+              </span>
+            </div>
+          </Reveal>
         </div>
 
-        {/* Right: 3D globe */}
-        <div className="lg:col-span-5 h-[320px] sm:h-[420px] lg:h-[500px]">
+        {/* Right: 3D globe with spotlight overlay + premium depth shadow */}
+        <div className="shadow-depth-lg relative lg:col-span-5 h-[320px] sm:h-[420px] lg:h-[500px] rounded-3xl overflow-hidden">
+          {/* Spotlight gradient behind the globe */}
+          <div
+            aria-hidden
+            className="absolute inset-0 spotlight-gradient pointer-events-none"
+          />
           <Lazy3D
-            className="h-full w-full"
+            className="relative z-10 h-full w-full"
             fallback={
               <div
                 aria-hidden
-                className="h-full w-full rounded-full bg-gradient-to-br from-[#1d81f2]/15 to-[#56ccf2]/10 blur-2xl"
+                className="relative z-10 h-full w-full rounded-full bg-gradient-to-br from-[#1d81f2]/15 to-[#56ccf2]/10 blur-2xl"
                 style={{ maxWidth: '60%', margin: '0 auto' }}
               />
             }

@@ -636,3 +636,291 @@ section[id] {
   background: linear-gradient(90deg, #1d81f2 0%, rgba(29, 129, 242, 0.4) 30%, transparent 100%);
   width: 56px;
 }
+
+/* ===========================================================================
+   ROUND 6 — Premium Styling Enhancements
+   =========================================================================== */
+
+/* Gradient text shimmer animation (animated gradient text) */
+@keyframes gradient-text-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.text-gradient-animated {
+  background: linear-gradient(
+    90deg,
+    #1d81f2 0%,
+    #2d9cdb 25%,
+    #0f62fe 50%,
+    #56ccf2 75%,
+    #1d81f2 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-text-shimmer 6s linear infinite;
+}
+
+/* Premium depth shadow — multi-layered card */
+.shadow-depth {
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 4px 12px -2px rgba(15, 23, 42, 0.06),
+    0 12px 32px -8px rgba(15, 98, 254, 0.12);
+}
+.shadow-depth-lg {
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.05),
+    0 8px 24px -4px rgba(15, 23, 42, 0.08),
+    0 24px 64px -12px rgba(15, 98, 254, 0.18);
+}
+
+/* Premium hairline border that shimmers on hover */
+.gradient-border-animated {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+}
+.gradient-border-animated::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(29, 129, 242, 0.3), rgba(86, 204, 242, 0.1) 50%, rgba(15, 98, 254, 0.3));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.gradient-border-animated:hover::before {
+  background: linear-gradient(135deg, rgba(29, 129, 242, 0.6), rgba(86, 204, 242, 0.3) 50%, rgba(15, 98, 254, 0.6));
+}
+
+/* Live pulse-dot animation for "live" indicators */
+@keyframes live-pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.7; }
+}
+.live-pulse-dot {
+  animation: live-pulse-dot 1.6s ease-in-out infinite;
+}
+
+/* Scanning radar ping for live activity feed */
+@keyframes radar-ping {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.radar-ping::before,
+.radar-ping::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: currentColor;
+  animation: radar-ping 2.4s cubic-bezier(0, 0, 0.2, 0.6) infinite;
+}
+.radar-ping::after {
+  animation-delay: 1.2s;
+}
+
+/* Premium ticker digit flip animation */
+@keyframes digit-flip-in {
+  0% { transform: translateY(60%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.digit-flip-in {
+  animation: digit-flip-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Activity feed slide-in from top */
+@keyframes activity-slide {
+  0% { transform: translateY(-8px); opacity: 0; max-height: 0; }
+  60% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; max-height: 80px; }
+}
+.activity-slide {
+  animation: activity-slide 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Premium "scan line" — vertical beam for live cards */
+@keyframes scan-beam {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.scan-beam {
+  position: relative;
+  overflow: hidden;
+}
+.scan-beam::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(29, 129, 242, 0.08) 50%,
+    transparent
+  );
+  animation: scan-beam 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Premium isometric stack card (used in product tour mockup) */
+.isometric-stack {
+  transform: perspective(1400px) rotateX(8deg) rotateY(-6deg);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.isometric-stack:hover {
+  transform: perspective(1400px) rotateX(4deg) rotateY(-2deg);
+}
+
+/* Premium segment indicator dot for step tour */
+.tour-step-dot {
+  position: relative;
+  transition: all 0.4s ease;
+}
+.tour-step-dot::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.tour-step-dot.active::after {
+  opacity: 0.4;
+}
+
+/* Premium glossary chip with conic gradient ring */
+.chip-conic {
+  position: relative;
+  overflow: hidden;
+}
+.chip-conic::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #1d81f2 0deg,
+    #56ccf2 90deg,
+    #0f62fe 180deg,
+    #24a148 270deg,
+    #1d81f2 360deg
+  );
+  z-index: -1;
+  opacity: 0.85;
+}
+
+/* Premium accordion gradient bar */
+.accordion-bar {
+  background: linear-gradient(180deg, transparent, rgba(29, 129, 242, 0.08));
+}
+
+/* Premium section heading with chip badge */
+.section-heading-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(29, 129, 242, 0.08), rgba(86, 204, 242, 0.04));
+  border: 1px solid rgba(29, 129, 242, 0.18);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1d81f2;
+}
+
+/* Premium card stack effect for case-study cards */
+.card-stack-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-stack-3d::before,
+.card-stack-3d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: white;
+  box-shadow: 0 4px 12px -4px rgba(15, 23, 42, 0.08);
+  z-index: -1;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card-stack-3d::before {
+  transform: translate(4px, 4px);
+  opacity: 0.7;
+}
+.card-stack-3d::after {
+  transform: translate(8px, 8px);
+  opacity: 0.4;
+}
+.card-stack-3d:hover::before {
+  transform: translate(2px, 2px);
+}
+.card-stack-3d:hover::after {
+  transform: translate(4px, 4px);
+}
+
+/* Premium spotlight gradient for hero overlay */
+.spotlight-gradient {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(29, 129, 242, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+/* Premium table-cell highlight for premium-row-hover extended */
+.premium-row-hover:hover {
+  background: linear-gradient(90deg, rgba(29, 129, 242, 0.06) 0%, rgba(86, 204, 242, 0.03) 50%, transparent 100%);
+}
+
+/* Premium number ticker monospace */
+.font-mono-numeric {
+  font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Premium reveal-from-side for in-page CTAs */
+@keyframes reveal-from-side {
+  0% { opacity: 0; transform: translateX(20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+.reveal-from-side {
+  animation: reveal-from-side 0.5s ease-out;
+}
+
+/* Premium underline-grow on hover for nav links */
+.nav-link-underline {
+  position: relative;
+}
+.nav-link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, #1d81f2, #56ccf2);
+  border-radius: 1px;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link-underline:hover::after {
+  width: 100%;
+}

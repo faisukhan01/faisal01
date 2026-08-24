@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Calculator,
   Sparkles,
-  TrendingDown,
   Clock,
+  Clock3,
   Users,
   ArrowUpRight,
   RotateCcw,
@@ -163,17 +163,23 @@ export function ROICalculator() {
       <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8">
         {/* Header */}
         <Reveal className="max-w-[820px]">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="inline-flex items-center justify-center h-9 w-9 rounded-lg bg-[#1d81f2]/15 text-[#56ccf2]">
-              <Calculator className="h-4 w-4" />
-            </span>
-            <span className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#9ca3af]">
+          <div className="mb-4">
+            <span
+              className="section-heading-chip backdrop-blur-sm"
+              style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                borderColor: 'rgba(255, 255, 255, 0.2)',
+                color: '#ffffff',
+              }}
+            >
+              <Calculator className="h-3.5 w-3.5" />
               ROI calculator
             </span>
           </div>
           <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-white leading-tight">
             What's a Transcend migration worth to your book?
           </h2>
+          <div className="section-rule mt-5" />
           <p className="mt-4 text-[15px] lg:text-[17px] text-white/70 leading-[1.6] max-w-[640px]">
             Set your annual asset finance volume, current automation level,
             target with Transcend, and your industry. The calculator uses
@@ -185,14 +191,17 @@ export function ROICalculator() {
         <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* LEFT — Inputs */}
           <Reveal className="lg:col-span-5">
-            <div className="rounded-2xl bg-white/[0.04] backdrop-blur border border-white/10 p-6 lg:p-8">
+            <div
+              className="gradient-border-animated rounded-2xl backdrop-blur border border-white/10 p-6 lg:p-8"
+              style={{ background: 'rgba(255, 255, 255, 0.04)' }}
+            >
               <div className="flex items-center justify-between">
                 <h3 className="text-[15px] font-semibold uppercase tracking-wider text-white">
                   Your inputs
                 </h3>
                 <button
                   onClick={() => dispatch({ type: 'RESET' })}
-                  className="inline-flex items-center gap-1.5 text-[12px] text-white/60 hover:text-white transition-colors"
+                  className="lift-on-hover inline-flex items-center gap-1.5 text-[12px] text-white/60 hover:text-white transition-colors"
                 >
                   <RotateCcw className="h-3.5 w-3.5" />
                   Reset
@@ -205,8 +214,14 @@ export function ROICalculator() {
                   <label htmlFor="roi-volume" className="text-[13px] font-medium text-white/80">
                     Annual asset finance volume
                   </label>
-                  <span className="text-[16px] font-semibold text-white">
-                    {formatUsd(state.volume)}
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      aria-hidden
+                      className="h-1.5 w-1.5 rounded-full bg-[#56ccf2] live-pulse-dot"
+                    />
+                    <span className="text-[16px] font-semibold text-white font-mono-numeric">
+                      {formatUsd(state.volume)}
+                    </span>
                   </span>
                 </div>
                 <input
@@ -234,8 +249,14 @@ export function ROICalculator() {
                   <label htmlFor="roi-current" className="text-[13px] font-medium text-white/80">
                     Current automation level
                   </label>
-                  <span className="text-[16px] font-semibold text-white">
-                    {state.current}%
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      aria-hidden
+                      className="h-1.5 w-1.5 rounded-full bg-[#56ccf2] live-pulse-dot"
+                    />
+                    <span className="text-[16px] font-semibold text-white font-mono-numeric">
+                      {state.current}%
+                    </span>
                   </span>
                 </div>
                 <input
@@ -262,8 +283,14 @@ export function ROICalculator() {
                   <label htmlFor="roi-target" className="text-[13px] font-medium text-white/80">
                     Target with Transcend
                   </label>
-                  <span className="text-[16px] font-semibold text-[#56ccf2]">
-                    {state.target}%
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      aria-hidden
+                      className="h-1.5 w-1.5 rounded-full bg-[#56ccf2] live-pulse-dot"
+                    />
+                    <span className="text-[16px] font-semibold text-[#56ccf2] font-mono-numeric">
+                      {state.target}%
+                    </span>
                   </span>
                 </div>
                 <input
@@ -289,7 +316,7 @@ export function ROICalculator() {
                 <label className="text-[13px] font-medium text-white/80 block mb-2.5">
                   Asset class / industry
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2 rounded-xl p-1.5 bg-white/[0.02] shadow-depth">
                   {ROI_CALCULATOR.industries.map((ind) => {
                     const isActive = state.industry === ind.id;
                     return (
@@ -297,9 +324,9 @@ export function ROICalculator() {
                         key={ind.id}
                         onClick={() => dispatch({ type: 'SET_INDUSTRY', v: ind.id })}
                         aria-pressed={isActive}
-                        className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-left transition-all duration-200 ${
+                        className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-left lift-on-hover transition-all duration-200 ${
                           isActive
-                            ? 'bg-gradient-to-br from-[#1d81f2] to-[#0f62fe] text-white border-transparent shadow-[0_4px_16px_-4px_rgba(15,98,254,0.5)]'
+                            ? 'chip-selected text-white border-transparent'
                             : 'bg-white/[0.04] border border-white/10 text-white/70 hover:bg-white/[0.08] hover:border-white/20'
                         }`}
                       >
@@ -343,11 +370,13 @@ export function ROICalculator() {
 
           {/* RIGHT — Results card */}
           <Reveal className="lg:col-span-7" delay={0.15}>
-            <div className="relative rounded-2xl bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-transparent border border-white/10 p-6 lg:p-8 overflow-hidden h-full">
+            <div className="relative rounded-2xl bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-transparent border border-white/10 p-6 lg:p-8 overflow-hidden h-full shadow-depth-lg">
+              {/* Spotlight gradient overlay */}
+              <div aria-hidden className="absolute inset-0 spotlight-gradient pointer-events-none" />
               {/* Top accent */}
               <div className="absolute left-0 top-0 right-0 h-px bg-gradient-to-r from-transparent via-[#56ccf2]/60 to-transparent" />
 
-              <div className="flex items-center justify-between">
+              <div className="relative flex items-center justify-between">
                 <div>
                   <div className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#9ca3af]">
                     Estimated impact
@@ -357,13 +386,13 @@ export function ROICalculator() {
                   </div>
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-[#24a148]/15 px-3 py-1 text-[11px] font-semibold text-[#4ade80]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#4ade80] animate-pulse" />
+                  <span className="live-pulse-dot pulse-ring-soft h-1.5 w-1.5 rounded-full bg-[#4ade80]" />
                   Live
                 </span>
               </div>
 
               {/* Headline savings number */}
-              <div className="mt-6">
+              <div className="relative mt-6">
                 <div className="text-[12px] uppercase tracking-wider text-white/50 mb-1">
                   Annual hard savings
                 </div>
@@ -374,25 +403,24 @@ export function ROICalculator() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.3 }}
-                    className="text-[44px] sm:text-[56px] font-semibold tracking-tight bg-clip-text text-transparent"
-                    style={{
-                      backgroundImage: 'linear-gradient(90deg, #56ccf2, #1d81f2, #0f62fe)',
-                    }}
+                    className="text-[44px] sm:text-[56px] font-semibold tracking-tight text-gradient-animated font-mono-numeric"
                   >
                     {formatUsd(results.hardSavings)}
                   </motion.div>
                 </AnimatePresence>
                 <div className="mt-1.5 text-[13px] text-white/60">
                   Per year, at run-rate. 5-year cumulative:{' '}
-                  <span className="text-white font-semibold">{formatUsd(results.fiveYearSavings)}</span>
+                  <span className="relative inline-block glow-halo text-gradient-animated font-mono-numeric font-semibold">
+                    {formatUsd(results.fiveYearSavings)}
+                  </span>
                 </div>
               </div>
 
               {/* Stat row — 3 mini callouts */}
-              <div className="mt-7 grid grid-cols-3 gap-3">
+              <div className="relative mt-7 grid grid-cols-3 gap-3">
                 {[
                   {
-                    icon: TrendingDown,
+                    icon: Clock,
                     label: 'Payback',
                     value:
                       results.paybackMonths > 0
@@ -401,7 +429,7 @@ export function ROICalculator() {
                     color: '#56ccf2',
                   },
                   {
-                    icon: Clock,
+                    icon: Clock3,
                     label: 'Hours saved / yr',
                     value:
                       results.hoursSaved >= 1000
@@ -420,7 +448,8 @@ export function ROICalculator() {
                   return (
                     <div
                       key={s.label}
-                      className="rounded-xl bg-white/[0.04] border border-white/10 p-4"
+                      className="gradient-border-card rounded-xl border border-white/10 p-4"
+                      style={{ background: 'rgba(255, 255, 255, 0.04)' }}
                     >
                       <span
                         className="inline-flex h-7 w-7 items-center justify-center rounded-md mb-2"
@@ -428,7 +457,7 @@ export function ROICalculator() {
                       >
                         <Icon className="h-3.5 w-3.5" />
                       </span>
-                      <div className="text-[18px] sm:text-[20px] font-semibold text-white leading-none">
+                      <div className="text-[18px] sm:text-[20px] font-semibold text-white leading-none font-mono-numeric">
                         {s.value}
                       </div>
                       <div className="mt-1 text-[10px] uppercase tracking-wider text-white/50">
@@ -440,40 +469,49 @@ export function ROICalculator() {
               </div>
 
               {/* 5-year ramp bar chart */}
-              <div className="mt-7">
+              <div className="relative mt-7">
                 <div className="flex items-center justify-between mb-3">
                   <div className="text-[12px] uppercase tracking-wider text-white/60">
                     5-year savings ramp
                   </div>
                   <div className="text-[11px] text-white/40">
-                    Cumulative: <span className="text-white font-semibold">{formatUsd(results.fiveYearSavings)}</span>
+                    Cumulative:{' '}
+                    <span className="text-white font-semibold font-mono-numeric">
+                      {formatUsd(results.fiveYearSavings)}
+                    </span>
                   </div>
                 </div>
-                <div className="flex items-end gap-2 h-24">
-                  {results.bars.map((b, i) => (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                      <div className="relative w-full h-full flex items-end">
-                        <motion.div
-                          initial={{ height: 0 }}
-                          animate={{ height: `${Math.max(8, b.pct * 100)}%` }}
-                          transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                          className="w-full rounded-t-md"
-                          style={{
-                            background:
-                              i === results.bars.length - 1
-                                ? 'linear-gradient(180deg, #56ccf2, #1d81f2)'
+                <div className="flex items-end gap-2 h-24 rounded-lg p-1.5 bg-white/[0.02] shadow-depth">
+                  {results.bars.map((b, i) => {
+                    const isActiveBar = i === results.bars.length - 1;
+                    return (
+                      <div key={i} className="flex-1 flex flex-col items-center gap-2">
+                        <div
+                          className={`relative w-full h-full flex items-end overflow-hidden rounded-t-md ${
+                            isActiveBar ? 'scan-beam' : ''
+                          }`}
+                        >
+                          <motion.div
+                            initial={{ height: 0 }}
+                            animate={{ height: `${Math.max(8, b.pct * 100)}%` }}
+                            transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                            className="w-full rounded-t-md"
+                            style={{
+                              background: isActiveBar
+                                ? 'linear-gradient(180deg, #56ccf2 0%, #1d81f2 50%, #24a148 100%)'
                                 : 'linear-gradient(180deg, rgba(86, 204, 242, 0.45), rgba(29, 129, 242, 0.25))',
-                          }}
-                        />
+                            }}
+                          />
+                        </div>
+                        <div className="text-[10px] text-white/40 font-mono">{b.year}</div>
                       </div>
-                      <div className="text-[10px] text-white/40 font-mono">{b.year}</div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
               {/* CTA */}
-              <div className="mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="relative mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                   <div className="text-[14px] font-semibold text-white leading-snug">
                     Want a customer-validated quote?
@@ -501,9 +539,10 @@ export function ROICalculator() {
           ].map((s) => (
             <div
               key={s.l}
-              className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-4 text-center"
+              className="gradient-border-card lift-on-hover rounded-xl border border-white/10 px-4 py-4 text-center shadow-depth"
+              style={{ background: 'rgba(255, 255, 255, 0.02)' }}
             >
-              <div className="text-[20px] sm:text-[22px] font-semibold text-white leading-none">
+              <div className="text-[20px] sm:text-[22px] font-semibold text-white leading-none font-mono-numeric">
                 {s.v}
               </div>
               <div className="mt-1.5 text-[11px] uppercase tracking-wider text-white/50 leading-tight">

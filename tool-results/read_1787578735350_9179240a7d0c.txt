@@ -1,0 +1,927 @@
+     1→@import "tailwindcss";
+     2→@import "tw-animate-css";
+     3→
+     4→@custom-variant dark (&:is(.dark *));
+     5→
+     6→@theme inline {
+     7→  --color-background: var(--background);
+     8→  --color-foreground: var(--foreground);
+     9→  --font-sans: var(--font-poppins);
+    10→  --font-mono: var(--font-poppins);
+    11→  --color-sidebar-ring: var(--sidebar-ring);
+    12→  --color-sidebar-border: var(--sidebar-border);
+    13→  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    14→  --color-sidebar-accent: var(--sidebar-accent);
+    15→  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    16→  --color-sidebar-primary: var(--sidebar-primary);
+    17→  --color-sidebar-foreground: var(--sidebar-foreground);
+    18→  --color-sidebar: var(--sidebar);
+    19→  --color-chart-5: var(--chart-5);
+    20→  --color-chart-4: var(--chart-4);
+    21→  --color-chart-3: var(--chart-3);
+    22→  --color-chart-2: var(--chart-2);
+    23→  --color-chart-1: var(--chart-1);
+    24→  --color-ring: var(--ring);
+    25→  --color-input: var(--input);
+    26→  --color-border: var(--border);
+    27→  --color-destructive: var(--destructive);
+    28→  --color-accent-foreground: var(--accent-foreground);
+    29→  --color-accent: var(--accent);
+    30→  --color-muted-foreground: var(--muted-foreground);
+    31→  --color-muted: var(--muted);
+    32→  --color-secondary-foreground: var(--secondary-foreground);
+    33→  --color-secondary: var(--secondary);
+    34→  --color-primary-foreground: var(--primary-foreground);
+    35→  --color-primary: var(--primary);
+    36→  --color-popover-foreground: var(--popover-foreground);
+    37→  --color-popover: var(--popover);
+    38→  --color-card-foreground: var(--card-foreground);
+    39→  --color-card: var(--card);
+    40→  --radius-sm: calc(var(--radius) - 4px);
+    41→  --radius-md: calc(var(--radius) - 2px);
+    42→  --radius-lg: var(--radius);
+    43→  --radius-xl: calc(var(--radius) + 4px);
+    44→
+    45→  /* NETSOL Brand Tokens */
+    46→  --color-brand-blue: #1d81f2;
+    47→  --color-brand-deep: #0f62fe;
+    48→  --color-brand-heading: #161616;
+    49→  --color-brand-body: #525252;
+    50→  --color-brand-label: #6b7280;
+    51→  --color-brand-green: #24a148;
+    52→  --color-brand-light-bg: #f5f7fa;
+    53→  --color-brand-footer: #1f2124;
+    54→  --color-brand-footer-text: #b0b3b8;
+    55→  --color-brand-testimonial: #f0f8ff;
+    56→  --color-brand-grad-start: #2d9cdb;
+    57→  --color-brand-grad-end: #56ccf2;
+    58→}
+    59→
+    60→:root {
+    61→  --radius: 0.625rem;
+    62→  --background: #ffffff;
+    63→  --foreground: #161616;
+    64→  --card: #ffffff;
+    65→  --card-foreground: #161616;
+    66→  --popover: #ffffff;
+    67→  --popover-foreground: #161616;
+    68→  --primary: #1d81f2;
+    69→  --primary-foreground: #ffffff;
+    70→  --secondary: #f5f7fa;
+    71→  --secondary-foreground: #161616;
+    72→  --muted: #f5f7fa;
+    73→  --muted-foreground: #525252;
+    74→  --accent: #f0f8ff;
+    75→  --accent-foreground: #161616;
+    76→  --destructive: #e5484d;
+    77→  --border: #e0e0e0;
+    78→  --input: #e0e0e0;
+    79→  --ring: #1d81f2;
+    80→  --chart-1: #1d81f2;
+    81→  --chart-2: #24a148;
+    82→  --chart-3: #2d9cdb;
+    83→  --chart-4: #56ccf2;
+    84→  --chart-5: #0f62fe;
+    85→  --sidebar: #ffffff;
+    86→  --sidebar-foreground: #161616;
+    87→  --sidebar-primary: #1d81f2;
+    88→  --sidebar-primary-foreground: #ffffff;
+    89→  --sidebar-accent: #f5f7fa;
+    90→  --sidebar-accent-foreground: #161616;
+    91→  --sidebar-border: #e0e0e0;
+    92→  --sidebar-ring: #1d81f2;
+    93→}
+    94→
+    95→@layer base {
+    96→  * {
+    97→    @apply border-border outline-ring/50;
+    98→  }
+    99→  html {
+   100→    scroll-behavior: smooth;
+   101→  }
+   102→  body {
+   103→    @apply bg-background text-foreground;
+   104→    font-family: var(--font-poppins), system-ui, sans-serif;
+   105→    -webkit-font-smoothing: antialiased;
+   106→    -moz-osx-font-smoothing: grayscale;
+   107→  }
+   108→  ::selection {
+   109→    background-color: rgba(29, 129, 242, 0.2);
+   110→    color: #0f62fe;
+   111→  }
+   112→}
+   113→
+   114→/* Custom scrollbar */
+   115→::-webkit-scrollbar {
+   116→  width: 10px;
+   117→  height: 10px;
+   118→}
+   119→::-webkit-scrollbar-track {
+   120→  background: #f5f7fa;
+   121→}
+   122→::-webkit-scrollbar-thumb {
+   123→  background: linear-gradient(180deg, #1d81f2, #0f62fe);
+   124→  border-radius: 8px;
+   125→  border: 2px solid #f5f7fa;
+   126→}
+   127→::-webkit-scrollbar-thumb:hover {
+   128→  background: linear-gradient(180deg, #0f62fe, #1d81f2);
+   129→}
+   130→
+   131→/* === NETSOL Keyframe Animations === */
+   132→
+   133→/* Infinite marquee for logo carousel */
+   134→@keyframes marquee-left {
+   135→  0% { transform: translateX(0); }
+   136→  100% { transform: translateX(-50%); }
+   137→}
+   138→@keyframes marquee-right {
+   139→  0% { transform: translateX(-50%); }
+   140→  100% { transform: translateX(0); }
+   141→}
+   142→@keyframes marquee-vertical {
+   143→  0% { transform: translateY(0); }
+   144→  100% { transform: translateY(-33.33%); }
+   145→}
+   146→.animate-marquee-left {
+   147→  animation: marquee-left 32s linear infinite;
+   148→}
+   149→.animate-marquee-right {
+   150→  animation: marquee-right 38s linear infinite;
+   151→}
+   152→.animate-marquee-vertical {
+   153→  animation: marquee-vertical 18s linear infinite;
+   154→}
+   155→
+   156→/* Typewriter cursor blink */
+   157→@keyframes blink-cursor {
+   158→  0%, 49% { opacity: 0.7; }
+   159→  50%, 100% { opacity: 0; }
+   160→}
+   161→.cursor-blink {
+   162→  animation: blink-cursor 1s steps(2) infinite;
+   163→}
+   164→
+   165→/* Vertical barcode/scan-line pattern */
+   166→.bg-barcode {
+   167→  background-image: repeating-linear-gradient(
+   168→    90deg,
+   169→    transparent,
+   170→    transparent 6px,
+   171→    rgba(29, 129, 242, 0.06) 6px,
+   172→    rgba(29, 129, 242, 0.06) 8px,
+   173→    transparent 8px,
+   174→    transparent 14px
+   175→  );
+   176→}
+   177→.bg-barcode-light {
+   178→  background-image: repeating-linear-gradient(
+   179→    90deg,
+   180→    transparent,
+   181→    transparent 5px,
+   182→    rgba(255, 255, 255, 0.4) 5px,
+   183→    rgba(255, 255, 255, 0.4) 7px,
+   184→    transparent 7px,
+   185→    transparent 13px
+   186→  );
+   187→}
+   188→
+   189→/* Subtle float for hero accents */
+   190→@keyframes float-slow {
+   191→  0%, 100% { transform: translateY(0) rotate(0deg); }
+   192→  50% { transform: translateY(-14px) rotate(2deg); }
+   193→}
+   194→.animate-float-slow {
+   195→  animation: float-slow 8s ease-in-out infinite;
+   196→}
+   197→
+   198→/* Pulse ring */
+   199→@keyframes pulse-ring {
+   200→  0% { transform: scale(0.95); opacity: 0.7; }
+   201→  50% { transform: scale(1.05); opacity: 0.3; }
+   202→  100% { transform: scale(0.95); opacity: 0.7; }
+   203→}
+   204→.animate-pulse-ring {
+   205→  animation: pulse-ring 3s ease-in-out infinite;
+   206→}
+   207→
+   208→/* Gradient sweep for newsletter */
+   209→@keyframes gradient-sweep {
+   210→  0% { background-position: 0% 50%; }
+   211→  50% { background-position: 100% 50%; }
+   212→  100% { background-position: 0% 50%; }
+   213→}
+   214→.gradient-sweep {
+   215→  background-size: 200% 200%;
+   216→  animation: gradient-sweep 9s ease infinite;
+   217→}
+   218→
+   219→/* Glass card */
+   220→.glass-card {
+   221→  background: rgba(255, 255, 255, 0.7);
+   222→  backdrop-filter: blur(16px);
+   223→  -webkit-backdrop-filter: blur(16px);
+   224→  border: 1px solid rgba(255, 255, 255, 0.4);
+   225→}
+   226→
+   227→/* Premium shadow tokens */
+   228→.shadow-premium {
+   229→  box-shadow: 0 4px 24px -8px rgba(15, 98, 254, 0.18), 0 1px 3px rgba(0, 0, 0, 0.04);
+   230→}
+   231→.shadow-premium-lg {
+   232→  box-shadow: 0 24px 60px -12px rgba(15, 98, 254, 0.22), 0 4px 16px rgba(0, 0, 0, 0.06);
+   233→}
+   234→.shadow-soft {
+   235→  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+   236→}
+   237→.shadow-soft-md {
+   238→  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+   239→}
+   240→
+   241→/* Hero CTA button glow */
+   242→.btn-glow {
+   243→  position: relative;
+   244→}
+   245→.btn-glow::after {
+   246→  content: "";
+   247→  position: absolute;
+   248→  inset: -3px;
+   249→  border-radius: inherit;
+   250→  background: linear-gradient(120deg, #1d81f2, #56ccf2, #0f62fe);
+   251→  opacity: 0;
+   252→  z-index: -1;
+   253→  filter: blur(10px);
+   254→  transition: opacity 0.3s ease;
+   255→}
+   256→.btn-glow:hover::after {
+   257→  opacity: 0.55;
+   258→}
+   259→
+   260→/* Text clamp helpers */
+   261→.clamp-2 {
+   262→  display: -webkit-box;
+   263→  -webkit-line-clamp: 2;
+   264→  -webkit-box-orient: vertical;
+   265→  overflow: hidden;
+   266→}
+   267→.clamp-3 {
+   268→  display: -webkit-box;
+   269→  -webkit-line-clamp: 3;
+   270→  -webkit-box-orient: vertical;
+   271→  overflow: hidden;
+   272→}
+   273→
+   274→/* Section padding helpers */
+   275→.section-pad {
+   276→  padding-top: 5rem;
+   277→  padding-bottom: 5rem;
+   278→}
+   279→@media (min-width: 1024px) {
+   280→  .section-pad {
+   281→    padding-top: 7.5rem;
+   282→    padding-bottom: 7.5rem;
+   283→  }
+   284→}
+   285→
+   286→/* Reveal-on-scroll base state (Framer Motion handles active state) */
+   287→.reveal-init {
+   288→  opacity: 0;
+   289→  transform: translateY(28px);
+   290→}
+   291→
+   292→/* Mesh gradient (premium SaaS hero backdrop) */
+   293→.mesh-gradient {
+   294→  background:
+   295→    radial-gradient(at 22% 18%, rgba(29, 129, 242, 0.12) 0px, transparent 50%),
+   296→    radial-gradient(at 78% 28%, rgba(86, 204, 242, 0.10) 0px, transparent 50%),
+   297→    radial-gradient(at 50% 82%, rgba(36, 161, 72, 0.06) 0px, transparent 50%);
+   298→}
+   299→
+   300→/* Focus ring refinement */
+   301→*:focus-visible {
+   302→  outline: 2px solid #1d81f2;
+   303→  outline-offset: 2px;
+   304→  border-radius: 4px;
+   305→}
+   306→
+   307→/* === Round 3 enhancements === */
+   308→
+   309→/* Film grain overlay — applied via .grain-overlay class on dark surfaces */
+   310→.grain-overlay::before {
+   311→  content: "";
+   312→  position: absolute;
+   313→  inset: 0;
+   314→  pointer-events: none;
+   315→  z-index: 1;
+   316→  opacity: 0.05;
+   317→  mix-blend-mode: overlay;
+   318→  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+   319→}
+   320→
+   321→/* Section anchor scroll-margin so anchored sections sit nicely below the sticky header */
+   322→section[id] {
+   323→  scroll-margin-top: 80px;
+   324→}
+   325→
+   326→/* Premium card hover lift utility */
+   327→.lift-on-hover {
+   328→  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+   329→}
+   330→.lift-on-hover:hover {
+   331→  transform: translateY(-4px);
+   332→}
+   333→
+   334→/* Subtle shimmer (loading skeleton) */
+   335→@keyframes shimmer {
+   336→  0% { background-position: -200% 0; }
+   337→  100% { background-position: 200% 0; }
+   338→}
+   339→.shimmer {
+   340→  background: linear-gradient(90deg, #f5f7fa 25%, #ffffff 50%, #f5f7fa 75%);
+   341→  background-size: 200% 100%;
+   342→  animation: shimmer 1.6s linear infinite;
+   343→}
+   344→
+   345→/* Section-to-section divider hairline */
+   346→.divider-hairline {
+   347→  background-image: linear-gradient(90deg, transparent, rgba(29, 129, 242, 0.25), transparent);
+   348→}
+   349→
+   350→/* Premium gradient text */
+   351→.text-gradient-blue {
+   352→  background: linear-gradient(120deg, #1d81f2 0%, #56ccf2 50%, #0f62fe 100%);
+   353→  -webkit-background-clip: text;
+   354→  background-clip: text;
+   355→  color: transparent;
+   356→}
+   357→
+   358→/* Soft glow halo for emphasized cards */
+   359→.glow-halo::after {
+   360→  content: "";
+   361→  position: absolute;
+   362→  inset: -40% -20%;
+   363→  background: radial-gradient(circle at center, rgba(29, 129, 242, 0.08) 0%, transparent 60%);
+   364→  pointer-events: none;
+   365→  z-index: 0;
+   366→}
+   367→
+   368→/* === Round 4 enhancements === */
+   369→
+   370→/* Premium hero card glass — multi-layer for depth */
+   371→.glass-card-premium {
+   372→  background: linear-gradient(
+   373→    135deg,
+   374→    rgba(255, 255, 255, 0.85) 0%,
+   375→    rgba(255, 255, 255, 0.6) 100%
+   376→  );
+   377→  backdrop-filter: blur(20px) saturate(140%);
+   378→  -webkit-backdrop-filter: blur(20px) saturate(140%);
+   379→  border: 1px solid rgba(255, 255, 255, 0.5);
+   380→  box-shadow:
+   381→    0 30px 80px -20px rgba(15, 98, 254, 0.28),
+   382→    0 8px 24px -8px rgba(0, 0, 0, 0.08),
+   383→    inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+   384→}
+   385→
+   386→/* Premium button shine — sweep light on hover */
+   387→.btn-shine {
+   388→  position: relative;
+   389→  overflow: hidden;
+   390→}
+   391→.btn-shine::before {
+   392→  content: "";
+   393→  position: absolute;
+   394→  top: 0;
+   395→  left: -100%;
+   396→  width: 50%;
+   397→  height: 100%;
+   398→  background: linear-gradient(
+   399→    90deg,
+   400→    transparent,
+   401→    rgba(255, 255, 255, 0.4),
+   402→    transparent
+   403→  );
+   404→  transform: skewX(-20deg);
+   405→  transition: left 0.7s ease;
+   406→  pointer-events: none;
+   407→  z-index: 1;
+   408→}
+   409→.btn-shine:hover::before {
+   410→  left: 130%;
+   411→}
+   412→
+   413→/* Premium dark section utility — depth-aware */
+   414→.section-dark-premium {
+   415→  background:
+   416→    radial-gradient(at 20% 20%, rgba(29, 129, 242, 0.08) 0%, transparent 50%),
+   417→    radial-gradient(at 80% 80%, rgba(36, 161, 72, 0.06) 0%, transparent 50%),
+   418→    #0f172a;
+   419→}
+   420→
+   421→/* Premium pricing/chip selected animation */
+   422→.chip-selected {
+   423→  background: linear-gradient(135deg, #1d81f2 0%, #0f62fe 100%);
+   424→  box-shadow:
+   425→    0 4px 16px -4px rgba(15, 98, 254, 0.5),
+   426→    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+   427→}
+   428→
+   429→/* Premium dashed border for highlight cards */
+   430→.dashed-premium {
+   431→  background-image: repeating-linear-gradient(
+   432→    90deg,
+   433→    #1d81f2,
+   434→    #1d81f2 6px,
+   435→    transparent 6px,
+   436→    transparent 12px
+   437→  );
+   438→}
+   439→
+   440→/* Premium hover lift utility (stronger) */
+   441→.lift-on-hover-strong {
+   442→  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+   443→}
+   444→.lift-on-hover-strong:hover {
+   445→  transform: translateY(-6px);
+   446→}
+   447→
+   448→/* Premium card border with subtle gradient */
+   449→.gradient-border-card {
+   450→  position: relative;
+   451→  background: white;
+   452→  border-radius: 16px;
+   453→}
+   454→.gradient-border-card::before {
+   455→  content: "";
+   456→  position: absolute;
+   457→  inset: -1px;
+   458→  border-radius: inherit;
+   459→  background: linear-gradient(135deg, rgba(29, 129, 242, 0.25), transparent 35%, transparent 65%, rgba(86, 204, 242, 0.25));
+   460→  z-index: -1;
+   461→}
+   462→
+   463→/* Premium divider with center dot */
+   464→.divider-with-dot {
+   465→  display: flex;
+   466→  align-items: center;
+   467→  gap: 12px;
+   468→  color: #9ca3af;
+   469→}
+   470→.divider-with-dot::before,
+   471→.divider-with-dot::after {
+   472→  content: "";
+   473→  flex: 1;
+   474→  height: 1px;
+   475→  background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+   476→}
+   477→
+   478→/* Premium fade-in from left for tag elements */
+   479→@keyframes fade-slide-in-left {
+   480→  0% { opacity: 0; transform: translateX(-12px); }
+   481→  100% { opacity: 1; transform: translateX(0); }
+   482→}
+   483→.animate-fade-in-left {
+   484→  animation: fade-slide-in-left 0.4s ease-out;
+   485→}
+   486→
+   487→/* Premium fade-in from right for tag elements */
+   488→@keyframes fade-slide-in-right {
+   489→  0% { opacity: 0; transform: translateX(12px); }
+   490→  100% { opacity: 1; transform: translateX(0); }
+   491→}
+   492→.animate-fade-in-right {
+   493→  animation: fade-slide-in-right 0.4s ease-out;
+   494→}
+   495→
+   496→/* Premium scale-in for popovers */
+   497→@keyframes scale-in-pop {
+   498→  0% { opacity: 0; transform: scale(0.92); }
+   499→  100% { opacity: 1; transform: scale(1); }
+   500→}
+   501→.animate-scale-in-pop {
+   502→  animation: scale-in-pop 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+   503→}
+   504→
+   505→/* Premium backdrop for premium modals */
+   506→.backdrop-premium {
+   507→  background: rgba(10, 13, 18, 0.65);
+   508→  backdrop-filter: blur(12px) saturate(120%);
+   509→  -webkit-backdrop-filter: blur(12px) saturate(120%);
+   510→}
+   511→
+   512→/* Premium focus-visible ring refinement */
+   513→*:focus-visible {
+   514→  outline: 2px solid #1d81f2;
+   515→  outline-offset: 3px;
+   516→  border-radius: 6px;
+   517→}
+   518→
+   519→/* Premium heading tracking tighter on large displays */
+   520→@media (min-width: 1024px) {
+   521→  h1, h2, h3 { letter-spacing: -0.018em; }
+   522→}
+   523→
+   524→/* ---------------------------------------------------------------------------
+   525→   Premium range slider for ROI calculator (dark surface)
+   526→--------------------------------------------------------------------------- */
+   527→.roi-slider {
+   528→  -webkit-appearance: none;
+   529→  appearance: none;
+   530→  height: 6px;
+   531→  border-radius: 999px;
+   532→  background: linear-gradient(
+   533→    90deg,
+   534→    rgba(86, 204, 242, 0.7) 0%,
+   535→    rgba(29, 129, 242, 0.5) 50%,
+   536→    rgba(255, 255, 255, 0.08) 50%,
+   537→    rgba(255, 255, 255, 0.08) 100%
+   538→  );
+   539→  outline: none;
+   540→  cursor: pointer;
+   541→}
+   542→.roi-slider::-webkit-slider-thumb {
+   543→  -webkit-appearance: none;
+   544→  appearance: none;
+   545→  width: 22px;
+   546→  height: 22px;
+   547→  border-radius: 999px;
+   548→  background: linear-gradient(135deg, #ffffff 0%, #e6f1ff 100%);
+   549→  border: 2px solid #1d81f2;
+   550→  box-shadow: 0 4px 12px -2px rgba(15, 98, 254, 0.55), 0 0 0 4px rgba(29, 129, 242, 0.12);
+   551→  cursor: pointer;
+   552→  transition: transform 0.15s ease, box-shadow 0.15s ease;
+   553→}
+   554→.roi-slider::-webkit-slider-thumb:hover {
+   555→  transform: scale(1.12);
+   556→  box-shadow: 0 4px 16px -2px rgba(15, 98, 254, 0.7), 0 0 0 6px rgba(29, 129, 242, 0.18);
+   557→}
+   558→.roi-slider::-moz-range-thumb {
+   559→  width: 22px;
+   560→  height: 22px;
+   561→  border-radius: 999px;
+   562→  background: linear-gradient(135deg, #ffffff 0%, #e6f1ff 100%);
+   563→  border: 2px solid #1d81f2;
+   564→  box-shadow: 0 4px 12px -2px rgba(15, 98, 254, 0.55);
+   565→  cursor: pointer;
+   566→}
+   567→
+   568→/* ---------------------------------------------------------------------------
+   569→   Section index label — premium "(01 / 17)" badge
+   570→--------------------------------------------------------------------------- */
+   571→.section-index-label {
+   572→  display: inline-flex;
+   573→  align-items: center;
+   574→  gap: 6px;
+   575→  padding: 4px 10px;
+   576→  border-radius: 999px;
+   577→  border: 1px solid rgba(224, 224, 224, 0.8);
+   578→  background: rgba(245, 247, 250, 0.6);
+   579→  font-family: ui-monospace, "SF Mono", "JetBrains Mono", monospace;
+   580→  font-size: 11px;
+   581→  font-weight: 500;
+   582→  color: #6b7280;
+   583→  letter-spacing: 0.04em;
+   584→  backdrop-filter: blur(6px);
+   585→}
+   586→.section-index-label .dot {
+   587→  display: inline-block;
+   588→  width: 4px;
+   589→  height: 4px;
+   590→  border-radius: 999px;
+   591→  background: #1d81f2;
+   592→}
+   593→
+   594→/* ---------------------------------------------------------------------------
+   595→   Premium premium-row hover for sticky-column tables
+   596→--------------------------------------------------------------------------- */
+   597→.premium-row-hover:hover {
+   598→  background: linear-gradient(90deg, rgba(29, 129, 242, 0.04) 0%, transparent 70%);
+   599→}
+   600→
+   601→/* ---------------------------------------------------------------------------
+   602→   Premium "best value" column ring
+   603→--------------------------------------------------------------------------- */
+   604→.best-value-column {
+   605→  position: relative;
+   606→  box-shadow: inset 0 0 0 1px rgba(29, 129, 242, 0.25);
+   607→  background: linear-gradient(180deg, rgba(29, 129, 242, 0.06) 0%, rgba(29, 129, 242, 0.02) 100%);
+   608→}
+   609→
+   610→/* ---------------------------------------------------------------------------
+   611→   Premium glass morphism for sticky header on scroll
+   612→--------------------------------------------------------------------------- */
+   613→.glass-on-scroll {
+   614→  background: rgba(255, 255, 255, 0.85);
+   615→  backdrop-filter: blur(18px) saturate(140%);
+   616→  -webkit-backdrop-filter: blur(18px) saturate(140%);
+   617→}
+   618→
+   619→/* ---------------------------------------------------------------------------
+   620→   Premium pulse-ring keyframe (used by ROI live dot etc)
+   621→--------------------------------------------------------------------------- */
+   622→@keyframes pulse-ring-soft {
+   623→  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+   624→  70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+   625→  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+   626→}
+   627→.pulse-ring-soft {
+   628→  animation: pulse-ring-soft 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+   629→}
+   630→
+   631→/* ---------------------------------------------------------------------------
+   632→   Premium gradient hairline under section headings
+   633→--------------------------------------------------------------------------- */
+   634→.section-rule {
+   635→  height: 1px;
+   636→  background: linear-gradient(90deg, #1d81f2 0%, rgba(29, 129, 242, 0.4) 30%, transparent 100%);
+   637→  width: 56px;
+   638→}
+   639→
+   640→/* ===========================================================================
+   641→   ROUND 6 — Premium Styling Enhancements
+   642→   =========================================================================== */
+   643→
+   644→/* Gradient text shimmer animation (animated gradient text) */
+   645→@keyframes gradient-text-shimmer {
+   646→  0% { background-position: 0% 50%; }
+   647→  100% { background-position: 200% 50%; }
+   648→}
+   649→.text-gradient-animated {
+   650→  background: linear-gradient(
+   651→    90deg,
+   652→    #1d81f2 0%,
+   653→    #2d9cdb 25%,
+   654→    #0f62fe 50%,
+   655→    #56ccf2 75%,
+   656→    #1d81f2 100%
+   657→  );
+   658→  background-size: 200% auto;
+   659→  -webkit-background-clip: text;
+   660→  background-clip: text;
+   661→  color: transparent;
+   662→  animation: gradient-text-shimmer 6s linear infinite;
+   663→}
+   664→
+   665→/* Premium depth shadow — multi-layered card */
+   666→.shadow-depth {
+   667→  box-shadow:
+   668→    0 1px 2px rgba(15, 23, 42, 0.04),
+   669→    0 4px 12px -2px rgba(15, 23, 42, 0.06),
+   670→    0 12px 32px -8px rgba(15, 98, 254, 0.12);
+   671→}
+   672→.shadow-depth-lg {
+   673→  box-shadow:
+   674→    0 2px 4px rgba(15, 23, 42, 0.05),
+   675→    0 8px 24px -4px rgba(15, 23, 42, 0.08),
+   676→    0 24px 64px -12px rgba(15, 98, 254, 0.18);
+   677→}
+   678→
+   679→/* Premium hairline border that shimmers on hover */
+   680→.gradient-border-animated {
+   681→  position: relative;
+   682→  background: white;
+   683→  border-radius: 16px;
+   684→}
+   685→.gradient-border-animated::before {
+   686→  content: "";
+   687→  position: absolute;
+   688→  inset: 0;
+   689→  border-radius: inherit;
+   690→  padding: 1px;
+   691→  background: linear-gradient(135deg, rgba(29, 129, 242, 0.3), rgba(86, 204, 242, 0.1) 50%, rgba(15, 98, 254, 0.3));
+   692→  -webkit-mask:
+   693→    linear-gradient(#fff 0 0) content-box,
+   694→    linear-gradient(#fff 0 0);
+   695→  -webkit-mask-composite: xor;
+   696→  mask-composite: exclude;
+   697→  pointer-events: none;
+   698→  transition: opacity 0.3s ease;
+   699→}
+   700→.gradient-border-animated:hover::before {
+   701→  background: linear-gradient(135deg, rgba(29, 129, 242, 0.6), rgba(86, 204, 242, 0.3) 50%, rgba(15, 98, 254, 0.6));
+   702→}
+   703→
+   704→/* Live pulse-dot animation for "live" indicators */
+   705→@keyframes live-pulse-dot {
+   706→  0%, 100% { transform: scale(1); opacity: 1; }
+   707→  50% { transform: scale(1.15); opacity: 0.7; }
+   708→}
+   709→.live-pulse-dot {
+   710→  animation: live-pulse-dot 1.6s ease-in-out infinite;
+   711→}
+   712→
+   713→/* Scanning radar ping for live activity feed */
+   714→@keyframes radar-ping {
+   715→  0% { transform: scale(0.8); opacity: 0.8; }
+   716→  100% { transform: scale(2.4); opacity: 0; }
+   717→}
+   718→.radar-ping::before,
+   719→.radar-ping::after {
+   720→  content: "";
+   721→  position: absolute;
+   722→  inset: 0;
+   723→  border-radius: 999px;
+   724→  background: currentColor;
+   725→  animation: radar-ping 2.4s cubic-bezier(0, 0, 0.2, 0.6) infinite;
+   726→}
+   727→.radar-ping::after {
+   728→  animation-delay: 1.2s;
+   729→}
+   730→
+   731→/* Premium ticker digit flip animation */
+   732→@keyframes digit-flip-in {
+   733→  0% { transform: translateY(60%); opacity: 0; }
+   734→  100% { transform: translateY(0); opacity: 1; }
+   735→}
+   736→.digit-flip-in {
+   737→  animation: digit-flip-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+   738→}
+   739→
+   740→/* Activity feed slide-in from top */
+   741→@keyframes activity-slide {
+   742→  0% { transform: translateY(-8px); opacity: 0; max-height: 0; }
+   743→  60% { transform: translateY(0); opacity: 1; }
+   744→  100% { transform: translateY(0); opacity: 1; max-height: 80px; }
+   745→}
+   746→.activity-slide {
+   747→  animation: activity-slide 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+   748→}
+   749→
+   750→/* Premium "scan line" — vertical beam for live cards */
+   751→@keyframes scan-beam {
+   752→  0% { transform: translateX(-100%); }
+   753→  100% { transform: translateX(100%); }
+   754→}
+   755→.scan-beam {
+   756→  position: relative;
+   757→  overflow: hidden;
+   758→}
+   759→.scan-beam::after {
+   760→  content: "";
+   761→  position: absolute;
+   762→  top: 0;
+   763→  left: 0;
+   764→  width: 60%;
+   765→  height: 100%;
+   766→  background: linear-gradient(
+   767→    90deg,
+   768→    transparent,
+   769→    rgba(29, 129, 242, 0.08) 50%,
+   770→    transparent
+   771→  );
+   772→  animation: scan-beam 5s ease-in-out infinite;
+   773→  pointer-events: none;
+   774→}
+   775→
+   776→/* Premium isometric stack card (used in product tour mockup) */
+   777→.isometric-stack {
+   778→  transform: perspective(1400px) rotateX(8deg) rotateY(-6deg);
+   779→  transform-style: preserve-3d;
+   780→  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+   781→}
+   782→.isometric-stack:hover {
+   783→  transform: perspective(1400px) rotateX(4deg) rotateY(-2deg);
+   784→}
+   785→
+   786→/* Premium segment indicator dot for step tour */
+   787→.tour-step-dot {
+   788→  position: relative;
+   789→  transition: all 0.4s ease;
+   790→}
+   791→.tour-step-dot::after {
+   792→  content: "";
+   793→  position: absolute;
+   794→  inset: -6px;
+   795→  border-radius: 999px;
+   796→  border: 1px solid currentColor;
+   797→  opacity: 0;
+   798→  transition: opacity 0.3s ease;
+   799→}
+   800→.tour-step-dot.active::after {
+   801→  opacity: 0.4;
+   802→}
+   803→
+   804→/* Premium glossary chip with conic gradient ring */
+   805→.chip-conic {
+   806→  position: relative;
+   807→  overflow: hidden;
+   808→}
+   809→.chip-conic::before {
+   810→  content: "";
+   811→  position: absolute;
+   812→  inset: -2px;
+   813→  border-radius: inherit;
+   814→  background: conic-gradient(
+   815→    from 180deg at 50% 50%,
+   816→    #1d81f2 0deg,
+   817→    #56ccf2 90deg,
+   818→    #0f62fe 180deg,
+   819→    #24a148 270deg,
+   820→    #1d81f2 360deg
+   821→  );
+   822→  z-index: -1;
+   823→  opacity: 0.85;
+   824→}
+   825→
+   826→/* Premium accordion gradient bar */
+   827→.accordion-bar {
+   828→  background: linear-gradient(180deg, transparent, rgba(29, 129, 242, 0.08));
+   829→}
+   830→
+   831→/* Premium section heading with chip badge */
+   832→.section-heading-chip {
+   833→  display: inline-flex;
+   834→  align-items: center;
+   835→  gap: 8px;
+   836→  padding: 6px 14px;
+   837→  border-radius: 999px;
+   838→  background: linear-gradient(135deg, rgba(29, 129, 242, 0.08), rgba(86, 204, 242, 0.04));
+   839→  border: 1px solid rgba(29, 129, 242, 0.18);
+   840→  font-size: 11px;
+   841→  font-weight: 600;
+   842→  letter-spacing: 0.08em;
+   843→  text-transform: uppercase;
+   844→  color: #1d81f2;
+   845→}
+   846→
+   847→/* Premium card stack effect for case-study cards */
+   848→.card-stack-3d {
+   849→  position: relative;
+   850→  transform-style: preserve-3d;
+   851→  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+   852→}
+   853→.card-stack-3d::before,
+   854→.card-stack-3d::after {
+   855→  content: "";
+   856→  position: absolute;
+   857→  inset: 0;
+   858→  border-radius: inherit;
+   859→  background: white;
+   860→  box-shadow: 0 4px 12px -4px rgba(15, 23, 42, 0.08);
+   861→  z-index: -1;
+   862→  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+   863→}
+   864→.card-stack-3d::before {
+   865→  transform: translate(4px, 4px);
+   866→  opacity: 0.7;
+   867→}
+   868→.card-stack-3d::after {
+   869→  transform: translate(8px, 8px);
+   870→  opacity: 0.4;
+   871→}
+   872→.card-stack-3d:hover::before {
+   873→  transform: translate(2px, 2px);
+   874→}
+   875→.card-stack-3d:hover::after {
+   876→  transform: translate(4px, 4px);
+   877→}
+   878→
+   879→/* Premium spotlight gradient for hero overlay */
+   880→.spotlight-gradient {
+   881→  background: radial-gradient(
+   882→    circle at 50% 50%,
+   883→    rgba(29, 129, 242, 0.06) 0%,
+   884→    transparent 70%
+   885→  );
+   886→}
+   887→
+   888→/* Premium table-cell highlight for premium-row-hover extended */
+   889→.premium-row-hover:hover {
+   890→  background: linear-gradient(90deg, rgba(29, 129, 242, 0.06) 0%, rgba(86, 204, 242, 0.03) 50%, transparent 100%);
+   891→}
+   892→
+   893→/* Premium number ticker monospace */
+   894→.font-mono-numeric {
+   895→  font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", monospace;
+   896→  font-variant-numeric: tabular-nums;
+   897→  font-feature-settings: "tnum" 1;
+   898→}
+   899→
+   900→/* Premium reveal-from-side for in-page CTAs */
+   901→@keyframes reveal-from-side {
+   902→  0% { opacity: 0; transform: translateX(20px); }
+   903→  100% { opacity: 1; transform: translateX(0); }
+   904→}
+   905→.reveal-from-side {
+   906→  animation: reveal-from-side 0.5s ease-out;
+   907→}
+   908→
+   909→/* Premium underline-grow on hover for nav links */
+   910→.nav-link-underline {
+   911→  position: relative;
+   912→}
+   913→.nav-link-underline::after {
+   914→  content: "";
+   915→  position: absolute;
+   916→  bottom: -4px;
+   917→  left: 0;
+   918→  height: 2px;
+   919→  width: 0;
+   920→  background: linear-gradient(90deg, #1d81f2, #56ccf2);
+   921→  border-radius: 1px;
+   922→  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+   923→}
+   924→.nav-link-underline:hover::after {
+   925→  width: 100%;
+   926→}
+   927→

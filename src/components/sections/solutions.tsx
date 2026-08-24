@@ -56,6 +56,8 @@ export function Solutions() {
     >
       {/* Decorative barcode + hairline pattern */}
       <div aria-hidden className="absolute inset-0 bg-barcode opacity-25 pointer-events-none" />
+      {/* Premium mesh-gradient overlay */}
+      <div aria-hidden className="absolute inset-0 mesh-gradient pointer-events-none" />
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#1d81f2]/30 to-transparent"
@@ -71,23 +73,33 @@ export function Solutions() {
       />
 
       <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8">
-        {/* Header */}
-        <Reveal className="max-w-[820px]">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="h-2 w-2 rounded-full bg-[#1d81f2]" />
-            <span className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
+        {/* Header row — title left, "View all stories →" right */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <Reveal className="max-w-[820px]">
+            <span className="section-heading-chip mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#1d81f2] live-pulse-dot" />
               Customer stories
             </span>
-          </div>
-          <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
-            Outcomes our customers can put a number on.
-          </h2>
-          <p className="mt-4 text-[15px] lg:text-[17px] text-[#525252] leading-[1.6] max-w-[640px]">
-            Six reference stories across automotive, equipment, fleet, marine,
-            energy, and banking — each with audited metrics on cost, cycle
-            time, and conversion. Click any card to read the full story.
-          </p>
-        </Reveal>
+            <h2 className="mt-5 text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
+              Outcomes our customers can put a number on.
+            </h2>
+            <div className="section-rule mt-5" />
+            <p className="mt-4 text-[15px] lg:text-[17px] text-[#525252] leading-[1.6] max-w-[640px]">
+              Six reference stories across automotive, equipment, fleet, marine,
+              energy, and banking — each with audited metrics on cost, cycle
+              time, and conversion. Click any card to read the full story.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1} className="shrink-0">
+            <a
+              href="#case-studies"
+              className="nav-link-underline inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#1d81f2] hover:text-[#0f62fe] transition-colors"
+            >
+              View all stories
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </Reveal>
+        </div>
 
         {/* Filter chips */}
         <div className="mt-10 flex flex-wrap items-center gap-2.5">
@@ -99,15 +111,21 @@ export function Solutions() {
                 key={chip.id}
                 onClick={() => dispatch({ type: 'SET_FILTER', filter: chip.id })}
                 aria-pressed={isActive}
-                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium transition-all duration-200 ${
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-medium lift-on-hover transition-all duration-200 ${
                   isActive
                     ? 'chip-selected text-white'
                     : 'bg-white border border-[#e0e0e0] text-[#525252] hover:border-[#1d81f2]/40 hover:text-[#1d81f2]'
                 }`}
               >
+                {isActive && (
+                  <span
+                    aria-hidden
+                    className="h-1.5 w-1.5 rounded-full bg-white live-pulse-dot"
+                  />
+                )}
                 <span>{chip.label}</span>
                 <span
-                  className={`inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[11px] ${
+                  className={`inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-[11px] font-mono-numeric ${
                     isActive ? 'bg-white/20 text-white' : 'bg-[#f5f7fa] text-[#6b7280]'
                   }`}
                 >
@@ -130,14 +148,17 @@ export function Solutions() {
                 exit={{ opacity: 0, y: -8, scale: 0.98 }}
                 transition={{ duration: 0.45, delay: Math.min(i, 5) * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 onClick={() => setOpenId(story.id)}
-                className="group relative text-left rounded-2xl bg-white border border-[#e0e0e0] p-6 lg:p-7 overflow-hidden lift-on-hover-strong hover:shadow-premium-lg transition-all duration-300"
+                className="group relative text-left rounded-2xl bg-white border border-[#e0e0e0] p-6 lg:p-7 card-stack-3d lift-on-hover-strong shadow-depth-lg transition-all duration-300"
                 aria-label={`Read case study: ${story.headline}`}
               >
-                {/* Top accent strip — colored per story */}
+                {/* Top accent strip — colored per story; thicker with vertical gradient fade */}
                 <span
                   aria-hidden
                   className="absolute left-0 top-0 h-[3px] w-0 group-hover:w-full transition-all duration-500"
-                  style={{ background: `linear-gradient(90deg, ${story.accent}, transparent)` }}
+                  style={{
+                    background: `linear-gradient(90deg, ${story.accent}, ${story.accent}99 60%, transparent)`,
+                    boxShadow: `0 4px 12px -4px ${story.accent}66`,
+                  }}
                 />
                 {/* Hover glow blob */}
                 <span
@@ -150,12 +171,12 @@ export function Solutions() {
                   {/* Header: logo + industry */}
                   <div className="flex items-start justify-between gap-3">
                     <span
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-white font-semibold text-[14px] tracking-tight shadow-soft"
+                      className="gradient-border-animated inline-flex h-11 w-11 items-center justify-center rounded-2xl text-white font-semibold text-[14px] tracking-tight shadow-soft"
                       style={{ backgroundColor: story.accent }}
                     >
                       {story.logo}
                     </span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[#f5f7fa] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-[#6b7280] border border-[#e0e0e0]">
+                    <span className="chip-selected inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white border border-transparent">
                       <Building2 className="h-3 w-3" />
                       {story.industry}
                     </span>
@@ -178,10 +199,7 @@ export function Solutions() {
                         key={j}
                         className="rounded-lg bg-[#f5f7fa] border border-[#e0e0e0]/60 p-2.5 text-center"
                       >
-                        <div
-                          className="text-[14px] sm:text-[15px] font-semibold tracking-tight leading-none"
-                          style={{ color: story.accent }}
-                        >
+                        <div className="text-[14px] sm:text-[15px] font-semibold tracking-tight leading-none text-gradient-animated font-mono-numeric">
                           {m.value}
                         </div>
                         <div className="mt-1 text-[9px] uppercase tracking-wider text-[#6b7280] leading-tight">
@@ -192,7 +210,7 @@ export function Solutions() {
                   </div>
 
                   {/* CTA link */}
-                  <div className="mt-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-[13px] font-semibold text-[#1d81f2]">
+                  <div className="btn-shine lift-on-hover mt-6 pt-4 border-t border-[#f0f0f0] flex items-center justify-between text-[13px] font-semibold text-[#1d81f2]">
                     <span>Read full story</span>
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>

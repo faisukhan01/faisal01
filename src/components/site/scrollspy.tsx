@@ -9,10 +9,12 @@ import { motion, AnimatePresence } from 'framer-motion';
  */
 export const SCROLLSPY_SECTIONS = [
   { id: 'platform', label: 'Platform' },
+  { id: 'tour', label: 'Tour' },
   { id: 'solutions', label: 'Who We Serve' },
   { id: 'industries', label: 'Industries' },
   { id: 'why-netsol', label: 'Why NETSOL' },
   { id: 'case-studies', label: 'Stories' },
+  { id: 'pulse', label: 'Live Pulse' },
   { id: 'about', label: 'About' },
   { id: 'comparison', label: 'Compare' },
   { id: 'awards', label: 'Awards' },
@@ -22,6 +24,7 @@ export const SCROLLSPY_SECTIONS = [
   { id: 'testimonials', label: 'Quotes' },
   { id: 'roi', label: 'ROI' },
   { id: 'insights', label: 'Insights' },
+  { id: 'glossary', label: 'Glossary' },
   { id: 'faq', label: 'FAQ' },
   { id: 'contact', label: 'Contact' },
 ];

@@ -14,9 +14,54 @@ const PlatformScene3D = dynamic(
   { ssr: false }
 );
 
+/**
+ * Per-tab category chip row.
+ * Remounts via parent `key={tabId}` so the active selection resets when the
+ * tab changes — no useEffect needed (satisfies react-hooks rules).
+ */
+function CategoryChips({
+  categories,
+  accent,
+}: {
+  categories: readonly string[];
+  accent: string;
+}) {
+  const [activeCat, setActiveCat] = useState(categories[0] ?? '');
+
+  return (
+    <div className="mt-5 relative z-10 flex flex-wrap gap-2">
+      {categories.map((cat) => {
+        const isActive = cat === activeCat;
+        return (
+          <button
+            key={cat}
+            type="button"
+            onClick={() => setActiveCat(cat)}
+            aria-pressed={isActive}
+            className={cn(
+              'lift-on-hover inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-medium transition-all duration-300',
+              isActive
+                ? 'chip-selected text-white'
+                : 'border border-[#e0e0e0] bg-white text-[#525252] hover:text-[#161616] hover:border-[#1d81f2]/40'
+            )}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: isActive ? '#ffffff' : accent }}
+              aria-hidden
+            />
+            {cat}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 export function TranscendPlatform() {
   const [active, setActive] = useState('finance');
-  const current = TRANSCEND_TABS.find((t) => t.id === active) ?? TRANSCEND_TABS[1];
+  const current =
+    TRANSCEND_TABS.find((t) => t.id === active) ?? TRANSCEND_TABS[1];
 
   return (
     <section
@@ -30,16 +75,15 @@ export function TranscendPlatform() {
       <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8">
         {/* Heading */}
         <Reveal className="max-w-[820px] mx-auto text-center">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <span className="h-2 w-2 rounded-full bg-[#1d81f2]" />
-            <span className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
-              The Transcend Platform
-            </span>
-          </div>
-          <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
+          <span className="section-heading-chip">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#1d81f2]" aria-hidden />
+            Transcend Platform
+          </span>
+          <h2 className="mt-5 text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
             One platform for the entire asset lifecycle
           </h2>
-          <p className="mt-4 text-[15px] lg:text-[17px] text-[#525252] leading-[1.6]">
+          <div className="section-rule mx-auto mt-6" aria-hidden />
+          <p className="mt-5 text-[15px] lg:text-[17px] text-[#525252] leading-[1.6]">
             Transcend unifies digital retail, finance, AI, marketplace and
             consultancy into a single connected mesh — so every contract, every
             customer, and every decision lives in one place.
@@ -50,25 +94,41 @@ export function TranscendPlatform() {
         <Reveal delay={0.1}>
           <div className="mt-12 flex justify-center">
             <div className="flex flex-wrap justify-center gap-2.5 p-1.5 rounded-full bg-white/70 backdrop-blur border border-[#e0e0e0] shadow-soft">
-              {TRANSCEND_TABS.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActive(tab.id)}
-                  className={cn(
-                    'rounded-full px-5 sm:px-7 py-2.5 text-[14px] font-medium transition-all duration-300',
-                    active === tab.id
-                      ? 'text-white shadow-[0_4px_16px_-4px_rgba(36,161,72,0.4)]'
-                      : 'text-[#525252] hover:text-[#161616]'
-                  )}
-                  style={
-                    active === tab.id
-                      ? { backgroundColor: tab.id === 'finance' ? '#24a148' : tab.accent }
-                      : undefined
-                  }
-                >
-                  {tab.label}
-                </button>
-              ))}
+              {TRANSCEND_TABS.map((tab) => {
+                const isActive = active === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActive(tab.id)}
+                    aria-pressed={isActive}
+                    className={cn(
+                      'lift-on-hover relative rounded-full px-5 sm:px-7 py-2.5 text-[14px] font-medium transition-colors duration-300',
+                      isActive
+                        ? 'text-white'
+                        : 'text-[#525252] hover:text-[#161616]'
+                    )}
+                  >
+                    {/* Shared-layout pill indicator (Framer Motion layoutId) */}
+                    {isActive && (
+                      <motion.span
+                        layoutId="transcend-tab-pill"
+                        className="chip-selected absolute inset-0 rounded-full"
+                        transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                        aria-hidden
+                      />
+                    )}
+                    <span className="relative z-10 inline-flex items-center gap-2">
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ backgroundColor: tab.accent }}
+                        aria-hidden
+                      />
+                      {tab.label}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </Reveal>
@@ -85,7 +145,7 @@ export function TranscendPlatform() {
           >
             {/* Left hero card */}
             <div
-              className="lg:col-span-7 relative rounded-2xl border border-[#e0e0e0] p-8 lg:p-10 overflow-hidden"
+              className="gradient-border-animated lg:col-span-7 relative rounded-2xl border border-[#e0e0e0] p-8 lg:p-10 overflow-hidden"
               style={{ background: current.bg }}
             >
               {/* Vertical line pattern */}
@@ -100,10 +160,10 @@ export function TranscendPlatform() {
               <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
                 <div>
                   <span
-                    className="inline-flex items-center justify-center h-12 w-12 rounded-xl text-white"
+                    className="inline-flex items-center justify-center h-12 w-12 rounded-xl text-white shadow-depth"
                     style={{ backgroundColor: current.accent }}
                   >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
                       <path
                         d="M4 4H10L20 14V20L14 20L4 10V4Z"
                         stroke="currentColor"
@@ -120,26 +180,40 @@ export function TranscendPlatform() {
                     {current.description}
                   </p>
 
+                  {/* Per-tab category chips — remounts on tab change */}
+                  <CategoryChips
+                    key={current.id}
+                    categories={current.categories}
+                    accent={current.accent}
+                  />
+
                   <a
                     href="#contact"
-                    className="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold text-[#161616] hover:gap-3 transition-all"
+                    className="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold transition-all hover:gap-3"
                     style={{ color: current.accent }}
                   >
                     Get in touch
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full text-white" style={{ backgroundColor: current.accent }}>
+                    <span
+                      className="flex h-5 w-5 items-center justify-center rounded-full text-white"
+                      style={{ backgroundColor: current.accent }}
+                    >
                       <ArrowUpRight className="h-3 w-3" strokeWidth={2.5} />
                     </span>
                   </a>
                 </div>
 
-                {/* 3D scene */}
-                <div className="h-[200px] sm:h-[260px] hidden sm:block">
+                {/* 3D scene with spotlight overlay behind it */}
+                <div className="relative h-[200px] sm:h-[260px] hidden sm:block">
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 spotlight-gradient pointer-events-none"
+                  />
                   <Lazy3D
-                    className="h-full w-full"
+                    className="relative z-10 h-full w-full"
                     fallback={
                       <div
                         aria-hidden
-                        className="h-full w-full rounded-full blur-2xl"
+                        className="relative z-10 h-full w-full rounded-full blur-2xl"
                         style={{
                           background: `radial-gradient(circle, ${current.accent}33, transparent 60%)`,
                         }}
@@ -153,22 +227,7 @@ export function TranscendPlatform() {
             </div>
 
             {/* Right marquee of categories */}
-            <div className="lg:col-span-5 relative rounded-2xl bg-white border border-[#e0e0e0] p-8 lg:p-10 flex flex-col justify-between overflow-hidden">
-              {/* Animated gradient border on hover */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: `linear-gradient(135deg, ${current.accent}, transparent 35%, transparent 65%, ${current.accent})`,
-                  padding: '1px',
-                  WebkitMask:
-                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
-                  backgroundSize: '200% 200%',
-                  animation: 'gradient-sweep 8s ease infinite',
-                }}
-              />
+            <div className="gradient-border-animated lg:col-span-5 relative rounded-2xl bg-white border border-[#e0e0e0] p-8 lg:p-10 flex flex-col justify-between overflow-hidden">
               {/* Top accent strip */}
               <span
                 aria-hidden
@@ -179,15 +238,15 @@ export function TranscendPlatform() {
               />
               <div className="relative z-10">
                 <div className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
-                  What's inside
+                  What&apos;s inside
                 </div>
                 <h4 className="mt-3 text-[20px] font-semibold text-[#161616]">
-                  Modules & capabilities
+                  Modules &amp; capabilities
                 </h4>
               </div>
 
-              {/* Vertical infinite marquee */}
-              <div className="relative h-[220px] overflow-hidden mt-6 z-10">
+              {/* Vertical infinite marquee with premium depth shadow */}
+              <div className="shadow-depth relative h-[220px] overflow-hidden mt-6 z-10 rounded-xl">
                 <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white to-transparent z-10" />
                 <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white to-transparent z-10" />
                 <div className="flex flex-col gap-3 animate-marquee-vertical">
@@ -211,9 +270,14 @@ export function TranscendPlatform() {
               </div>
 
               <div className="mt-4 flex items-center justify-between text-[12px] text-[#6b7280] z-10 relative">
-                <span>{current.categories.length} modules</span>
+                <span>
+                  <span className="font-mono-numeric font-semibold text-[#161616]">
+                    {current.categories.length}
+                  </span>{' '}
+                  modules
+                </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#24a148] animate-pulse" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#24a148] live-pulse-dot" aria-hidden />
                   Live in production
                 </span>
               </div>
