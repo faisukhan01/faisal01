@@ -1722,3 +1722,20 @@ Stage Summary:
 - VLM critiques: startup hero 9/10 ("exceptionally polished, high-credibility indie SaaS... immaculate"), founders section 9/10 (portraits "match perfectly, cohesive founder duo aesthetic")
 - CRITICAL OPERATIONAL LESSON: after a shell-session death, plain setsid+disown no longer survives between Bash calls — ALWAYS start the dev server with the double-fork pattern (recorded above). The 15-min cron reviewers must check `curl localhost:3000` first and use this pattern to restart
 - Unresolved/risks: (a) chrome+server can still OOM if chrome zombies accumulate — close --all after QA; (b) portraits are AI-generated dummies per user request, swap for real photos when available; (c) social links are placeholder URLs; (d) next candidates: OG image, honeypot spam guard, real product screenshots when available
+
+---
+Task ID: 15
+Agent: main (Z.ai Code)
+Task: Round 15 — Header backdrop: orbital line-art behind the navbar (user request: "add the visualistic thing to the bg of the header... aesthetic, really impressive, don't do anything else")
+
+Work Log:
+- NEW site/header-backdrop.tsx: HeaderBackdropArt — the hero panel's orbital visual language scaled into a wide header backdrop (viewBox 1440x560, xMidYMax slice): 4 concentric rings centered above the viewport (cx 720, cy -70) so only the lower sweeps cross the header zone, 2 rotated orbital ellipses, one dashed electric-blue arc (r 480), 8 quiet nodes incl. one blue node
+- Wired into hero.tsx: absolute inset-x-0 top-0 z-0 h-560px with CSS mask linear-gradient(to bottom, black 58%, transparent) so the art dissolves before the serif headline; container-luxe lifted to z-10; header remains z-50 above (verified: elementFromPoint at header coords resolves header, art top 31 ≤ header bottom 77)
+- Opacity tuned after VLM mobile note ("risks imperceptible on mobile"): blue arc 0.26→0.32, blue node 0.45→0.55, ink nodes +0.04
+- NOTHING else changed per user instruction
+
+Stage Summary:
+- Verification: lint 0 errors · console clean · mobile 390px no horizontal overflow · art confirmed rendering behind transparent header at page top
+- VLM critique (desktop): 8.5/10 — "highly successful execution of quiet luxury... treats the line-art as atmosphere, not illustration... engineered precision... the single dashed blue arc guides the eye toward the headline"
+- Committed b2c5454 immediately; server stable via double-fork daemon pattern
+- Note: when the page scrolls, header goes glass-cream and the art scrolls away with the hero — intended elegant behavior
