@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { ArrowUpRight } from 'lucide-react';
 import { Typewriter } from '@/components/site/typewriter';
 import { CTAButton } from '@/components/site/cta-button';
+import { Parallax } from '@/components/site/parallax';
 import { HERO_SLIDES } from '@/lib/site-data';
 
 const HeroScene3D = dynamic(
@@ -33,11 +34,14 @@ export function Hero() {
         aria-hidden
         className="absolute inset-0 bg-barcode opacity-60 pointer-events-none"
       />
-      {/* Soft green shape accent */}
-      <div
-        aria-hidden
-        className="absolute -top-24 right-[12%] h-[420px] w-[420px] rounded-full bg-[#24a148]/8 blur-3xl animate-float-slow"
-      />
+      {/* Soft green shape accent — parallax on scroll */}
+      <Parallax speed={0.08} max={40} className="absolute -top-24 right-[12%] pointer-events-none">
+        <div className="h-[420px] w-[420px] rounded-full bg-[#24a148]/8 blur-3xl animate-float-slow" />
+      </Parallax>
+      {/* Secondary accent — blue glow top-left */}
+      <Parallax speed={0.12} max={60} className="absolute -top-32 -left-32 pointer-events-none">
+        <div className="h-[480px] w-[480px] rounded-full bg-[#1d81f2]/6 blur-3xl" />
+      </Parallax>
 
       <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-center">
         {/* LEFT: text content */}

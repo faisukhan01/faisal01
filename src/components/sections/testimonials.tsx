@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Quote, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
+import { VideoModal } from '@/components/site/video-modal';
 import { TESTIMONIALS } from '@/lib/site-data';
 
 export function Testimonials() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
 
   useEffect(() => {
     if (paused) return;
@@ -95,10 +97,12 @@ export function Testimonials() {
 
                   {current.hasVideo && (
                     <button
-                      className="absolute inset-0 m-auto h-16 w-16 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-premium hover:scale-110 transition-transform"
-                      aria-label="Play video testimonial"
+                      onClick={() => setVideoOpen(true)}
+                      className="group absolute inset-0 m-auto h-16 w-16 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-premium hover:scale-110 transition-transform"
+                      aria-label={`Play video testimonial from ${current.person}`}
                     >
-                      <Play className="h-6 w-6 text-[#1d81f2] ml-1" fill="currentColor" />
+                      <span className="absolute inset-0 rounded-full bg-[#1d81f2]/30 animate-pulse-ring" />
+                      <Play className="relative h-6 w-6 text-[#1d81f2] ml-1" fill="currentColor" />
                     </button>
                   )}
                 </div>
@@ -137,6 +141,15 @@ export function Testimonials() {
           </div>
         </div>
       </div>
+
+      {/* Video modal */}
+      <VideoModal
+        open={videoOpen}
+        onClose={() => setVideoOpen(false)}
+        title={`${current.person} — ${current.title}`}
+        subtitle={`${current.company} · NETSOL customer story`}
+        backdropImage={current.portrait}
+      />
     </section>
   );
 }
