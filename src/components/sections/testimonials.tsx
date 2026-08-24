@@ -62,7 +62,7 @@ export function Testimonials() {
       role="group"
       aria-roledescription="carousel"
       aria-label="Customer testimonials — use arrow keys to browse"
-      className="border-y border-hairline bg-white py-24 outline-none transition-shadow duration-300 focus-visible:shadow-[inset_0_0_0_2px_rgb(166_25_46/0.35)] md:py-32"
+      className="border-y border-hairline bg-white py-24 outline-none transition-shadow duration-300 focus-visible:shadow-[inset_0_0_0_2px_rgb(0 122 255/0.4)] md:py-32"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}

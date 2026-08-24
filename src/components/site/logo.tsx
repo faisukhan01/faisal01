@@ -1,44 +1,33 @@
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 /**
- * NETSOL wordmark — ink monogram, crimson full-stop.
- * Restrained, print-grade logotype for the luxury editorial system.
+ * FaQ Systems logo — the brand wordmark (navy "Fa", electric-blue "Q",
+ * slate "Systems" with blue bracket mark), rendered from the supplied
+ * transparent PNG.
  */
-export function NetsolLogo({
+export function FaqLogo({
   className,
-  variant = 'dark',
+  priority = false,
 }: {
   className?: string;
-  variant?: 'dark' | 'light';
+  priority?: boolean;
 }) {
-  const isLight = variant === 'light';
   return (
     <a
       href="#top"
-      aria-label="NETSOL Technologies — back to top"
-      className={cn('group flex select-none items-center gap-2.5', className)}
+      aria-label="FaQ Systems — back to top"
+      className={cn('group flex select-none items-center', className)}
     >
-      <svg
-        width="30"
-        height="30"
-        viewBox="0 0 30 30"
-        aria-hidden="true"
-        className="shrink-0"
-      >
-        <rect width="30" height="30" rx="6" fill={isLight ? '#F5F2EA' : '#1A1815'} />
-        <path
-          d="M9 21.5v-13h2.9l7.2 8.2V8.5H22v13h-2.9l-7.2-8.2v8.2H9Z"
-          fill={isLight ? '#14120F' : '#FAF9F5'}
-        />
-      </svg>
-      <span
-        className={cn(
-          'text-[17px] font-semibold leading-none tracking-[0.02em]',
-          isLight ? 'text-[#F5F2EA]' : 'text-ink'
-        )}
-      >
-        NETSOL<span className="text-crimson">.</span>
-      </span>
+      <Image
+        src="/faq-logo.png"
+        alt="FaQ Systems"
+        width={170}
+        height={30}
+        priority={priority}
+        sizes="170px"
+        className="h-[26px] w-auto object-contain md:h-[30px]"
+      />
     </a>
   );
 }

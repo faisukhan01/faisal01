@@ -34,7 +34,7 @@ export function Solutions() {
         <div className="mt-14 grid gap-6 md:grid-cols-3">
           {cases.map((item, i) => (
             <Reveal key={item.id} delay={i * 0.08}>
-              <article className="group flex min-h-[360px] flex-col rounded-2xl border border-hairline bg-white p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-ink/20 hover:shadow-[0_32px_64px_-36px_rgb(26_24_21/0.35)]">
+              <article className="group flex min-h-[360px] flex-col rounded-2xl border border-hairline bg-white p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-ink/20 hover:shadow-[0_32px_64px_-36px_rgb(26 35 50/0.35)]">
                 <div className="flex items-center justify-between">
                   <span className="eyebrow text-muted-foreground">{item.industry}</span>
                   <span className="tabular text-[11px] text-ink/30">{item.year}</span>

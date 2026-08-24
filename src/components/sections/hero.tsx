@@ -20,48 +20,48 @@ function OrbitalArt() {
       preserveAspectRatio="xMidYMid meet"
     >
       {/* Axes */}
-      <line x1="360" y1="28" x2="360" y2="452" stroke="#1A1815" strokeOpacity="0.06" strokeWidth="1" />
-      <line x1="52" y1="240" x2="668" y2="240" stroke="#1A1815" strokeOpacity="0.06" strokeWidth="1" />
+      <line x1="360" y1="28" x2="360" y2="452" stroke="#1A2332" strokeOpacity="0.06" strokeWidth="1" />
+      <line x1="52" y1="240" x2="668" y2="240" stroke="#1A2332" strokeOpacity="0.06" strokeWidth="1" />
 
       {/* Concentric rings */}
-      <circle cx="360" cy="240" r="70" fill="none" stroke="#1A1815" strokeOpacity="0.13" strokeWidth="1" />
-      <circle cx="360" cy="240" r="130" fill="none" stroke="#1A1815" strokeOpacity="0.10" strokeWidth="1" />
-      <circle cx="360" cy="240" r="190" fill="none" stroke="#1A1815" strokeOpacity="0.08" strokeWidth="1" />
+      <circle cx="360" cy="240" r="70" fill="none" stroke="#1A2332" strokeOpacity="0.13" strokeWidth="1" />
+      <circle cx="360" cy="240" r="130" fill="none" stroke="#1A2332" strokeOpacity="0.10" strokeWidth="1" />
+      <circle cx="360" cy="240" r="190" fill="none" stroke="#1A2332" strokeOpacity="0.08" strokeWidth="1" />
 
       {/* Orbital ellipses */}
       <ellipse
         cx="360" cy="240" rx="238" ry="86"
-        fill="none" stroke="#1A1815" strokeOpacity="0.12" strokeWidth="1"
+        fill="none" stroke="#1A2332" strokeOpacity="0.12" strokeWidth="1"
         transform="rotate(-16 360 240)"
       />
       <ellipse
         cx="360" cy="240" rx="238" ry="86"
-        fill="none" stroke="#1A1815" strokeOpacity="0.12" strokeWidth="1"
+        fill="none" stroke="#1A2332" strokeOpacity="0.12" strokeWidth="1"
         transform="rotate(16 360 240)"
       />
 
       {/* Single crimson arc segment */}
       <circle
         cx="360" cy="240" r="160"
-        fill="none" stroke="#A6192E" strokeOpacity="0.42" strokeWidth="1.25"
+        fill="none" stroke="#007AFF" strokeOpacity="0.42" strokeWidth="1.25"
         strokeDasharray="185 820" strokeLinecap="round"
         transform="rotate(-32 360 240)"
       />
 
       {/* Center */}
-      <circle cx="360" cy="240" r="5" fill="#1A1815" />
+      <circle cx="360" cy="240" r="5" fill="#1A2332" />
 
       {/* Nodes */}
-      <circle cx="430" cy="240" r="3.5" fill="#1A1815" fillOpacity="0.55" />
-      <circle cx="360" cy="110" r="3.5" fill="#1A1815" fillOpacity="0.55" />
-      <circle cx="170" cy="240" r="3.5" fill="#1A1815" fillOpacity="0.55" />
-      <circle cx="502" cy="196" r="3" fill="#1A1815" fillOpacity="0.4" />
-      <circle cx="236" cy="296" r="3" fill="#1A1815" fillOpacity="0.4" />
-      <circle cx="268" cy="148" r="3" fill="#1A1815" fillOpacity="0.4" />
-      <circle cx="360" cy="400" r="4.5" fill="#A6192E" fillOpacity="0.75" />
+      <circle cx="430" cy="240" r="3.5" fill="#1A2332" fillOpacity="0.55" />
+      <circle cx="360" cy="110" r="3.5" fill="#1A2332" fillOpacity="0.55" />
+      <circle cx="170" cy="240" r="3.5" fill="#1A2332" fillOpacity="0.55" />
+      <circle cx="502" cy="196" r="3" fill="#1A2332" fillOpacity="0.4" />
+      <circle cx="236" cy="296" r="3" fill="#1A2332" fillOpacity="0.4" />
+      <circle cx="268" cy="148" r="3" fill="#1A2332" fillOpacity="0.4" />
+      <circle cx="360" cy="400" r="4.5" fill="#007AFF" fillOpacity="0.75" />
 
       {/* Corner registration ticks */}
-      <g stroke="#1A1815" strokeOpacity="0.22" strokeWidth="1">
+      <g stroke="#1A2332" strokeOpacity="0.22" strokeWidth="1">
         <path d="M44 40h12M50 34v12" />
         <path d="M664 40h12M670 34v12" />
         <path d="M44 440h12M50 434v12" />
@@ -117,7 +117,7 @@ export function Hero() {
 
         {/* — The framed showpiece: static orbital line art — */}
         <Reveal delay={0.18} y={36} className="mt-14 md:mt-20">
-          <figure className="relative overflow-hidden rounded-2xl border border-hairline bg-gradient-to-b from-white to-[#F2F0E9] shadow-[0_48px_100px_-44px_rgb(26_24_21/0.3)]">
+          <figure className="relative overflow-hidden rounded-2xl border border-hairline bg-gradient-to-b from-white to-[#EDF2FA] shadow-[0_48px_100px_-44px_rgb(26 35 50/0.3)]">
             {/* Blueprint micro-labels */}
             <span className="eyebrow absolute left-5 top-5 z-10 text-ink/35">
               Transcend&reg; Platform

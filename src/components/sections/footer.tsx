@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowRight, Check, Facebook, Linkedin, Twitter, Youtube } from 'lucide-react';
 import { CONTACT_INFO } from '@/lib/site-data';
-import { NetsolLogo } from '@/components/site/logo';
+import { FaqLogo } from '@/components/site/logo';
 
 const FOOTER_COLUMNS = [
   {
@@ -98,7 +98,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,2fr)_repeat(3,minmax(0,1fr))]">
           {/* Brand */}
           <div>
-            <NetsolLogo />
+            <FaqLogo />
             <p className="mt-5 max-w-xs text-[13.5px] leading-[1.75] text-muted-foreground">
               Global leader in asset finance and leasing software. Shaping
               smarter finance since 1997.

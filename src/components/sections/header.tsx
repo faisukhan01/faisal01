@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
-import { NetsolLogo } from '@/components/site/logo';
+import { FaqLogo } from '@/components/site/logo';
 import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
@@ -64,7 +64,7 @@ export function SiteHeader() {
         )}
       >
         <div className="container-luxe flex h-16 items-center justify-between gap-8 md:h-[76px]">
-          <NetsolLogo />
+          <FaqLogo priority />
 
           <nav aria-label="Primary" className="hidden items-center gap-9 lg:flex">
             {NAV_LINKS.map((link) => (
@@ -116,7 +116,7 @@ export function SiteHeader() {
             aria-label="Navigation menu"
           >
             <div className="container-luxe flex h-16 items-center justify-between md:h-[76px]">
-              <NetsolLogo />
+              <FaqLogo />
               <button
                 type="button"
                 onClick={() => setOpen(false)}

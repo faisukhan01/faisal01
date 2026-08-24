@@ -43,47 +43,47 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* — NETSOL luxury editorial palette — */
-  --color-ink: #1a1815;        /* warm near-black */
-  --color-cream: #faf9f5;      /* warm off-white  */
-  --color-night: #14120f;      /* dark band bg    */
-  --color-crimson: #a6192e;    /* single accent   */
-  --color-hairline: rgb(26 24 21 / 0.1);
+  /* — FaQ Systems palette (matched to brand logo) — */
+  --color-ink: #1a2332;        /* deep navy from logo  */
+  --color-cream: #f7f9fc;      /* cool light           */
+  --color-night: #131c2e;      /* navy dark band       */
+  --color-crimson: #007aff;    /* electric blue accent */
+  --color-hairline: rgb(26 35 50 / 0.1);
 }
 
 :root {
-  --background: oklch(0.982 0.004 95);
-  --foreground: oklch(0.21 0.006 85);
+  --background: oklch(0.985 0.003 250);
+  --foreground: oklch(0.25 0.025 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.21 0.006 85);
+  --card-foreground: oklch(0.25 0.025 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.21 0.006 85);
-  --primary: oklch(0.21 0.006 85);
-  --primary-foreground: oklch(0.982 0.004 95);
-  --secondary: oklch(0.955 0.005 95);
-  --secondary-foreground: oklch(0.21 0.006 85);
-  --muted: oklch(0.955 0.005 95);
-  --muted-foreground: oklch(0.5 0.012 85);
-  --accent: oklch(0.945 0.006 95);
-  --accent-foreground: oklch(0.21 0.006 85);
+  --popover-foreground: oklch(0.25 0.025 260);
+  --primary: oklch(0.25 0.025 260);
+  --primary-foreground: oklch(0.985 0.003 250);
+  --secondary: oklch(0.955 0.006 250);
+  --secondary-foreground: oklch(0.25 0.025 260);
+  --muted: oklch(0.955 0.006 250);
+  --muted-foreground: oklch(0.5 0.02 255);
+  --accent: oklch(0.945 0.008 250);
+  --accent-foreground: oklch(0.25 0.025 260);
   --destructive: oklch(0.5 0.19 27);
-  --border: oklch(0.9 0.006 95);
-  --input: oklch(0.9 0.006 95);
-  --ring: oklch(0.35 0.012 85);
+  --border: oklch(0.91 0.008 250);
+  --input: oklch(0.91 0.008 250);
+  --ring: oklch(0.35 0.03 258);
   --radius: 0.5rem;
-  --chart-1: oklch(0.21 0.006 85);
-  --chart-2: oklch(0.5 0.012 85);
-  --chart-3: oklch(0.55 0.19 27);
-  --chart-4: oklch(0.7 0.01 85);
-  --chart-5: oklch(0.85 0.008 95);
-  --sidebar: oklch(0.982 0.004 95);
-  --sidebar-foreground: oklch(0.21 0.006 85);
-  --sidebar-primary: oklch(0.21 0.006 85);
-  --sidebar-primary-foreground: oklch(0.982 0.004 95);
-  --sidebar-accent: oklch(0.945 0.006 95);
-  --sidebar-accent-foreground: oklch(0.21 0.006 85);
-  --sidebar-border: oklch(0.9 0.006 95);
-  --sidebar-ring: oklch(0.35 0.012 85);
+  --chart-1: oklch(0.25 0.025 260);
+  --chart-2: oklch(0.5 0.02 255);
+  --chart-3: oklch(0.55 0.16 250);
+  --chart-4: oklch(0.7 0.015 255);
+  --chart-5: oklch(0.85 0.01 250);
+  --sidebar: oklch(0.985 0.003 250);
+  --sidebar-foreground: oklch(0.25 0.025 260);
+  --sidebar-primary: oklch(0.25 0.025 260);
+  --sidebar-primary-foreground: oklch(0.985 0.003 250);
+  --sidebar-accent: oklch(0.945 0.008 250);
+  --sidebar-accent-foreground: oklch(0.25 0.025 260);
+  --sidebar-border: oklch(0.91 0.008 250);
+  --sidebar-ring: oklch(0.35 0.03 258);
 }
 
 @layer base {
@@ -99,13 +99,13 @@
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background-color: #a6192e;
-    color: #faf9f5;
+    background-color: #007aff;
+    color: #ffffff;
   }
   a:focus-visible,
   button:focus-visible,
   input:focus-visible {
-    outline: 2px solid rgb(166 25 46 / 0.55);
+    outline: 2px solid rgb(0 122 255 / 0.5);
     outline-offset: 3px;
   }
   ::-webkit-scrollbar {
@@ -116,12 +116,12 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgb(26 24 21 / 0.16);
+    background: rgb(26 35 50 / 0.16);
     border-radius: 999px;
-    border: 3px solid #faf9f5;
+    border: 3px solid #f9fafb;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(26 24 21 / 0.32);
+    background: rgb(26 35 50 / 0.32);
   }
 }
 
@@ -145,10 +145,10 @@
 
   /* Buttons — visual chrome only; size with Tailwind per usage */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink text-cream font-medium transition-all duration-300 will-change-transform hover:-translate-y-0.5 hover:bg-black hover:shadow-[0_18px_44px_-18px_rgb(26_24_21/0.5)] active:translate-y-0 active:shadow-none;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink text-white font-medium transition-all duration-300 will-change-transform hover:-translate-y-0.5 hover:bg-[#232f44] hover:shadow-[0_18px_44px_-18px_rgb(26_35_50/0.5)] active:translate-y-0 active:shadow-none;
   }
   .btn-light {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-cream text-night font-medium transition-all duration-300 will-change-transform hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_18px_44px_-14px_rgb(0_0_0/0.55)] active:translate-y-0 active:shadow-none;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white text-night font-medium transition-all duration-300 will-change-transform hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-14px_rgb(0_0_0/0.55)] active:translate-y-0 active:shadow-none;
   }
 
   /* Animated underline for inline links */

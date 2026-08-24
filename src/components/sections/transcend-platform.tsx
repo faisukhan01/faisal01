@@ -11,7 +11,7 @@ function Motif({ id, className }: { id: string; className?: string }) {
     strokeLinecap: 'round' as const,
     strokeLinejoin: 'round' as const,
   };
-  const accent = { fill: 'none', stroke: '#a6192e', strokeWidth: 1.5, strokeLinecap: 'round' as const };
+  const accent = { fill: 'none', stroke: '#007AFF', strokeWidth: 1.5, strokeLinecap: 'round' as const };
 
   return (
     <svg viewBox="0 0 160 120" className={className} aria-hidden="true">
@@ -39,7 +39,7 @@ function Motif({ id, className }: { id: string; className?: string }) {
       {id === 'ai-labs' && (
         <g {...common}>
           <path d="M58 44L44 30M80 44V26M102 44l14-14M58 76L44 90M80 76V94M102 76l14 14M58 44h44M58 44v32M102 44v32M58 76h44" />
-          <circle cx="80" cy="60" r="6" stroke="#a6192e" />
+          <circle cx="80" cy="60" r="6" stroke="#007AFF" />
           <circle cx="44" cy="30" r="3.5" />
           <circle cx="116" cy="30" r="3.5" />
           <circle cx="44" cy="90" r="3.5" />
@@ -51,13 +51,13 @@ function Motif({ id, className }: { id: string; className?: string }) {
       {id === 'marketplace' && (
         <g {...common}>
           <rect x="40" y="24" width="24" height="24" rx="3" />
-          <rect x="68" y="24" width="24" height="24" rx="3" stroke="#a6192e" />
+          <rect x="68" y="24" width="24" height="24" rx="3" stroke="#007AFF" />
           <rect x="96" y="24" width="24" height="24" rx="3" />
-          <rect x="40" y="52" width="24" height="24" rx="3" stroke="#a6192e" />
+          <rect x="40" y="52" width="24" height="24" rx="3" stroke="#007AFF" />
           <rect x="68" y="52" width="24" height="24" rx="3" />
           <rect x="96" y="52" width="24" height="24" rx="3" />
           <rect x="40" y="80" width="24" height="18" rx="3" />
-          <rect x="68" y="80" width="24" height="18" rx="3" stroke="#a6192e" />
+          <rect x="68" y="80" width="24" height="18" rx="3" stroke="#007AFF" />
           <rect x="96" y="80" width="24" height="18" rx="3" />
         </g>
       )}
