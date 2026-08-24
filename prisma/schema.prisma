@@ -30,7 +30,7 @@ model ContactSubmission {
   name      String
   email     String
   company   String?
-  market    String?
+  topic     String?
   message   String
   source    String   @default("cta-banner")
   createdAt DateTime @default(now())

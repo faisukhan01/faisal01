@@ -1,50 +1,42 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { ArrowRight, Check, Facebook, Linkedin, Twitter, Youtube } from 'lucide-react';
-import { CONTACT_INFO } from '@/lib/site-data';
+import { ArrowRight, Check, Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { FaqLogo } from '@/components/site/logo';
 
 const FOOTER_COLUMNS = [
   {
-    heading: 'Platform',
+    heading: 'Products',
     links: [
-      { label: 'Transcend Platform', href: '#platform' },
-      { label: 'Digital Retail', href: '#platform' },
-      { label: 'Originations', href: '#platform' },
-      { label: 'Servicing', href: '#platform' },
-      { label: 'Marketplace', href: '#platform' },
-      { label: 'AI Labs', href: '#platform' },
+      { label: 'FaQ Core', href: '#products' },
+      { label: 'FaQ Toolkit', href: '#products' },
+      { label: 'FaQ Labs', href: '#products' },
+      { label: 'Approach', href: '#approach' },
     ],
   },
   {
     heading: 'Company',
     links: [
-      { label: 'About NETSOL', href: '#company' },
-      { label: 'Leadership', href: '#company' },
-      { label: 'Who we serve', href: '#who' },
-      { label: 'Investor Relations', href: '#contact' },
-      { label: 'Newsroom', href: '#insights' },
-      { label: 'Careers', href: '#contact' },
+      { label: 'Founders', href: '#founders' },
+      { label: 'FAQ', href: '#faq' },
+      { label: 'Contact', href: '#contact' },
     ],
   },
   {
-    heading: 'Resources',
+    heading: 'Legal',
     links: [
-      { label: 'Insights', href: '#insights' },
-      { label: 'Case Studies', href: '#solutions' },
-      { label: 'Customer Stories', href: '#stories' },
-      { label: 'FAQ', href: '#faq' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'Privacy', href: '#top' },
+      { label: 'Terms', href: '#top' },
+      { label: 'Cookies', href: '#top' },
     ],
   },
 ];
 
 const SOCIALS = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/netsol-technologies', Icon: Linkedin },
-  { label: 'X (Twitter)', href: 'https://twitter.com/NETSOLTech', Icon: Twitter },
-  { label: 'YouTube', href: 'https://www.youtube.com/@NETSOLTechnologies', Icon: Youtube },
-  { label: 'Facebook', href: 'https://www.facebook.com/NETSOLTechnologies', Icon: Facebook },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com', Icon: Linkedin },
+  { label: 'X (Twitter)', href: 'https://twitter.com', Icon: Twitter },
+  { label: 'GitHub', href: 'https://github.com', Icon: Github },
+  { label: 'Email', href: 'mailto:hello@faq.systems', Icon: Mail },
 ];
 
 function NewsletterForm() {
@@ -82,7 +74,7 @@ function NewsletterForm() {
       />
       <button
         type="submit"
-        aria-label="Subscribe to NETSOL insights"
+        aria-label="Subscribe to FaQ Systems product updates"
         className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-hairline text-ink/70 transition-all duration-300 hover:border-ink/40 hover:text-ink"
       >
         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -100,18 +92,16 @@ export function Footer() {
           <div>
             <FaqLogo />
             <p className="mt-5 max-w-xs text-[13.5px] leading-[1.75] text-muted-foreground">
-              Global leader in asset finance and leasing software. Shaping
-              smarter finance since 1997.
+              A productized software company. Small team, sharp tools, honest
+              software.
             </p>
-            <p className="eyebrow mt-8 text-muted-foreground/70">NETSOL Monthly</p>
+            <p className="eyebrow mt-8 text-muted-foreground/70">Product updates</p>
             <NewsletterForm />
             <div className="mt-8 flex items-center gap-2.5">
               {SOCIALS.map(({ label, href, Icon }) => (
                 <a
                   key={label}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   aria-label={label}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-hairline text-ink/55 transition-all duration-300 hover:border-ink/40 hover:text-ink"
                 >
@@ -141,30 +131,14 @@ export function Footer() {
           ))}
         </div>
 
-        {/* HQ line */}
-        <p className="mt-14 border-t border-hairline pt-8 text-[12.5px] leading-relaxed text-muted-foreground">
-          {CONTACT_INFO.label} — {CONTACT_INFO.address} · {CONTACT_INFO.phone}
-        </p>
-
         {/* Bottom bar */}
-        <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-hairline pt-8 sm:flex-row sm:items-center">
           <p className="text-[12px] text-muted-foreground">
-            © 2026 NETSOL Technologies, Inc. All rights reserved.
+            © 2026 FaQ Systems. All rights reserved.
           </p>
-          <p className="tabular text-[12px] text-muted-foreground/70">
-            NASDAQ: NTWK · ISO 27001 · SOC 2 Type II
+          <p className="text-[12px] text-muted-foreground/70">
+            Remote-first · Self-funded · Engineer-led
           </p>
-          <div className="flex items-center gap-6">
-            {['Privacy', 'Terms', 'Cookies'].map((label) => (
-              <a
-                key={label}
-                href="#top"
-                className="text-[12px] text-muted-foreground transition-colors hover:text-ink"
-              >
-                {label}
-              </a>
-            ))}
-          </div>
         </div>
       </div>
     </footer>

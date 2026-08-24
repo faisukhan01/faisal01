@@ -17,37 +17,35 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "NETSOL Technologies — Shaping Smarter Finance",
+  title: "FaQ Systems — Productized SaaS, Built by Founders",
   description:
-    "NETSOL Technologies is a global leader in asset finance and leasing software. The Transcend platform unifies origination, servicing, and AI-powered decisioning for lenders, OEMs, dealers, and fleets.",
+    "FaQ Systems is a productized software company building focused SaaS products — designed, engineered, and operated end-to-end by its two founders.",
   keywords: [
-    "NETSOL",
-    "asset finance software",
-    "leasing software",
-    "FinTech",
-    "AI-enabled finance",
-    "Transcend Platform",
-    "digital retail",
-    "OEM finance",
-    "dealer finance",
-    "fleet finance",
+    "FaQ Systems",
+    "SaaS",
+    "productized software",
+    "software company",
+    "FaQ Core",
+    "FaQ Toolkit",
+    "FaQ Labs",
+    "startup",
   ],
-  authors: [{ name: "NETSOL Technologies" }],
+  authors: [{ name: "FaQ Systems" }],
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "NETSOL Technologies — Shaping Smarter Finance",
+    title: "FaQ Systems — Productized SaaS, Built by Founders",
     description:
-      "AI-enabled ecosystems that make commerce seamless, intelligent, and connected. Global leader in asset finance and leasing software.",
-    siteName: "NETSOL Technologies",
+      "Small surface, polished detail, honest pricing. SaaS products designed, engineered, and operated by two founders.",
+    siteName: "FaQ Systems",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NETSOL Technologies — Shaping Smarter Finance",
+    title: "FaQ Systems — Productized SaaS, Built by Founders",
     description:
-      "AI-enabled ecosystems that make commerce seamless, intelligent, and connected.",
+      "Small surface, polished detail, honest pricing. SaaS products built by two founders.",
   },
 };
 
@@ -56,44 +54,23 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://netsoltech.com/#organization",
-      name: "NETSOL Technologies",
-      alternateName: "NETSOL",
-      url: "https://netsoltech.com/",
-      logo: "https://netsoltech.com/favicon.svg",
+      "@id": "https://faq.systems/#organization",
+      name: "FaQ Systems",
+      url: "https://faq.systems/",
+      logo: "https://faq.systems/faq-logo.png",
       description:
-        "Global leader in asset finance and leasing software, providing AI-enabled platforms for lenders, OEMs, dealers, and fleets.",
-      foundingDate: "1997",
-      tickerSymbol: "NTWK",
-      exchangeName: "NASDAQ",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "16000 Ventura Blvd, Suite 770",
-        addressLocality: "Encino",
-        addressRegion: "CA",
-        postalCode: "91436",
-        addressCountry: "US",
-      },
-      sameAs: [
-        "https://www.linkedin.com/company/netsol-technologies",
-        "https://twitter.com/NETSOLTech",
-        "https://www.facebook.com/NETSOLTechnologies",
-        "https://www.youtube.com/@NETSOLTechnologies",
+        "A productized software company building focused SaaS products, run end-to-end by its two founders.",
+      founder: [
+        { "@type": "Person", name: "Faisal Khan", jobTitle: "Co-Founder, Software Engineer" },
+        { "@type": "Person", name: "Abdul Qayyum", jobTitle: "Co-Founder, Software Engineer" },
       ],
     },
     {
       "@type": "WebSite",
-      "@id": "https://netsoltech.com/#website",
-      url: "https://netsoltech.com/",
-      name: "NETSOL Technologies",
-      publisher: { "@id": "https://netsoltech.com/#organization" },
-    },
-    {
-      "@type": "Product",
-      name: "Transcend Platform",
-      description:
-        "AI-enabled ecosystem for asset finance — unifies digital retail, finance, AI labs, marketplace, and consultancy on one connected mesh.",
-      brand: { "@id": "https://netsoltech.com/#organization" },
+      "@id": "https://faq.systems/#website",
+      url: "https://faq.systems/",
+      name: "FaQ Systems",
+      publisher: { "@id": "https://faq.systems/#organization" },
     },
   ],
 };

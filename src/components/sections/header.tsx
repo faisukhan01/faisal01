@@ -7,11 +7,10 @@ import { FaqLogo } from '@/components/site/logo';
 import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
-  { label: 'Platform', href: '#platform' },
-  { label: 'Who we serve', href: '#who' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Company', href: '#company' },
-  { label: 'Insights', href: '#insights' },
+  { label: "Products", href: "#products" },
+  { label: "Approach", href: "#approach" },
+  { label: "Founders", href: "#founders" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export function SiteHeader() {
@@ -158,7 +157,7 @@ export function SiteHeader() {
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
               <p className="mt-5 text-center text-[12px] text-muted-foreground">
-                Encino, CA · London · Beijing · Bangkok · Lahore · Manila
+                Remote-first · Productized SaaS
               </p>
             </div>
           </motion.div>

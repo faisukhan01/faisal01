@@ -5,14 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Check } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
 
-const MARKETS = [
-  'Automotive',
-  'Equipment',
-  'Fleet & Mobility',
-  'Marine & Aviation',
-  'Energy & Renewables',
-  'Banking & Lessor',
-];
+const TOPICS = ['Product inquiry', 'Partnership', 'Support', 'Something else'];
 
 type Status =
   | { state: 'idle' }
@@ -22,7 +15,7 @@ type Status =
 
 function ContactForm() {
   const [status, setStatus] = useState<Status>({ state: 'idle' });
-  const [market, setMarket] = useState<string>('');
+  const [topic, setTopic] = useState<string>('');
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +33,7 @@ function ContactForm() {
           name: data.get('name'),
           email: data.get('email'),
           company: data.get('company'),
-          market: market || undefined,
+          topic: topic || undefined,
           message: data.get('message'),
           source: 'cta-banner',
         }),
@@ -49,7 +42,7 @@ function ContactForm() {
       if (res.ok && json.ok) {
         setStatus({ state: 'done' });
         form.reset();
-        setMarket('');
+        setTopic('');
       } else {
         setStatus({
           state: 'error',
@@ -81,18 +74,18 @@ function ContactForm() {
           <Check className="h-5 w-5 text-cream" aria-hidden="true" />
         </span>
         <h3 className="mt-7 font-serif text-[26px] leading-tight text-cream md:text-[30px]">
-          Thank you — request received.
+          Thank you — message received.
         </h3>
         <p className="mt-4 max-w-sm text-[14px] leading-[1.75] text-cream/60">
-          A NETSOL principal will respond within one business day. In the
-          meantime, our Insights desk is a good place to start.
+          A founder will reply within a day or two — the same person who
+          writes the code, not a support queue.
         </p>
         <button
           type="button"
           onClick={() => setStatus({ state: 'idle' })}
           className="link-underline mt-8 bg-transparent text-[13px] font-medium text-cream/60 transition-colors hover:text-cream"
         >
-          Submit another request
+          Send another message
         </button>
       </motion.div>
     );
@@ -102,9 +95,9 @@ function ContactForm() {
     <form
       onSubmit={onSubmit}
       className="border border-cream/15 bg-cream/[0.03] p-8 md:p-10"
-      aria-label="Request a demo"
+      aria-label="Get in touch"
     >
-      <p className="eyebrow text-cream/45">Request a demo</p>
+      <p className="eyebrow text-cream/45">Write to the founders</p>
 
       <div className="mt-7 grid gap-x-6 gap-y-7 sm:grid-cols-2">
         <div>
@@ -117,13 +110,13 @@ function ContactForm() {
             type="text"
             required
             autoComplete="name"
-            placeholder="Alexandra Reeve"
+            placeholder="Alex Rivera"
             className={inputCls}
           />
         </div>
         <div>
           <label htmlFor="cta-email" className={labelCls}>
-            Work email *
+            Email *
           </label>
           <input
             id="cta-email"
@@ -131,7 +124,7 @@ function ContactForm() {
             type="email"
             required
             autoComplete="email"
-            placeholder="a.reeve@captives.com"
+            placeholder="alex@studio.com"
             className={inputCls}
           />
         </div>
@@ -144,26 +137,26 @@ function ContactForm() {
             name="company"
             type="text"
             autoComplete="organization"
-            placeholder="Reeve Capital Finance"
+            placeholder="Optional"
             className={inputCls}
           />
         </div>
         <div>
-          <label htmlFor="cta-market" className={labelCls}>
-            Market
+          <label htmlFor="cta-topic" className={labelCls}>
+            Topic
           </label>
           <select
-            id="cta-market"
-            value={market}
-            onChange={(e) => setMarket(e.target.value)}
+            id="cta-topic"
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
             className={`${inputCls} cursor-pointer appearance-none ${
-              market ? 'text-cream' : 'text-cream/35'
+              topic ? 'text-cream' : 'text-cream/35'
             } [&>option]:bg-night [&>option]:text-cream`}
           >
-            <option value="">Select a market</option>
-            {MARKETS.map((m) => (
-              <option key={m} value={m}>
-                {m}
+            <option value="">Pick one</option>
+            {TOPICS.map((t) => (
+              <option key={t} value={t}>
+                {t}
               </option>
             ))}
           </select>
@@ -172,28 +165,46 @@ function ContactForm() {
 
       <div className="mt-7">
         <label htmlFor="cta-message" className={labelCls}>
-          What are you building? *
+          What&rsquo;s on your mind? *
         </label>
         <textarea
           id="cta-message"
           name="message"
           required
           rows={3}
-          placeholder="Portfolio, markets, timeline…"
+          placeholder="A product question, an idea, or just hello…"
           className="w-full resize-none border-b border-cream/25 bg-transparent py-3 text-[14px] leading-[1.7] text-cream outline-none transition-colors duration-300 placeholder:text-cream/35 focus:border-cream/70"
         />
       </div>
 
+      {/* Topic chips — quiet shortcuts on wider screens */}
+      <div className="mt-7 hidden flex-wrap gap-2 sm:flex" aria-hidden="true">
+        {TOPICS.map((t) => (
+          <button
+            key={t}
+            type="button"
+            onClick={() => setTopic(t)}
+            className={`rounded-full border px-3.5 py-1.5 text-[11px] tracking-[0.06em] transition-all duration-300 ${
+              topic === t
+                ? 'border-cream/60 text-cream'
+                : 'border-cream/15 text-cream/45 hover:border-cream/35 hover:text-cream/70'
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+      </div>
+
       <div className="mt-9 flex items-center justify-between gap-6">
         <p className="text-[11px] leading-relaxed text-cream/35">
-          One business day response. No mailing lists.
+          A founder replies — usually within a day.
         </p>
         <button
           type="submit"
           disabled={status.state === 'sending'}
           className="btn-light h-12 shrink-0 px-7 text-[13.5px] disabled:cursor-wait disabled:opacity-60"
         >
-          {status.state === 'sending' ? 'Sending…' : 'Send request'}
+          {status.state === 'sending' ? 'Sending…' : 'Send message'}
           <ArrowRight className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
@@ -220,49 +231,46 @@ export function CTABanner() {
     <section
       id="contact"
       className="relative overflow-hidden bg-night py-24 text-cream md:py-32"
-      aria-label="Contact NETSOL"
+      aria-label="Contact FaQ Systems"
     >
       <div className="container-luxe relative">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16 xl:gap-20">
           {/* Left — editorial statement */}
           <div className="flex flex-col justify-center">
             <Reveal>
-              <p className="eyebrow text-cream/45">Ready when you are</p>
+              <p className="eyebrow text-cream/45">Get in touch</p>
             </Reveal>
 
             <Reveal delay={0.08}>
               <h2 className="mt-6 font-serif text-[40px] leading-[1.08] tracking-[-0.015em] md:text-[52px]">
-                Let&rsquo;s shape smarter finance —{' '}
-                <em className="font-light italic">together</em>.
+                Let&rsquo;s build something{' '}
+                <em className="font-light italic">useful</em>.
               </h2>
             </Reveal>
 
             <Reveal delay={0.16}>
               <p className="mt-6 max-w-md text-[15px] leading-[1.75] text-cream/60">
-                Tell us about your portfolio, your markets, and your roadmap. A
-                NETSOL principal — not a call center — will respond within one
-                business day.
+                A product question, a partnership idea, or just hello — it
+                all lands directly with the founders.
               </p>
             </Reveal>
 
             <Reveal delay={0.22}>
               <div className="mt-10 space-y-4 border-t border-cream/10 pt-8">
                 <div>
-                  <p className="eyebrow text-cream/40">Headquarters</p>
-                  <p className="mt-2 text-[13.5px] leading-relaxed text-cream/70">
-                    16000 Ventura Blvd, Suite 770
-                    <br />
-                    Encino, CA 91436, USA
-                  </p>
-                </div>
-                <div>
-                  <p className="eyebrow text-cream/40">Direct</p>
+                  <p className="eyebrow text-cream/40">Email</p>
                   <a
-                    href="tel:+18182229195"
+                    href="mailto:hello@faq.systems"
                     className="link-underline mt-2 inline-block text-[13.5px] text-cream/70 transition-colors hover:text-cream"
                   >
-                    +1 818 222 9195
+                    hello@faq.systems
                   </a>
+                </div>
+                <div>
+                  <p className="eyebrow text-cream/40">Where</p>
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-cream/70">
+                    Remote-first · Shipping worldwide
+                  </p>
                 </div>
               </div>
             </Reveal>
@@ -276,7 +284,7 @@ export function CTABanner() {
 
         <Reveal delay={0.3}>
           <p className="eyebrow mt-20 text-center text-cream/30">
-            Los Angeles · London · Beijing · Bangkok · Lahore · Manila
+            FaQ Systems — Productized SaaS, built by founders
           </p>
         </Reveal>
       </div>

@@ -1,13 +1,9 @@
 import { SiteHeader } from '@/components/sections/header';
 import { Hero } from '@/components/sections/hero';
-import { BrandLogos } from '@/components/sections/brand-logos';
-import { TranscendPlatform } from '@/components/sections/transcend-platform';
-import { WhoWeServe } from '@/components/sections/who-we-serve';
-import { StatsSection } from '@/components/sections/stats';
-import { Solutions } from '@/components/sections/solutions';
-import { Testimonials } from '@/components/sections/testimonials';
-import { Leadership } from '@/components/sections/leadership';
-import { Insights } from '@/components/sections/insights';
+import { Products } from '@/components/sections/products';
+import { Approach } from '@/components/sections/approach';
+import { Principles } from '@/components/sections/principles';
+import { Founders } from '@/components/sections/founders';
 import { FAQ } from '@/components/sections/faq';
 import { CTABanner } from '@/components/sections/cta-banner';
 import { Footer } from '@/components/sections/footer';
@@ -18,14 +14,10 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1">
         <Hero />
-        <BrandLogos />
-        <TranscendPlatform />
-        <WhoWeServe />
-        <StatsSection />
-        <Solutions />
-        <Testimonials />
-        <Leadership />
-        <Insights />
+        <Products />
+        <Approach />
+        <Principles />
+        <Founders />
         <FAQ />
         <CTABanner />
       </main>

@@ -2,9 +2,9 @@ import { ArrowRight } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
 
 const TRUST_STATS = [
-  { value: '200+', label: 'Enterprise customers' },
-  { value: '30+', label: 'Countries served' },
-  { value: '$500B+', label: 'Assets managed' },
+  { value: '2', label: 'Founders' },
+  { value: '3', label: 'Products' },
+  { value: '100%', label: 'Engineer-built' },
 ];
 
 /**
@@ -79,7 +79,7 @@ export function Hero() {
           <div className="flex items-center justify-center gap-4">
             <span aria-hidden="true" className="h-px w-10 bg-hairline" />
             <p className="eyebrow text-muted-foreground">
-              Shaping smarter finance since 1997
+              A productized software company
             </p>
             <span aria-hidden="true" className="h-px w-10 bg-hairline" />
           </div>
@@ -88,29 +88,29 @@ export function Hero() {
         <Reveal delay={0.08}>
           <h1 className="mx-auto mt-7 max-w-4xl font-serif text-[46px] leading-[1.04] tracking-[-0.02em] text-ink sm:text-6xl md:text-7xl lg:text-[84px]">
             Shaping <em className="font-light italic text-crimson">smarter</em>
-            <br className="hidden sm:block" /> finance.
+            <br className="hidden sm:block" /> software.
           </h1>
         </Reveal>
 
         <Reveal delay={0.16}>
           <p className="mx-auto mt-7 max-w-2xl text-[15px] leading-[1.75] text-muted-foreground md:text-base">
-            NETSOL&rsquo;s Transcend platform unifies origination, servicing, and
-            AI-powered decisioning for the world&rsquo;s leading captives, banks,
-            OEMs, and fleets — across 30+ countries and every asset class.
+            FaQ Systems builds focused SaaS products — designed, engineered,
+            and operated end-to-end by its two founders. Small surface,
+            polished detail, honest pricing.
           </p>
         </Reveal>
 
         <Reveal delay={0.24}>
           <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
             <a href="#contact" className="btn-primary h-12 px-7 text-sm">
-              Request a demo
+              Get in touch
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
             <a
-              href="#platform"
+              href="#products"
               className="link-underline text-[14px] font-medium text-ink/75 transition-colors hover:text-ink"
             >
-              Explore the platform
+              See what we&rsquo;re building
             </a>
           </div>
         </Reveal>
@@ -120,10 +120,10 @@ export function Hero() {
           <figure className="relative overflow-hidden rounded-2xl border border-hairline bg-gradient-to-b from-white to-[#EDF2FA] shadow-[0_48px_100px_-44px_rgb(26 35 50/0.3)]">
             {/* Blueprint micro-labels */}
             <span className="eyebrow absolute left-5 top-5 z-10 text-ink/35">
-              Transcend&reg; Platform
+              FaQ Systems
             </span>
             <span className="eyebrow absolute right-5 top-5 z-10 hidden text-ink/35 sm:block">
-              Est. 1997 — NASDAQ: NTWK
+              Engineer-built · SaaS
             </span>
 
             <OrbitalArt />

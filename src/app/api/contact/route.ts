@@ -3,14 +3,7 @@ import { db } from '@/lib/db';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-const MARKETS = new Set([
-  'Automotive',
-  'Equipment',
-  'Fleet & Mobility',
-  'Marine & Aviation',
-  'Energy & Renewables',
-  'Banking & Lessor',
-]);
+const TOPICS = new Set(['Product inquiry', 'Partnership', 'Support', 'Something else']);
 
 function clean(value: unknown, max: number): string {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';
@@ -27,7 +20,7 @@ export async function POST(req: NextRequest) {
   const name = clean(body.name, 120);
   const email = clean(body.email, 200);
   const company = clean(body.company, 160);
-  const market = clean(body.market, 60);
+  const topic = clean(body.topic, 60);
   const message = clean(body.message, 4000);
 
   if (name.length < 2) {
@@ -48,9 +41,9 @@ export async function POST(req: NextRequest) {
       { status: 422 }
     );
   }
-  if (market && !MARKETS.has(market)) {
+  if (topic && !TOPICS.has(topic)) {
     return NextResponse.json(
-      { error: 'Unknown market.', field: 'market' },
+      { error: 'Unknown topic.', field: 'topic' },
       { status: 422 }
     );
   }
@@ -61,7 +54,7 @@ export async function POST(req: NextRequest) {
         name,
         email,
         company: company || null,
-        market: market || null,
+        topic: topic || null,
         message,
         source: clean(body.source, 60) || 'cta-banner',
       },
@@ -71,7 +64,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error('[api/contact] persistence failed:', err);
     return NextResponse.json(
-      { error: 'We could not record your request. Please try again.' },
+      { error: 'We could not record your message. Please try again.' },
       { status: 500 }
     );
   }
