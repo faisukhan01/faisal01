@@ -1739,3 +1739,23 @@ Stage Summary:
 - VLM critique (desktop): 8.5/10 — "highly successful execution of quiet luxury... treats the line-art as atmosphere, not illustration... engineered precision... the single dashed blue arc guides the eye toward the headline"
 - Committed b2c5454 immediately; server stable via double-fork daemon pattern
 - Note: when the page scrolls, header goes glass-cream and the art scrolls away with the hero — intended elegant behavior
+
+---
+Task ID: 16
+Agent: main (Z.ai Code)
+Task: Round 16 — Replace orbital header art with animated CODE backdrop per user request ("add something like coding (javascript, python) like a video on its bg... aesthetic, impressive, vibing with our theme")
+
+Work Log:
+- User rejected the orbital line-art backdrop ("very ugly") — deleted header-backdrop.tsx entirely
+- NEW site/code-backdrop.tsx: CodeBackdrop — a living ghost-editor canvas behind the header:
+  - 10 FaQ-flavored snippets (JS/Python/bash: founders array, await ship, export function, def ship, class Founder(Engineer), bun run dev, git commit "polish > features", etc.)
+  - Lines type character-by-character at 16-30 cps, blinking electric-blue block cursors (530ms blink), hold 1.6-2.8s, fade 0.8-1.2s, respawn at new x/row
+  - Brand-palette syntax highlighting: electric-blue keywords rgba(0,122,255,.38), navy ink regular .17, strings .14, comments .10 — reads like a VS Code theme through gauze on cream
+  - Rows staggered (2-9 streams by viewport height), monospace 11-13px by breakpoint
+- Wired into hero.tsx replacing HeaderBackdropArt (same z-0 container, mask fade moved to 62% so code dissolves before the serif headline)
+- Perf guardrails: 30fps cap, DPR ≤ 1.5, IntersectionObserver pause, document.hidden pause, prefers-reduced-motion renders one static typed frame, ResizeObserver relayout
+
+Stage Summary:
+- Verification: lint 0 errors · console clean · canvas painting confirmed (pixel sample 4170 → 4509 = animating) · mobile 390px no overflow
+- VLM critique: 8.5/10 — "highly effective developer-aesthetic... atmospheric texture rather than visual noise... syntax-highlighting mirrors modern IDEs, reinforces brand palette organically... monospace code vs serif headline = 'engineering depth delivering elegant outcome'"; mobile "crops gracefully, stays readable"
+- Committed efaa511; nothing else changed per user request
