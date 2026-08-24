@@ -1646,3 +1646,34 @@ Round 7 is complete. The NETSOL Technologies homepage replica now has:
   - **Career Detail Modal** with sticky aside, role cycling, full job description
 - Cumulative: 4 rounds of polish + 22 sections + 7 overlays + 3D scenes + 6 premium modals + interactive ROI calculator + live operations pulse + product tour + glossary + IR section + press center + careers detail
 
+
+---
+Task ID: 12
+Agent: main (Z.ai Code)
+Task: Round 11 — EMERGENCY REBUILD after filesystem rollback + user demand: "remove all the 3D animations, make it simple aesthetic, neat and clean and eye catching"
+
+Work Log:
+- DIAGNOSED CRITICAL INCIDENT: the working tree had been rolled back to the 14:22 UTC snapshot (Round 6 gaudy state) — all uncommitted Rounds 7-10 work (luxury redesign, modals, contact form, portraits) was WIPED. The user saw the old messy 24-section site with 4 Three.js scenes — hence the new complaint. Verified: hero.tsx was old version importing HeroScene3D, three/ dir restored, api/contact gone, prisma model gone, portraits gone, layout back to Poppins. No git commit had ever captured Rounds 7-10 (hero-canvas.tsx absent from all history).
+- REBUILT the entire luxury editorial system from context, IMPROVED per user's new demands (zero 3D, simpler):
+  - layout.tsx: Fraunces + Inter restored
+  - globals.css: full luxury token set, MINIMAL utilities (removed grain, aurora, scroll-cue entirely — only marquee remains, slowed to 84s)
+  - logo.tsx, header.tsx (active-nav + mobile menu), footer.tsx (working newsletter)
+  - hero.tsx: REPLACED Three.js dot-sphere with a STATIC SVG orbital line drawing (concentric rings, 2 ellipses, single dashed crimson arc, quiet nodes, corner registration ticks) inside the framed panel + trust strip — zero JavaScript, zero animation, zero WebGL
+  - transcend-platform.tsx: converted tab machinery to a CALM STATIC 5-module grid (number + line-art motif + serif title + description + categories) + quiet "one mesh" filler cell completing the 3-col grid
+  - who-we-serve.tsx: kept 3-audience hairline grid, ADDED quiet asset-class line (Industries section DELETED — 11 sections total now)
+  - stats.tsx: night band + count-up + why-strip, no grain/glow
+  - solutions.tsx + insights.tsx: 3 cards each + editorial reader modals (editorial-modal shell, case-study-modal, article-modal all recreated); expand toggles removed (simpler)
+  - testimonials.tsx: carousel + keyboard nav restored
+  - leadership.tsx: portrait grid restored
+  - faq.tsx: accordion restored
+  - cta-banner.tsx: split layout + ContactForm restored; prisma ContactSubmission model re-pushed; api/contact route recreated
+  - page.tsx: 11-section flow (Hero→Logos→Platform→Who→Stats→Solutions→Testimonials→Leadership→Insights→FAQ→CTA→Footer)
+  - DELETED again: three/, 12 old sections, 20 old site utilities (product-tour-modal leftover included)
+- REGENERATED 4 B/W leadership portraits (public/leadership/, 864x1152, consistent FT-annual-report style)
+- PROTECTION: committed everything to git (commit 61486db) — future rollbacks can no longer wipe the design
+
+Stage Summary:
+- Verification: HTTP 200 · 319KB · lint 0 errors · console clean · 11 sections · 0 canvases (zero WebGL anywhere) · portraits 4/4 loaded desktop+mobile · case-study modal opens/Esc-closes · contact API POST → 201 persisted · mobile 390px no overflow, h1 46px
+- VLM critique of the new static hero: 8.5/10 overall (Luxury 9, Neatness 9.5, Eye-catching 7.5) — "masterclass in restrained premium aesthetics... whispers wealth rather than shouting it... technically flawless"
+- Root cause + prevention recorded: ALWAYS git-commit after each round; the 15-min cron reviewers must verify `git log -1` matches the luxury design before assuming state
+- Next-phase candidates: og-image asset, honeypot on contact form, testimonial portraits
