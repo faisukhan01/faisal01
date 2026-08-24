@@ -1,0 +1,142 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Quote, Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Reveal } from '@/components/site/reveal';
+import { TESTIMONIALS } from '@/lib/site-data';
+
+export function Testimonials() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => {
+      setActive((a) => (a + 1) % TESTIMONIALS.length);
+    }, 6500);
+    return () => clearInterval(t);
+  }, [paused]);
+
+  const current = TESTIMONIALS[active];
+
+  return (
+    <section
+      id="insights"
+      className="relative w-full bg-[#f0f8ff] py-20 lg:py-28 overflow-hidden"
+      aria-label="Customer testimonials"
+    >
+      {/* Vertical stripe pattern */}
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-50 pointer-events-none"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(29,129,242,0.04) 14px, rgba(29,129,242,0.04) 16px)',
+        }}
+      />
+
+      <div className="relative mx-auto max-w-[1320px] px-5 lg:px-8">
+        <Reveal className="max-w-[820px] mx-auto text-center">
+          <div className="inline-flex items-center gap-2 mb-4">
+            <span className="h-2 w-2 rounded-full bg-[#1d81f2]" />
+            <span className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#6b7280]">
+              Customer Stories
+            </span>
+          </div>
+          <h2 className="text-[28px] sm:text-[34px] lg:text-[42px] font-semibold tracking-tight text-[#161616] leading-tight">
+            What our customers say
+          </h2>
+        </Reveal>
+
+        {/* Carousel */}
+        <div
+          className="relative mt-12"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <div className="relative h-[440px] sm:h-[360px] lg:h-[420px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current.id}
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -40 }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 grid grid-cols-1 lg:grid-cols-12 gap-0 rounded-[24px] bg-white shadow-premium-lg overflow-hidden border border-white"
+              >
+                {/* Text side */}
+                <div className="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-between relative">
+                  <Quote className="h-10 w-10 text-[#1d81f2]/15" fill="currentColor" />
+                  <div className="mt-2 flex-1 flex items-center">
+                    <p className="text-[16px] lg:text-[20px] leading-[1.6] text-[#161616] font-normal">
+                      "{current.quote}"
+                    </p>
+                  </div>
+                  <div className="mt-6">
+                    <div className="text-[20px] lg:text-[24px] font-semibold text-[#161616]">
+                      {current.person}
+                    </div>
+                    <div className="mt-1 text-[15px] text-[#6b7280]">{current.title}</div>
+                    <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#1d81f2]/8 px-3 py-1 text-[12px] font-semibold text-[#1d81f2]">
+                      {current.company}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Portrait side */}
+                <div className="lg:col-span-5 relative h-[200px] lg:h-auto">
+                  <img
+                    src={current.portrait}
+                    alt={current.person}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f62fe]/30 to-transparent lg:bg-gradient-to-l" />
+
+                  {current.hasVideo && (
+                    <button
+                      className="absolute inset-0 m-auto h-16 w-16 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-premium hover:scale-110 transition-transform"
+                      aria-label="Play video testimonial"
+                    >
+                      <Play className="h-6 w-6 text-[#1d81f2] ml-1" fill="currentColor" />
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Nav arrows */}
+          <button
+            aria-label="Previous testimonial"
+            onClick={() => setActive((a) => (a - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-premium flex items-center justify-center text-[#161616] hover:bg-[#1d81f2] hover:text-white transition-colors"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            aria-label="Next testimonial"
+            onClick={() => setActive((a) => (a + 1) % TESTIMONIALS.length)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white shadow-premium flex items-center justify-center text-[#161616] hover:bg-[#1d81f2] hover:text-white transition-colors"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+
+          {/* Dot navigation */}
+          <div className="mt-6 flex items-center justify-center gap-2.5">
+            {TESTIMONIALS.map((t, i) => (
+              <button
+                key={t.id}
+                aria-label={`Go to testimonial ${i + 1}`}
+                onClick={() => setActive(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  active === i ? 'w-8 bg-[#1d81f2]' : 'w-2 bg-[#1d81f2]/25'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
