@@ -9,7 +9,7 @@ export function Hero() {
           hero (header zone included), with a soft clearing around the headline */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_45%_30%_at_50%_50%,transparent_0%,transparent_42%,black_80%)]"
+        className="pointer-events-none absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_48%_36%_at_50%_48%,transparent_0%,transparent_40%,black_82%)]"
       >
         <CodeBackdrop className="h-full w-full" />
       </div>
