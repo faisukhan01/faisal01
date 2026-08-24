@@ -174,10 +174,9 @@ export function CodeBackdrop({ className }: { className?: string }) {
         const y = i * rowH - scroll + rowH; // baseline
         if (y < -6 || y > height + rowH * 2) continue;
 
-        // Soft entry at the bottom edge, soft exit at the top
-        const entry = Math.max(0, Math.min(1, (height + rowH - y) / (rowH * 2)));
-        const exit = Math.max(0, Math.min(1, y / (rowH * 2)));
-        const alpha = Math.min(entry, exit);
+        // Soft entry at the bottom edge; lines stay solid to the very top
+        // so the code fills the whole header zone
+        const alpha = Math.max(0, Math.min(1, (height + rowH - y) / (rowH * 2)));
 
         // Line number, right-aligned in the gutter
         ctx.globalAlpha = alpha;

@@ -5,16 +5,16 @@ import { CodeBackdrop } from '@/components/site/code-backdrop';
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-background">
-      {/* Living code atmosphere — a scrolling ghost editor behind everything,
-          with a soft clearing around the headline for perfect readability */}
+      {/* Living code atmosphere — a scrolling ghost editor filling the whole
+          hero (header zone included), with a soft clearing around the headline */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_47%_34%_at_50%_47%,transparent_0%,transparent_42%,black_80%)]"
+        className="pointer-events-none absolute inset-0 z-0 [mask-image:radial-gradient(ellipse_45%_30%_at_50%_50%,transparent_0%,transparent_42%,black_80%)]"
       >
         <CodeBackdrop className="h-full w-full" />
       </div>
 
-      <div className="container-luxe relative z-10 flex min-h-[92svh] flex-col items-center justify-center pb-24 pt-36 text-center md:pb-32 md:pt-40">
+      <div className="container-luxe relative z-10 flex min-h-[70svh] flex-col items-center justify-center pb-16 pt-28 text-center md:pb-20 md:pt-32">
         <Reveal>
           <div className="flex items-center justify-center gap-4">
             <span aria-hidden="true" className="h-px w-10 bg-hairline" />
