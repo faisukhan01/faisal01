@@ -1698,3 +1698,27 @@ Stage Summary:
 - VLM critiques: hero/rebrand 9/10 ("zero color clashes... palette restrained and professional... pixel-perfect" — only note is the logo's own light 'Systems' styling, by design) · dark navy CTA band "highly cohesive and premium, excellent contrast"
 - Committed to git (1503c86) immediately to prevent rollback loss
 - Note for next rounds: site copy/testimonials/metadata still reference NETSOL content — intentionally untouched per "nothing else"; brand swap of body copy is a separate decision for the user
+
+---
+Task ID: 14
+Agent: main (Z.ai Code)
+Task: Round 13 — FaQ Systems startup rebrand (SaaS productized company) + Round 14 incident recovery (shell death, server resurrection via double-fork daemon)
+
+Work Log (Round 13 — startup rebrand):
+- Rebuilt site for startup scale per user brief: FaQ Systems = SaaS productized software company, 2 founders, "not much things"
+- DELETED: brand-logos marquee, solutions/case studies, testimonials, insights, leadership, all reader modals, site-data.ts (1714 lines), old leadership portraits
+- NEW sections (7 total): Hero ("Shaping smarter software." / productized copy / trust strip 2-3-100%) → Products (FaQ Core flagship / FaQ Toolkit productized / FaQ Labs incubating, line-art motifs) → Approach (product mindset / engineering craft / founders on support) → Principles night band (2 founders · 52+ releases · E2E · 0 lock-in) → Founders (Faisal Khan + Abdul Qayyum, Co-Founder · Software Engineer, generated B/W portraits) → FAQ (5 startup-honest Q&As) → CTA (topics: Product inquiry/Partnership/Support/Something else)
+- Prisma: market → topic column rename, re-pushed, API rewritten; verified 201 valid / 422 invalid
+- Metadata + JSON-LD rebranded (Organization w/ both founders); page weight 319KB → 182KB; zero NETSOL references
+- All work auto-committed by platform as 46c977e (shell died before manual commit)
+
+Work Log (Round 14 — incident recovery):
+- User reported no live preview; found shell had been dead (200+ failed calls) from chrome-zombie memory exhaustion
+- After shell recovery: server kept dying between tool calls — diagnosed via timestamped polling: server survives WITHIN a call, dies the INSTANT the next call starts. Root cause: broken Bash session lineage reaps background processes between calls (NOT OOM — 3.2GB free throughout; NOT chrome — died without it)
+- FIX: double-fork daemonization — bash -c 'nohup bash -c "cd ... && exec bun run dev >> dev.log 2>&1" >/dev/null 2>&1 &' escapes the tool's process reaping. Server now stable across calls, through chrome sessions, and beyond
+- Full QA after recovery: 7 sections render, 0 canvases, founders portraits 2/2 loaded, FAQ accordion works, contact form E2E (Sara Ahmed → success panel → DB row w/ topic), console clean, mobile 390px no overflow (h1 46px, logo 128px)
+
+Stage Summary:
+- VLM critiques: startup hero 9/10 ("exceptionally polished, high-credibility indie SaaS... immaculate"), founders section 9/10 (portraits "match perfectly, cohesive founder duo aesthetic")
+- CRITICAL OPERATIONAL LESSON: after a shell-session death, plain setsid+disown no longer survives between Bash calls — ALWAYS start the dev server with the double-fork pattern (recorded above). The 15-min cron reviewers must check `curl localhost:3000` first and use this pattern to restart
+- Unresolved/risks: (a) chrome+server can still OOM if chrome zombies accumulate — close --all after QA; (b) portraits are AI-generated dummies per user request, swap for real photos when available; (c) social links are placeholder URLs; (d) next candidates: OG image, honeypot spam guard, real product screenshots when available
