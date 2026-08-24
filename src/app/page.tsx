@@ -8,12 +8,15 @@ import { TranscendPlatform } from '@/components/sections/transcend-platform';
 import { WhoWeServe } from '@/components/sections/who-we-serve';
 import { IndustriesWePower } from '@/components/sections/industries';
 import { Differentiators } from '@/components/sections/differentiators';
+import { Solutions } from '@/components/sections/solutions';
 import { StatsSection } from '@/components/sections/stats';
+import { Comparison } from '@/components/sections/comparison';
 import { Leadership } from '@/components/sections/leadership';
 import { Awards } from '@/components/sections/awards';
 import { Sustainability } from '@/components/sections/sustainability';
 import { Careers } from '@/components/sections/careers';
 import { Testimonials } from '@/components/sections/testimonials';
+import { ROICalculator } from '@/components/sections/roi-calculator';
 import { Insights } from '@/components/sections/insights';
 import { FAQ } from '@/components/sections/faq';
 import { CTABanner } from '@/components/sections/cta-banner';
@@ -47,10 +50,17 @@ export default function Home() {
         <WhoWeServe />
         <IndustriesWePower />
         <Differentiators />
+
+        {/* NEW (Round 5): Solutions / Customer Stories — case studies grid */}
+        <Solutions />
+
         <StatsSection />
 
-        {/* Wave divider: stats (light bg) → awards (dark bg) */}
-        <WaveDivider variant="wave-down" fill="#0f172a" background="#f5f7fa" height={64} />
+        {/* NEW (Round 5): Comparison table — Transcend vs Legacy / On-prem / Custom */}
+        <Comparison />
+
+        {/* Wave divider: comparison (white) → awards (dark bg) */}
+        <WaveDivider variant="wave-down" fill="#0f172a" background="#ffffff" height={48} />
 
         <Awards />
 
@@ -58,13 +68,16 @@ export default function Home() {
         <Sustainability />
         <Careers />
 
-        {/* Wave divider: testimonials (light-blue bg) → insights (white) */}
         <Testimonials />
+
+        {/* NEW (Round 5): Interactive ROI Calculator — premium dark widget */}
+        <ROICalculator />
+
         <Insights />
         <FAQ />
 
         {/* Wave divider: FAQ (gradient bg) → CTA banner (white) */}
-        <WaveDivider variant="wave-up" fill="#ffffff" background="#f5f7fa" height={48} className="-mt-12" />
+        <WaveDivider variant="wave-up" fill="#ffffff" background="#0f172a" height={48} className="-mt-12" />
 
         <CTABanner />
         <Newsletter />

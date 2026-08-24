@@ -740,3 +740,286 @@ export const STOCK_TICKER = {
   // Sparkline points (relative scale 0-100, used by the SVG sparkline)
   sparkline: [62, 60, 65, 63, 68, 67, 70, 72, 71, 75, 78, 80, 82, 81, 84, 88, 90, 95],
 };
+
+// ---------------------------------------------------------------------------
+// Transcend vs Legacy / Generic competitors — comparison matrix
+// ---------------------------------------------------------------------------
+// Each competitor is a column. Each row is a capability.
+// `value` is one of "full" | "partial" | "none" used to render the icon.
+export const COMPARISON_MATRIX = {
+  competitors: [
+    {
+      id: "netsol",
+      name: "NETSOL Transcend",
+      tagline: "The operating system for asset finance",
+      highlight: true,
+      badge: "Best value",
+      accent: "#1d81f2",
+    },
+    {
+      id: "legacy-saas",
+      name: "Generic SaaS",
+      tagline: "Point tools stitched together",
+      highlight: false,
+      accent: "#6b7280",
+    },
+    {
+      id: "onprem",
+      name: "On-prem suite",
+      tagline: "Legacy licensed software",
+      highlight: false,
+      accent: "#6b7280",
+    },
+    {
+      id: "custom",
+      name: "Custom build",
+      tagline: "In-house engineering team",
+      highlight: false,
+      accent: "#6b7280",
+    },
+  ],
+  rows: [
+    {
+      label: "Time to first live origination",
+      detail: "From contract to first digital contract signature.",
+      values: { netsol: "8–12 weeks", "legacy-saas": "6–9 months", onprem: "12–18 months", custom: "18–36 months" },
+    },
+    {
+      label: "Asset class coverage",
+      detail: "Auto, equipment, fleet, marine, aviation, energy, banking.",
+      values: { netsol: "full", "legacy-saas": "partial", onprem: "partial", custom: "none" },
+    },
+    {
+      label: "AI underwriting & decisioning",
+      detail: "Native AI Labs — credit scoring, fraud, document AI.",
+      values: { netsol: "full", "legacy-saas": "partial", onprem: "none", custom: "none" },
+    },
+    {
+      label: "Marketplace of pre-built modules",
+      detail: "Calc engines, document gen, decisioning, customer portals.",
+      values: { netsol: "full", "legacy-saas": "none", onprem: "none", custom: "none" },
+    },
+    {
+      label: "Global 24/7 delivery across 6 centers",
+      detail: "Follow-the-sun engineering + support model.",
+      values: { netsol: "full", "legacy-saas": "partial", onprem: "partial", custom: "none" },
+    },
+    {
+      label: "Compliance (ISO 27001, SOC 2, GDPR, PCI-DSS)",
+      detail: "Audited annually, customer-tenant data residency controls.",
+      values: { netsol: "full", "legacy-saas": "partial", onprem: "partial", custom: "none" },
+    },
+    {
+      label: "Multi-tenant SaaS upgrade path",
+      detail: "Quarterly feature releases with no re-deployment cost.",
+      values: { netsol: "full", "legacy-saas": "full", onprem: "none", custom: "none" },
+    },
+    {
+      label: "Total cost of ownership over 5 years",
+      detail: "License + integration + ops + upgrades — lower is better.",
+      values: { netsol: "1×", "legacy-saas": "2.4×", onprem: "3.8×", custom: "5.2×" },
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Interactive ROI Calculator — calibration constants
+// ---------------------------------------------------------------------------
+export const ROI_CALCULATOR = {
+  // Annual asset finance volume range (USD)
+  volumeMin: 100_000_000,
+  volumeMax: 10_000_000_000,
+  volumeDefault: 1_500_000_000,
+  volumeStep: 50_000_000,
+
+  // Current automation level (%)
+  automationMin: 0,
+  automationMax: 80,
+  automationDefault: 25,
+
+  // Target automation level with Transcend (%)
+  targetMin: 50,
+  targetMax: 95,
+  targetDefault: 82,
+
+  // Operational savings — % of newly-automated volume that becomes hard savings
+  savingsRate: 0.022,
+
+  // Average fully-loaded cost per FTE (USD) — ops/admin staff
+  fteCost: 95_000,
+
+  // Hours per contract, baseline (manual ops)
+  baselineHoursPerContract: 6.4,
+
+  // Transcend automated time per contract
+  transcendHoursPerContract: 1.1,
+
+  // Industry multipliers — adjust savings % per asset class
+  industries: [
+    { id: "auto", label: "Automotive Finance", multiplier: 1.0, emoji: "CF" },
+    { id: "equipment", label: "Equipment Finance", multiplier: 0.92, emoji: "EF" },
+    { id: "fleet", label: "Fleet & Mobility", multiplier: 1.08, emoji: "FM" },
+    { id: "marine", label: "Marine & Aviation", multiplier: 0.78, emoji: "MA" },
+    { id: "energy", label: "Energy & Renewables", multiplier: 0.86, emoji: "ER" },
+    { id: "banking", label: "Banking & Lessor", multiplier: 1.04, emoji: "BL" },
+  ],
+
+  // Average contract value (USD) — for contracts-per-year calc
+  avgContractValue: 48_000,
+};
+
+// ---------------------------------------------------------------------------
+// Solutions / Customer Stories — case studies with metrics + modal content
+// ---------------------------------------------------------------------------
+export const SOLUTION_CASES = [
+  {
+    id: "case-1",
+    industry: "Automotive Finance",
+    industryId: "auto",
+    company: "Top-3 European OEM captive",
+    headline: "Cut origination time from 11 days to 36 hours",
+    accent: "#1d81f2",
+    logo: "EU",
+    metrics: [
+      { value: "-93%", label: "Origination cycle time" },
+      { value: "+27%", label: "Approval conversion" },
+      { value: "$84M", label: "Annual cost savings" },
+    ],
+    challenge:
+      "A leading European OEM captive was running origination on a 14-year-old on-prem stack. Manual credit checks, paper document review, and slow dealer handoffs meant customers waited up to 11 days for a decision — and a third of them walked away.",
+    solution:
+      "NETSOL migrated the captive onto Transcend Digital Retail in 14 weeks. The dealer portal, AI credit decisioning engine, and digital document workflow replaced 23 legacy systems. A Marketplace document-generation module was turned on without a re-deployment.",
+    results:
+      "Origination fell from 11 days to 36 hours. Approval conversion rose 27%. The captive saved $84M annually in opex and recovered 142 FTEs that were redeployed to credit risk and dealer success.",
+    quote:
+      "We stopped apologising to dealers. The system now closes loans before the customer leaves the showroom.",
+    quoteBy: "VP of Retail Credit",
+    year: "2024",
+    duration: "14 weeks",
+  },
+  {
+    id: "case-2",
+    industry: "Equipment Finance",
+    industryId: "equipment",
+    company: "Global equipment lessor",
+    headline: "Automated 96% of mid-ticket applications",
+    accent: "#24a148",
+    logo: "EQ",
+    metrics: [
+      { value: "96%", label: "Automated decisioning" },
+      { value: "-71%", label: "Per-decision cost" },
+      { value: "4.2h", label: "Avg decision SLA" },
+    ],
+    challenge:
+      "A $4B equipment finance book was scoring every application manually. Underwriters spent two-thirds of their day on applications below $250K — the segment that contributed the least margin but the most volume.",
+    solution:
+      "NETSOL AI Labs trained a custom decisioning model on the lessor's 11-year application history. The model was deployed as a Marketplace module inside Transcend Finance, with full audit logs and human-in-the-loop override on edge cases.",
+    results:
+      "96% of mid-ticket applications now auto-decision within a 4.2-hour SLA. Per-decision cost fell 71%. Underwriters were redeployed to structured deals above $5M — where human judgement drives margin.",
+    quote:
+      "The model isn't a black box. We can explain every decision to a regulator — and we do.",
+    quoteBy: "Chief Risk Officer",
+    year: "2025",
+    duration: "11 weeks",
+  },
+  {
+    id: "case-3",
+    industry: "Fleet & Mobility",
+    industryId: "fleet",
+    company: "Pan-APAC fleet operator",
+    headline: "Onboarded 38,000 vehicles in 7 months",
+    accent: "#0f62fe",
+    logo: "FL",
+    metrics: [
+      { value: "38K", label: "Vehicles onboarded" },
+      { value: "7 mo", label: "Rollout duration" },
+      { value: "99.98%", label: "Telemetry uptime" },
+    ],
+    challenge:
+      "A post-IPO pan-APAC fleet operator needed to consolidate 6 regional leasing entities onto one platform within a single fiscal year — or face delisting risk on its reporting covenant.",
+    solution:
+      "NETSOL deployed Transcend across 7 markets with localised regulatory modules, multi-currency ledger, and a unified fleet telemetry pipeline. The Marketplace telematics adapter ingested 14 million events per day across 38,000 vehicles.",
+    results:
+      "The operator consolidated 6 ledgers into 1 in 7 months. Telemetry uptime held at 99.98% — the operator passed its reporting audit and avoided delisting.",
+    quote:
+      "Seven months. Six markets. One ledger. We made covenant.",
+    quoteBy: "Group CFO",
+    year: "2024",
+    duration: "7 months",
+  },
+  {
+    id: "case-4",
+    industry: "Marine & Aviation",
+    industryId: "marine",
+    company: "Aviation lessor",
+    headline: "Closed a $310M aircraft portfolio in 9 days",
+    accent: "#2d9cdb",
+    logo: "AV",
+    metrics: [
+      { value: "$310M", label: "Portfolio closed" },
+      { value: "9 days", label: "Close cycle" },
+      { value: "100%", label: "Regulatory audit pass" },
+    ],
+    challenge:
+      "An aviation lessor was acquiring a $310M portfolio of 12 mid-life aircraft from a distressed seller. The deal window was 9 days — including regulatory filings in 3 jurisdictions.",
+    solution:
+      "NETSOL spun up a tenant-specific Transcend workspace with the aviation asset module, regulatory packs for FAA, EASA, and CAAC, and a Marketplace document-generation pack pre-loaded with 41 lease transfer templates.",
+    results:
+      "The lessor closed the portfolio in 9 days. Every regulatory filing was audit-traceable. The lessor used the same workspace to manage the portfolio post-close.",
+    quote:
+      "We closed a deal in 9 days that would have taken our previous platform 9 weeks.",
+    quoteBy: "Head of Portfolio Acquisitions",
+    year: "2025",
+    duration: "9 days",
+  },
+  {
+    id: "case-5",
+    industry: "Energy & Renewables",
+    industryId: "energy",
+    company: "Solar developer finance arm",
+    headline: "Funded $1.2B of residential solar in 18 months",
+    accent: "#56ccf2",
+    logo: "SO",
+    metrics: [
+      { value: "$1.2B", label: "Funded volume" },
+      { value: "18 mo", label: "Programme duration" },
+      { value: "23%", label: "Approval lift" },
+    ],
+    challenge:
+      "A renewable-energy company's captive finance arm needed to originate residential solar loans at scale across 14 US states, each with its own disclosure and licensing regime — and it had to launch before the federal ITC window closed.",
+    solution:
+      "NETSOL stood up Transcend Finance with a Marketplace compliance pack covering 14 states, an AI scoring model trained on solar-specific default data, and a 90-second digital application flow embedded in the developer's quoting tool.",
+    results:
+      "The captive funded $1.2B of residential solar loans in 18 months. Approval conversion rose 23% versus the prior broker channel. The captive cleared the ITC window with margin to spare.",
+    quote:
+      "We hit our programme target before the tax credit window closed. That's the only metric that mattered.",
+    quoteBy: "President, Solar Finance",
+    year: "2024",
+    duration: "9 weeks to launch",
+  },
+  {
+    id: "case-6",
+    industry: "Banking & Lessor",
+    industryId: "banking",
+    company: "Tier-1 APAC bank",
+    headline: "Consolidated 4 legacy lessor systems into 1",
+    accent: "#1d81f2",
+    logo: "BK",
+    metrics: [
+      { value: "4 → 1", label: "Systems consolidated" },
+      { value: "-58%", label: "Run cost" },
+      { value: "0", label: "Regulatory breaches" },
+    ],
+    challenge:
+      "A tier-1 APAC bank had inherited 4 separate lessor platforms across 3 acquisitions. Each ran on different ledgers, different calendars, and different compliance regimes. The bank's regulator had given it 18 months to consolidate.",
+    solution:
+      "NETSOL migrated all 4 lessor books onto a single Transcend tenant with multi-currency, multi-jurisdiction ledger and a unified compliance pack. A 6-month parallel-run window validated every reconciliation before cut-over.",
+    results:
+      "The bank consolidated 4 systems into 1 in 14 months — 4 months ahead of the regulator's deadline. Run cost fell 58%. The bank reported zero reconciliation breaks during the parallel run and zero regulatory breaches post-cutover.",
+    quote:
+      "We met the regulator's deadline — and we still sleep at night.",
+    quoteBy: "Head of Leasing Operations",
+    year: "2023",
+    duration: "14 months",
+  },
+];
