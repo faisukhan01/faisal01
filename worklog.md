@@ -1792,3 +1792,20 @@ Stage Summary:
 - Verification: lint 0 errors · console clean · top 90px strip behind navbar now paints 1,600 pixels of code (was ~0 before fix) · canvas covers hero 100% (599px) · mobile no overflow
 - VLM: "code extends seamlessly behind the navbar and logo, unified top-sheet effect, no awkward cutoffs... height well-proportioned, not a full-screen scroll trap" 8/10; mobile: "compact, cohesive visual unit"
 - Committed ca46ae7; server stable via double-fork daemon pattern
+
+---
+Task ID: 19
+Agent: main (Z.ai Code)
+Task: Round 19 — Full-width code lines across entire header on every screen size (user: "coding bg is just in the left side... lines must be so much wider covering the whole header in every screen size")
+
+Work Log:
+- Diagnosed: v2/v3 pool lines were short (40-90 chars ≈ 300-650px), so on wide screens the right side of the header stayed empty — code looked left-anchored
+- Rewrote the token pool with genuinely long dense lines (TS request pipeline with trace/metrics/audit args, Python dataclass + comprehension balance fn, SQL CASE-WHEN ledger query with HAVING/LIMIT, bun test/deploy/git logs, package.json, Result<T> type, watch() hot-rebuild) — most 120-260 chars
+- NEW padLine(): tops up any short line with fluent-chain filler fragments (.map((r) => r.value), .filter(Boolean), ?? 0, .slice(0,25), /* @faq */ etc.) until it exceeds viewport width + 2 chars — starts at a random filler index so lines end differently; reflow() re-pads the whole buffer on every resize (ResizeObserver), so 390px phones through 1920px ultrawides are always edge-to-edge
+- Draw loop early-breaks token draws once x > width (clipped like a real editor); cursor x clamped to width-6; line numbers kept
+- Enlarged headline clearing per VLM note: radial mask ellipse 45%x30% @50/50 → 48%x36% @50/48% (fixed a sed-mangled class after — lesson: use Edit tool for class strings)
+
+Stage Summary:
+- Pixel-verified coverage of the TOP 90px header strip: right half = 6,245 painted px @1280w; right quarter = 3,993 px @1920w; right half = 1,656 px @390w (no overflow); mask confirmed applied via computed style
+- VLM final: 9/10 — "spans the entire viewport width edge-to-edge, dense immersive matrix effect... headline exceptionally crisp and readable; blue 'smarter' accent adds sophisticated hierarchy"
+- Lint 0 errors, console clean; committed d05343e; server stable via double-fork daemon
