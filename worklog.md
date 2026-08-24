@@ -1677,3 +1677,24 @@ Stage Summary:
 - VLM critique of the new static hero: 8.5/10 overall (Luxury 9, Neatness 9.5, Eye-catching 7.5) — "masterclass in restrained premium aesthetics... whispers wealth rather than shouting it... technically flawless"
 - Root cause + prevention recorded: ALWAYS git-commit after each round; the 15-min cron reviewers must verify `git log -1` matches the luxury design before assuming state
 - Next-phase candidates: og-image asset, honeypot on contact form, testimonial portraits
+
+---
+Task ID: 13
+Agent: main (Z.ai Code)
+Task: Round 12 — Rebrand to "FaQ Systems" per user request: use uploaded logo in navbar + footer, retune site theme to logo colors, nothing else
+
+Work Log:
+- Analyzed uploaded logo (upload/WhatsApp Image 2026-08-24 at 11.14.22 PM.jpeg, 1535x1024) via VLM: "FaQ Systems" wordmark — "Fa" deep navy #1A2332, "Q" electric blue #007AFF, "Systems" slate grey #5C6670, small blue bracket mark, white background
+- Converted logo JPEG → transparent PNG via sharp (per-pixel euclidean distance-from-white → alpha, threshold 1.6, auto-trim to content): public/faq-logo.png, 1025x176, VLM-verified "fully intact and crisp, no white boxes or artifacts"
+- NEW logo.tsx FaqLogo component (next/image, 170x30 intrinsic, h-26/30, priority on header) — replaces NetsolLogo; usages swapped in header (desktop + mobile menu) and footer
+- THEME RETUNE (atomic — token names kept, values swapped in globals.css):
+  - ink: #1A1815 → #1A2332 (logo navy) · cream: #FAF9F5 → #F7F9FC (cool light) · night: #14120F → #131C2E (navy band) · crimson token: #A6192E → #007AFF (electric blue) · hairline: navy @ 10%
+  - All oklch root vars moved from warm hue 85 → cool hue 250-260; muted-foreground now cool slate; selection bg + focus rings + scrollbar recolored; btn-primary hover #232F44; btn-light pure white
+  - Hardcoded literals updated: hero OrbitalArt SVG (ink strokes → #1A2332, crimson arc + node → #007AFF), panel gradient to-[#EDF2FA], transcend-platform Motif accents → #007AFF, testimonials focus ring → blue, solutions hover shadow → navy
+- NO other changes per user instruction ("nothing else") — content, sections, portraits, copy untouched
+
+Stage Summary:
+- Verification: lint 0 errors · console clean · header logo loads (30px, alt "FaQ Systems") · footer logo loads · accent word color computed rgb(0,122,255) ✓ · mobile 390px logo 128px wide, fits, no overflow
+- VLM critiques: hero/rebrand 9/10 ("zero color clashes... palette restrained and professional... pixel-perfect" — only note is the logo's own light 'Systems' styling, by design) · dark navy CTA band "highly cohesive and premium, excellent contrast"
+- Committed to git (1503c86) immediately to prevent rollback loss
+- Note for next rounds: site copy/testimonials/metadata still reference NETSOL content — intentionally untouched per "nothing else"; brand swap of body copy is a separate decision for the user
