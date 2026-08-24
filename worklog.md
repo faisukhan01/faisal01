@@ -1759,3 +1759,20 @@ Stage Summary:
 - Verification: lint 0 errors · console clean · canvas painting confirmed (pixel sample 4170 → 4509 = animating) · mobile 390px no overflow
 - VLM critique: 8.5/10 — "highly effective developer-aesthetic... atmospheric texture rather than visual noise... syntax-highlighting mirrors modern IDEs, reinforces brand palette organically... monospace code vs serif headline = 'engineering depth delivering elegant outcome'"; mobile "crops gracefully, stays readable"
 - Committed efaa511; nothing else changed per user request
+
+---
+Task ID: 17
+Agent: main (Z.ai Code)
+Task: Round 17 — Dense code-wall hero (user: code lines "too less", remove the framed circle panel + trust strip, "make it really good and impressive")
+
+Work Log:
+- Rewrote site/code-backdrop.tsx as a full scrolling ghost editor: 48-line tokenized pool (server.ts imports/health/workflows routes, ledger.py dataclass + balance, bun test --coverage log, SQL ledger query, package.json, Result<T> type, founders array, git release + bun deploy log); line numbers right-aligned in a gutter; continuous 26px/s upward scroll; lines fade in at bottom edge and out at top; blinking electric-blue cursor rides the last visible line; buffer trims itself past 80 lines
+- REBUILT sections/hero.tsx: deleted the framed figure entirely (OrbitalArt SVG, blueprint micro-labels, 3-stat trust strip) per explicit user request; hero is now a 92svh full-viewport stage — eyebrow/headline/sub/CTAs vertically centered over the code wall; radial CSS mask (ellipse 47%x34% at 50% 47%, clear 0-42%, black 80%) creates a soft readability clearing around the headline while header zone + edges stay code-dense
+- Perf held: ~30fps cap, DPR ≤ 1.5, IntersectionObserver + hidden-tab pause, reduced-motion static frame
+- Note: page wrapper div and hero section share id="top" (pre-existing duplicate; anchors resolve to wrapper — harmless, cosmetic cleanup candidate)
+
+Stage Summary:
+- Verification: lint 0 errors · console clean · canvas 1280x679 with 14,916 painted pixels = 3.4x previous density · mobile hero 776px with canvas covering 100% · no horizontal overflow · duplicate-id measurement pitfall noted and worked around
+- VLM critique: 8.5/10 — "significant upgrade... density without chaos... looks like YOUR codebase, not a stock photo... blue 'smarter' anchor pulls from the syntax highlighting behind it... serif vs monospace = Human vs Machine juxtaposition"; mobile "legible and atmospheric, headline perfectly readable"
+- Committed e841586; server stable via double-fork daemon
+- Next candidates if user wants more: code-language tinting per block, subtle scanline, or interactive parallax on mouse — but restraint rule says wait for feedback first
