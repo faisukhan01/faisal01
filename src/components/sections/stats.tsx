@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Reveal } from '@/components/site/reveal';
 import { Counter } from '@/components/site/counter';
+import { Lazy3D } from '@/components/site/lazy-3d';
 import { STATS } from '@/lib/site-data';
 
 const StatsScene3D = dynamic(
@@ -75,7 +76,18 @@ export function StatsSection() {
 
         {/* Right: 3D globe */}
         <div className="lg:col-span-5 h-[320px] sm:h-[420px] lg:h-[500px]">
-          <StatsScene3D />
+          <Lazy3D
+            className="h-full w-full"
+            fallback={
+              <div
+                aria-hidden
+                className="h-full w-full rounded-full bg-gradient-to-br from-[#1d81f2]/15 to-[#56ccf2]/10 blur-2xl"
+                style={{ maxWidth: '60%', margin: '0 auto' }}
+              />
+            }
+          >
+            <StatsScene3D />
+          </Lazy3D>
         </div>
       </div>
     </section>

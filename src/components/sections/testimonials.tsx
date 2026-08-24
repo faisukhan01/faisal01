@@ -42,7 +42,7 @@ export function Testimonials() {
 
   return (
     <section
-      id="insights"
+      id="testimonials"
       className="relative w-full bg-[#f0f8ff] py-20 lg:py-28 overflow-hidden"
       aria-label="Customer testimonials"
     >

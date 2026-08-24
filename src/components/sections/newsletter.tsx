@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, CheckCircle2 } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
+import { Lazy3D } from '@/components/site/lazy-3d';
 
 const NewsletterScene3D = dynamic(
   () => import('@/components/three/scenes').then((m) => m.NewsletterScene3D),
@@ -57,7 +58,19 @@ export function Newsletter() {
 
             {/* 3D mesh car positioned to overlap boundary */}
             <div className="relative z-20 h-[180px] lg:h-[220px] lg:-mr-12 lg:translate-x-12 mt-6 lg:absolute lg:bottom-0 lg:right-0 lg:left-0">
-              <NewsletterScene3D />
+              <Lazy3D
+                className="h-full w-full"
+                fallback={
+                  <div
+                    aria-hidden
+                    className="h-full w-full flex items-end justify-center"
+                  >
+                    <div className="h-16 w-32 rounded-full bg-gradient-to-br from-[#1d81f2]/20 to-[#56ccf2]/15 blur-xl" />
+                  </div>
+                }
+              >
+                <NewsletterScene3D />
+              </Lazy3D>
             </div>
           </div>
 

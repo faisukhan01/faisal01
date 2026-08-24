@@ -531,3 +531,66 @@ export const INSIGHT_BODIES: Record<
     ],
   },
 };
+
+// === Round 3 additions ===
+
+export const ESG_PILLARS = [
+  {
+    id: "environmental",
+    title: "Environmental",
+    headline: "Powering a paperless asset finance industry",
+    description:
+      "Every Transcend contract replaces a paper trail. In 2025 our customers saved an estimated 4.2 million sheets of paper — and the trucks, warehouses, and ink that came with them.",
+    metric: "4.2M",
+    metricLabel: "sheets of paper eliminated",
+    progress: 78,
+    accent: "#24a148",
+    icon: "leaf",
+  },
+  {
+    id: "social",
+    title: "Social",
+    headline: "Six delivery centers, one shared mission",
+    description:
+      "From Lahore to Los Angeles, we hire locally, train continuously, and pay above market median. Our 1,900+ engineers ship mission-critical software for the world's largest lenders.",
+    metric: "1,900+",
+    metricLabel: "engineers across 6 centers",
+    progress: 84,
+    accent: "#1d81f2",
+    icon: "people",
+  },
+  {
+    id: "governance",
+    title: "Governance",
+    headline: "Audited. Certified. Accountable.",
+    description:
+      "ISO 27001 certified, SOC 2 Type II aligned, with independent audit committees across our NASDAQ-listed entity. We treat governance as a feature, not a checkbox.",
+    metric: "ISO 27001",
+    metricLabel: "renewed 2025",
+    progress: 92,
+    accent: "#0f62fe",
+    icon: "shield-check",
+  },
+  {
+    id: "innovation",
+    title: "Innovation",
+    headline: "Reinvesting in the future of finance",
+    description:
+      "We reinvest a meaningfully higher share of revenue into R&D than the enterprise software industry average. AI Labs, sustainability reporting, and accessibility are all funded lines — not side projects.",
+    metric: "18%",
+    metricLabel: "of revenue reinvested in R&D",
+    progress: 71,
+    accent: "#2d9cdb",
+    icon: "spark",
+  },
+];
+
+// Press / news ticker — short, recent-style NETSOL announcements
+export const PRESS_ITEMS = [
+  { id: 1, label: "Press release", text: "NETSOL launches generative underwriting copilot for Transcend Finance customers", href: "#insights", accent: "#1d81f2" },
+  { id: 2, label: "Event", text: "Auto Finance Summit 2026 — NETSOL booth #226, Las Vegas, Sept 14–16", href: "#insights", accent: "#24a148" },
+  { id: 3, label: "Investor", text: "Q2 FY26 results: revenue up 11.4% YoY, services backlog at record high", href: "#insights", accent: "#0f62fe" },
+  { id: 4, label: "Press release", text: "NETSOL and a top-3 European bank complete 9-month core migration", href: "#insights", accent: "#1d81f2" },
+  { id: 5, label: "Award", text: "NETSOL named 'Asset Finance Platform of the Year' by Frost & Sullivan", href: "#insights", accent: "#2d9cdb" },
+  { id: 6, label: "ESG", text: "2025 Sustainability Report published — 4.2M sheets of paper eliminated", href: "#esg", accent: "#24a148" },
+];

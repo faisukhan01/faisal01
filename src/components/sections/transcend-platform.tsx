@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { TRANSCEND_TABS } from '@/lib/site-data';
 import { Reveal } from '@/components/site/reveal';
+import { Lazy3D } from '@/components/site/lazy-3d';
 import { cn } from '@/lib/utils';
 
 const PlatformScene3D = dynamic(
@@ -133,7 +134,20 @@ export function TranscendPlatform() {
 
                 {/* 3D scene */}
                 <div className="h-[200px] sm:h-[260px] hidden sm:block">
-                  <PlatformScene3D color={current.accent} />
+                  <Lazy3D
+                    className="h-full w-full"
+                    fallback={
+                      <div
+                        aria-hidden
+                        className="h-full w-full rounded-full blur-2xl"
+                        style={{
+                          background: `radial-gradient(circle, ${current.accent}33, transparent 60%)`,
+                        }}
+                      />
+                    }
+                  >
+                    <PlatformScene3D color={current.accent} />
+                  </Lazy3D>
                 </div>
               </div>
             </div>

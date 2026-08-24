@@ -10,6 +10,7 @@ import { IndustriesWePower } from '@/components/sections/industries';
 import { Differentiators } from '@/components/sections/differentiators';
 import { StatsSection } from '@/components/sections/stats';
 import { Leadership } from '@/components/sections/leadership';
+import { Sustainability } from '@/components/sections/sustainability';
 import { Testimonials } from '@/components/sections/testimonials';
 import { Insights } from '@/components/sections/insights';
 import { CTABanner } from '@/components/sections/cta-banner';
@@ -19,6 +20,8 @@ import { ScrollToTop } from '@/components/site/scroll-to-top';
 import { CookieConsent } from '@/components/site/cookie-consent';
 import { CommandPalette } from '@/components/site/command-palette';
 import { ReadingProgress } from '@/components/site/reading-progress';
+import { ScrollSpy } from '@/components/site/scrollspy';
+import { PressTicker } from '@/components/site/press-ticker';
 
 export default function Home() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -26,6 +29,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <ReadingProgress />
+      <PressTicker />
       <SiteHeader onSearchOpen={() => setSearchOpen(true)} />
       <main className="flex-1">
         <Hero />
@@ -36,6 +40,7 @@ export default function Home() {
         <Differentiators />
         <StatsSection />
         <Leadership />
+        <Sustainability />
         <Testimonials />
         <Insights />
         <CTABanner />
@@ -43,6 +48,7 @@ export default function Home() {
       </main>
       <Footer />
       <ScrollToTop />
+      <ScrollSpy />
       <CookieConsent />
       <CommandPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
     </div>

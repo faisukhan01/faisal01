@@ -52,7 +52,7 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
 
 export function Footer() {
   return (
-    <footer className="relative w-full bg-[#1f2124] text-white">
+    <footer className="relative w-full bg-[#1f2124] text-white grain-overlay">
       {/* Top accent gradient */}
       <div className="h-px bg-gradient-to-r from-transparent via-[#1d81f2]/60 to-transparent" />
 
