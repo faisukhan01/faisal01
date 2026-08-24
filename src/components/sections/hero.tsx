@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
+import { HeaderBackdropArt } from '@/components/site/header-backdrop';
 
 const TRUST_STATS = [
   { value: '2', label: 'Founders' },
@@ -74,7 +75,15 @@ function OrbitalArt() {
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-background">
-      <div className="container-luxe relative pb-16 pt-32 text-center md:pb-24 md:pt-44">
+      {/* Orbital line-art backdrop — lives behind the transparent header */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[560px] [mask-image:linear-gradient(to_bottom,black_58%,transparent)]"
+      >
+        <HeaderBackdropArt className="h-full w-full" />
+      </div>
+
+      <div className="container-luxe relative z-10 pb-16 pt-32 text-center md:pb-24 md:pt-44">
         <Reveal>
           <div className="flex items-center justify-center gap-4">
             <span aria-hidden="true" className="h-px w-10 bg-hairline" />
