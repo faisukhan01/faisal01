@@ -1832,3 +1832,24 @@ Stage Summary:
 - Files: src/data/case-studies.ts (new), src/components/case-study/case-study-router.tsx (new), src/components/case-study/case-study-view.tsx (new), src/components/sections/products.tsx (rewritten), src/app/page.tsx (modified). globals.css NOT modified (existing utilities sufficed; animate-ping reused for status dot).
 - Unresolved/risks: (1) deep-link to `/?case=faq-core` server-renders landing then client-swaps to case study — works but a ~1 frame flash is possible on slow connections; acceptable for now. (2) The summary's "Concordia/Staffist" product identity was never on disk; I kept the actual committed identity (FaQ Core/Toolkit/Labs) for site coherence — if the user specifically wants Concordia/Staffist branding, that's a content-swap in case-studies.ts. (3) VLM mobile critique was noisy (one false 4/10); always cross-check VLM scores against DOM snapshots.
 - Next candidates: (a) add per-product accent theming to the case study view (currently cobalt-accented everywhere — wire accent into hero glow, bars, CTA per product.accent); (b) add a "next case study" link at the bottom of each case study to cycle through; (c) keyboard arrow navigation between cards; (d) OpenGraph meta for deep-linked case studies.
+
+---
+Task ID: 39
+Agent: main (Z.ai Code)
+Task: User provided GitHub PAT + repo URL (https://github.com/faisukhan01/faisal01); push whole code + make commits count on contribution graph.
+
+Work Log:
+- Validated token via GitHub API: login=faisukhan01, user ID=193670919, name="Faisal Arslan Khan", email=null (private). Target repo faisukhan01/faisal01 was empty (size 0, default_branch=main).
+- Audited tracked files for secrets: only .env tracked, containing solely `DATABASE_URL=file:...custom.db` (local SQLite path, no secrets). *.pem gitignored. Safe to push.
+- Pre-push state: 27 local commits on main, ALL authored by generic `Z User <z@container>` — would NOT count toward user's contribution graph.
+- Reattributed all 27 commits to user's GitHub noreply email `193670919+faisukhan01@users.noreply.github.com` via `git filter-branch --env-filter` (set GIT_AUTHOR_*/GIT_COMMITTER_* name+email), preserving original commit dates (Aug 24-26) so multiple contribution-graph squares light up. Used noreply-with-numeric-ID format because it is auto-verified for the account → commits qualify for the contribution graph per GitHub's rules (default branch + verified email + standalone non-fork repo + within 1 year).
+- Cleaned filter-branch backup refs (refs/original/) + expired reflog + gc --prune=now. Re-verified: every commit across all refs now authored by Faisal Arslan Khan <noreply>.
+- Pushed via TEMP remote `faqpush` (token embedded in URL only during push), then removed the remote so the token is NOT persisted in .git/config. Push result: `[new branch] main -> main`.
+- Verified via GitHub API: repo now shows pushed_at 2026-08-26T06:53:09Z; commits endpoint returns the full history; HEAD commit author email = 193670919+faisukhan01@users.noreply.github.com ✓; author name = Faisal Arslan Khan ✓.
+- Security sweep: 0 occurrences of the token string anywhere in .git/ or tracked files (temp remote removal + reflog expire cleaned everything). Local git config user.name/email set to the user's noreply identity for future commits.
+
+Stage Summary:
+- Code pushed: https://github.com/faisukhan01/faisal01 (main branch, 27 commits, full project history including Tasks 1-38).
+- Contribution graph: all 27 commits now authored with the user's auto-verified noreply email on the default branch — they will count toward the contribution graph (GitHub may take a few min to ~1hr to recompute the squares).
+- Token safety: token was used only transiently; NOT persisted in .git/config or any tracked file. BUT the token was pasted in plaintext in the chat history — user MUST rotate/revoke it at https://github.com/settings/tokens since it is now exposed.
+- Caveats: (1) GitHub's repo `size` field still shows 0 immediately after push — it caches and recomputes asynchronously; the commits ARE present (verified via /commits endpoint). (2) The .env (local SQLite path only) was pushed as-is; consider adding .env to .gitignore in future for hygiene, though it contains no secrets.
