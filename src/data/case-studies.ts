@@ -1,337 +1,387 @@
-export type Accent = 'ink' | 'cobalt' | 'violet';
+/* — FaQ Systems product case studies (Concordia + Staffist) — */
 
-export type GalleryPanel =
-  | { title: string; kind: 'kpi'; data: { label: string; value: string; delta: string; trend: 'up' | 'down' | 'flat' }[] }
-  | { title: string; kind: 'bars'; data: { label: string; value: number }[]; unit: string }
-  | { title: string; kind: 'funnel'; data: { stage: string; value: number; pct: number }[] }
-  | { title: string; kind: 'gantt'; data: { label: string; start: number; len: number; tone: Accent }[]; weeks: number }
-  | { title: string; kind: 'list'; data: { title: string; meta: string; ts: string; tone: Accent }[] };
+export type Accent = 'cobalt' | 'navy';
+
+export type Panel =
+  | {
+      kind: 'kpis';
+      title: string;
+      kpis: { label: string; value: string; trend: string; up: boolean }[];
+    }
+  | { kind: 'bars'; title: string; bars: { label: string; value: number }[] }
+  | { kind: 'modules'; title: string; modules: { name: string; pct: number }[] }
+  | { kind: 'feed'; title: string; items: { text: string; time: string }[] }
+  | {
+      kind: 'gantt';
+      title: string;
+      rows: { name: string; blocks: { start: number; width: number; solid?: boolean }[] }[];
+    }
+  | {
+      kind: 'availability';
+      title: string;
+      staff: { name: string; status: 'on' | 'soon' | 'off' }[];
+    }
+  | { kind: 'funnel'; title: string; stages: { label: string; value: number }[] };
 
 export interface CaseStudy {
   slug: string;
   name: string;
+  logo: string;
+  logoHeightClass: string;
   sector: string;
-  tag: string;
-  tagline: string;
+  badge: string;
   accent: Accent;
+  tagline: string;
   summary: string;
-  cardTags: string[];
-  heroMetric: { value: string; label: string };
+  tags: string[];
+  cardMetrics: { value: string; label: string }[];
   status: string;
+  keyMetrics: { value: string; label: string; note: string }[];
+  overview: string;
   challenge: { title: string; body: string; painPoints: string[] };
-  solution: { title: string; body: string; approach: { step: string; body: string }[] };
-  stack: { layer: string; items: string[] }[];
-  features: { icon: string; title: string; body: string }[];
-  metrics: { value: string; label: string; sub?: string }[];
-  gallery: GalleryPanel[];
-  testimonial?: { quote: string; author: string; role: string };
-  nextStep: { title: string; body: string; cta: string };
+  solution: {
+    title: string;
+    body: string;
+    approach: { title: string; body: string }[];
+  };
+  features: { title: string; body: string }[];
+  tech: { layer: string; stack: string[] }[];
+  outcomes: { value: string; label: string; note: string }[];
+  dashboard: { url: string; title: string; panels: Panel[] };
+  quote: { text: string; author: string; role: string };
+  cta: { title: string; body: string };
 }
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
-    slug: 'faq-core',
-    name: 'FaQ Core',
-    sector: 'Flagship SaaS Platform',
-    tag: 'Flagship',
-    tagline: 'A focused platform that turns repetitive team workflows into one calm, reliable, multi-tenant product.',
+    slug: 'concordia',
+    name: 'Concordia',
+    logo: '/products/concordia.png',
+    logoHeightClass: 'h-10 sm:h-12 w-auto',
+    sector: 'Education',
+    badge: 'Flagship Product',
     accent: 'cobalt',
+    tagline:
+      'A complete college management system — every workflow, one platform, even biometric attendance.',
     summary:
-      'Our flagship SaaS platform — multi-tenant from day one, with REST API, role-based access, and a complete audit trail.',
-    cardTags: ['Multi-tenant', 'REST API', 'RBAC', 'Audit trail'],
-    heroMetric: { value: '99.98%', label: 'Uptime across 4 regions' },
-    status: 'Shipping · v3.2',
+      'Concordia Colleges runs its entire campus on this system: admissions, biometric attendance, fees, examinations, HR, payroll and academic records — twelve modules, one calm console.',
+    tags: [
+      'Biometric Attendance',
+      'Admissions',
+      'Finance & Fees',
+      'Examinations',
+      'HR & Payroll',
+      'Academic Records',
+    ],
+    cardMetrics: [
+      { value: '12', label: 'Modules' },
+      { value: '96.4%', label: 'Attendance' },
+      { value: '4,200', label: 'Students' },
+    ],
+    status: 'Live in production',
+    keyMetrics: [
+      { value: '4,200', label: 'Students managed', note: 'every campus record, one system' },
+      { value: '96.4%', label: 'Daily attendance', note: 'biometric check-in, live' },
+      { value: '87%', label: 'Fee collection', note: 'from billing to receipts' },
+      { value: '12', label: 'Integrated modules', note: 'admissions to payroll' },
+    ],
+    overview:
+      'Concordia is a full college management system built for a network of campuses. Before it existed, the college ran on paper registers, spreadsheets and disconnected tools — one system for attendance, another for fees, a third for exams. Concordia replaces all of it with a single platform where every module talks to the others: attendance feeds the attendance register, fees feed finance, exams feed transcripts. Even biometric devices are first-class citizens — fingerprint check-ins land in the system in real time.',
     challenge: {
       title: 'The problem',
-      body:
-        'Teams were rebuilding the same primitives on every project — tenants, billing, roles, audit logs, background jobs. Each rebuild shipped late, leaked data between tenants, and broke at 3am. We wanted one calm surface that hides all of that without locking teams into a framework.',
+      body: 'A growing campus network with thousands of students was drowning in manual processes. Attendance was taken on paper and typed up days later. Fee records lived in spreadsheets that drifted from reality. Exam results were compiled by hand. Nothing reconciled with anything.',
       painPoints: [
-        'Tenant isolation rebuilt per project, with at least one cross-tenant incident per quarter',
-        'Role matrices hard-coded in controllers — every new customer meant a deploy',
-        'Audit logs stored in the primary database, growing 40% / quarter',
-        'Background jobs silently failing with no replay path',
+        'Paper attendance delayed records by days and made audits painful',
+        'Fee collection tracked in spreadsheets with no receipts, no reminders, no reconciliation',
+        'Exam results compiled manually across departments — slow and error-prone',
+        'HR, payroll and academic records each in a separate silo with no single source of truth',
       ],
     },
     solution: {
-      title: 'How we built it',
-      body:
-        'FaQ Core is a thin, opinionated platform layer: a tenant context that flows through every request, a policy engine that reads from a versioned config, and an append-only event log that backs both the audit trail and the job queue. Nothing in the hot path touches the primary database for reads.',
+      title: 'The solution',
+      body: 'We built Concordia as one platform with twelve integrated modules sharing a single database and a consistent, calm admin console. Every workflow — from a prospective student\u2019s first inquiry to their final transcript — is designed, engineered and operated end-to-end by FaQ Systems.',
       approach: [
-        { step: 'Tenant context first', body: 'A request-scoped tenant resolver runs before routing — every downstream query is scoped automatically, no `where(tenantId)` to forget.' },
-        { step: 'Policy as data', body: 'Role matrices live in a versioned YAML checked into git; the policy engine compiles to a decision tree on reload, no deploys for permission changes.' },
-        { step: 'Event-sourced audit', body: 'Every mutation emits an immutable event to a log store; the audit UI is just a replay, the job queue is just a consumer.' },
-        { step: 'Read replicas by default', body: 'All dashboard reads hit the replica; the primary is reserved for writes — dashboards stay fast as data grows.' },
+        {
+          title: 'Single source of truth',
+          body: 'One typed schema for students, staff, courses, fees and grades. Every module reads and writes the same records — no exports, no syncing.',
+        },
+        {
+          title: 'Biometric-first attendance',
+          body: 'Fingerprint devices push check-ins to the platform in real time. Late arrivals, absences and proxy attempts are flagged instantly.',
+        },
+        {
+          title: 'Money as a module',
+          body: 'Fee structures, discounts, installments, reminders and receipts — finance is a first-class citizen, not a spreadsheet bolted on the side.',
+        },
+        {
+          title: 'Role-based console',
+          body: 'Admins, accountants, teachers and exam officers each get a focused view of the same system — with an audit trail on every action.',
+        },
       ],
     },
-    stack: [
-      { layer: 'Client', items: ['Next.js 16', 'React 19', 'Tailwind 4', 'TanStack Query'] },
-      { layer: 'Edge', items: ['Caddy', 'Rate-limit', 'WAF', 'Edge cache'] },
-      { layer: 'Services', items: ['Bun', 'tRPC', 'BullMQ', 'Policy engine'] },
-      { layer: 'Data', items: ['PostgreSQL', 'Redis', 'S3', 'ClickHouse'] },
-    ],
     features: [
-      { icon: 'Building2', title: 'Tenant isolation', body: 'Row-level scoping enforced at the resolver — no cross-tenant access by construction.' },
-      { icon: 'KeyRound', title: 'Policy as data', body: 'Roles and permissions in versioned config; changes ship without a deploy.' },
-      { icon: 'ScrollText', title: 'Append-only audit', body: 'Every mutation is an event — the audit trail and the queue share one source of truth.' },
-      { icon: 'Gauge', title: 'Dashboards that scale', body: 'All dashboard reads hit the replica; the primary stays free for writes.' },
-      { icon: 'Webhook', title: 'Webhooks & retries', body: 'Outbound webhooks with exponential backoff and a replay console.' },
-      { icon: 'ShieldCheck', title: 'SSO & SCIM', body: 'SAML + OIDC + SCIM provisioning out of the box, not an add-on.' },
-    ],
-    metrics: [
-      { value: '99.98%', label: 'Uptime', sub: 'last 90 days' },
-      { value: '38ms', label: 'p99 dashboard', sub: 'read replica' },
-      { value: '0', label: 'Cross-tenant incidents', sub: 'since v3' },
-      { value: '4.2M', label: 'Events / day', sub: 'audited' },
-    ],
-    gallery: [
       {
-        title: 'Tenant overview',
-        kind: 'kpi',
-        data: [
-          { label: 'Active tenants', value: '1,284', delta: '+6.2%', trend: 'up' },
-          { label: 'Seats', value: '18,402', delta: '+3.1%', trend: 'up' },
-          { label: 'MRR', value: '$214k', delta: '+8.7%', trend: 'up' },
-          { label: 'Churn', value: '0.4%', delta: '-0.2pt', trend: 'down' },
-        ],
+        title: 'Biometric attendance',
+        body: 'Fingerprint check-ins sync live; the daily register assembles itself.',
       },
       {
-        title: 'API traffic · last 12 weeks',
-        kind: 'bars',
-        unit: 'req/s',
-        data: [
-          { label: 'W1', value: 42 }, { label: 'W2', value: 51 }, { label: 'W3', value: 48 },
-          { label: 'W4', value: 63 }, { label: 'W5', value: 71 }, { label: 'W6', value: 68 },
-          { label: 'W7', value: 82 }, { label: 'W8', value: 79 }, { label: 'W9', value: 94 },
-          { label: 'W10', value: 88 }, { label: 'W11', value: 102 }, { label: 'W12', value: 118 },
-        ],
+        title: 'Admissions pipeline',
+        body: 'From inquiry to enrollment — application forms, merit lists, document checks.',
       },
       {
-        title: 'Onboarding funnel',
-        kind: 'funnel',
-        data: [
-          { stage: 'Sign-up', value: 10000, pct: 100 },
-          { stage: 'Verified', value: 7200, pct: 72 },
-          { stage: 'Workspace', value: 5400, pct: 54 },
-          { stage: 'First event', value: 3850, pct: 38 },
-          { stage: 'Paid', value: 1280, pct: 12 },
-        ],
+        title: 'Finance & fees',
+        body: 'Structures, installments, reminders, receipts and full reconciliation.',
       },
       {
-        title: 'Release timeline · Q3',
-        kind: 'gantt',
-        weeks: 8,
-        data: [
-          { label: 'Policy v2', start: 0, len: 2, tone: 'cobalt' },
-          { label: 'SCIM', start: 1, len: 3, tone: 'ink' },
-          { label: 'Replica cutover', start: 3, len: 1, tone: 'violet' },
-          { label: 'Webhook replay', start: 4, len: 3, tone: 'cobalt' },
-        ],
+        title: 'Examinations',
+        body: 'Scheduling, seating plans, marks entry, moderation and report cards.',
+      },
+      {
+        title: 'HR & payroll',
+        body: 'Staff records, contracts, leave and salary runs computed from attendance.',
+      },
+      {
+        title: 'Academic records',
+        body: 'Transcripts, character certificates and verifiable academic history.',
       },
     ],
-    testimonial: {
-      quote:
-        'We replaced a six-month internal platform project with FaQ Core in two weeks. The audit log alone would have taken us a quarter to build.',
-      author: 'Head of Platform',
-      role: 'Series B fintech',
+    tech: [
+      { layer: 'Client', stack: ['Next.js', 'TypeScript', 'Tailwind CSS'] },
+      { layer: 'Services', stack: ['Node.js', 'REST API', 'Role-based access'] },
+      { layer: 'Data', stack: ['PostgreSQL', 'Redis cache', 'Audit trail'] },
+      { layer: 'Devices', stack: ['Biometric SDK', 'Webhooks', 'Offline sync'] },
+    ],
+    outcomes: [
+      { value: '96.4%', label: 'daily attendance', note: 'recorded live, not typed up days later' },
+      { value: '87%', label: 'fee collection', note: 'up from manual spreadsheet tracking' },
+      { value: '12', label: 'modules shipped', note: 'all live in production today' },
+      { value: '1', label: 'source of truth', note: 'for every record on campus' },
+    ],
+    dashboard: {
+      url: 'admin.concordia.edu',
+      title: 'Admin Console',
+      panels: [
+        {
+          kind: 'kpis',
+          title: 'Today at a glance',
+          kpis: [
+            { label: 'Students', value: '4,200', trend: '+38 this term', up: true },
+            { label: 'Attendance', value: '96.4%', trend: '+1.2% vs last week', up: true },
+            { label: 'Fees collected', value: '87%', trend: 'on plan', up: true },
+            { label: 'Modules live', value: '12', trend: 'all systems normal', up: true },
+          ],
+        },
+        {
+          kind: 'bars',
+          title: 'Attendance — last 12 weeks',
+          bars: [
+            { label: 'W1', value: 91 },
+            { label: 'W2', value: 93 },
+            { label: 'W3', value: 92 },
+            { label: 'W4', value: 95 },
+            { label: 'W5', value: 94 },
+            { label: 'W6', value: 96 },
+            { label: 'W7', value: 95 },
+            { label: 'W8', value: 97 },
+            { label: 'W9', value: 96 },
+            { label: 'W10', value: 96 },
+            { label: 'W11', value: 97 },
+            { label: 'W12', value: 96 },
+          ],
+        },
+        {
+          kind: 'modules',
+          title: 'Module uptime',
+          modules: [
+            { name: 'Admissions', pct: 92 },
+            { name: 'Finance', pct: 88 },
+            { name: 'Examinations', pct: 95 },
+            { name: 'HR & Payroll', pct: 80 },
+            { name: 'Academic Records', pct: 90 },
+          ],
+        },
+        {
+          kind: 'feed',
+          title: 'Live activity',
+          items: [
+            { text: 'New admission inquiry — ICS Part 1', time: '2m ago' },
+            { text: 'Fee receipt #R-2481 issued — Rs 18,500', time: '9m ago' },
+            { text: 'Biometric sync complete — Block C', time: '14m ago' },
+            { text: 'Marks entry submitted — Physics XI-B', time: '31m ago' },
+            { text: 'Payroll run confirmed — October', time: '1h ago' },
+          ],
+        },
+      ],
     },
-    nextStep: {
-      title: 'Want a tenant of your own?',
-      body: 'We onboard one team at a time so the founders can shape the policy and event schema with you. Typical handover is under two weeks.',
-      cta: 'Request a demo',
+    quote: {
+      text: 'FaQ Systems delivered what three vendors said was impossible — one system for the whole campus, running on real devices, live within a term.',
+      author: 'Campus Director',
+      role: 'Concordia Colleges',
+    },
+    cta: {
+      title: 'Want a system like this?',
+      body: 'Tell us what slows your institution down — we\u2019ll show you what it looks like solved.',
     },
   },
   {
-    slug: 'faq-toolkit',
-    name: 'FaQ Toolkit',
-    sector: 'Productized Internal Tools',
-    tag: 'Productized',
-    tagline: 'The internal tools we built for ourselves — hardened, documented, and offered as subscriptions.',
-    accent: 'ink',
+    slug: 'staffist',
+    name: 'Staffist',
+    logo: '/products/staffist.png',
+    logoHeightClass: 'h-14 sm:h-16 w-auto',
+    sector: 'Recruitment · UK',
+    badge: 'Client Project',
+    accent: 'navy',
+    tagline:
+      'A UK recruitment and staff management platform — matching, scheduling and compliance in real time.',
     summary:
-      'A CLI, an automation engine, and a library of integrations — the same primitives FaQ Core runs on, available standalone.',
-    cardTags: ['CLI', 'Automations', 'Integrations', 'Templates'],
-    heroMetric: { value: '12,400+', label: 'Automations run per week' },
-    status: 'Shipping · v2.7',
+      'Staffist runs shift-based staffing end to end for UK clients: real-time staff matching, shift scheduling, compliance tracking and placements — from application to clock-in.',
+    tags: [
+      'Shift Management',
+      'Compliance',
+      'Placement',
+      'Real-time Matching',
+      'Staff Scheduling',
+    ],
+    cardMetrics: [
+      { value: '340', label: 'Active staff' },
+      { value: '128', label: 'Shifts today' },
+      { value: '99.1%', label: 'Compliance' },
+    ],
+    status: 'Live in production',
+    keyMetrics: [
+      { value: '340', label: 'Active staff', note: 'vetted and compliance-checked' },
+      { value: '128', label: 'Shifts today', note: 'scheduled, filled and tracked' },
+      { value: '99.1%', label: 'Compliance rate', note: 'documents, training, right-to-work' },
+      { value: '42', label: 'Placements this month', note: 'from application to clock-in' },
+    ],
+    overview:
+      'Staffist is a recruitment and staff management platform built for a UK client. It connects employers who need shift-based staff with a pool of vetted candidates — and carries the whole relationship: application, screening, compliance checks, real-time matching to open shifts, scheduling, and placement tracking. The platform\u2019s job is to make a heavily regulated, fast-moving staffing operation feel calm.',
     challenge: {
       title: 'The problem',
-      body:
-        'Every team we onboarded kept asking for the same three things: a CLI that could talk to their stack without a glue script, an automation runner that did not die on the first retry, and a set of integrations they could trust to not leak secrets. We had all three internally — so we productized them.',
+      body: 'UK staffing is regulated, fast and unforgiving: right-to-work checks, training certificates and shift compliance all have deadlines, while shifts need filling in hours, not days. The client\u2019s existing process mixed phone calls, spreadsheets and goodwill — compliance gaps were discovered late, and filling shifts meant hours of calls.',
       painPoints: [
-        'CLI tools that required a 200-line wrapper before the first command',
-        'Automation runners that lost state on restart and had no replay',
-        'Integrations that hardcoded secrets instead of a vault',
-        'No templates — every team rebuilt the same scaffolding',
+        'Compliance documents tracked manually — expirations discovered after the fact',
+        'Filling one shift meant calling down a list until someone answered',
+        'No real-time view of who is available, qualified and compliant right now',
+        'Placement history scattered across inboxes — no single record of who worked where',
       ],
     },
     solution: {
-      title: 'How we built it',
-      body:
-        'FaQ Toolkit is the same CLI, automation engine, and integration pack that powers FaQ Core, packaged to run standalone. The CLI is a single binary with a plugin protocol. The automation engine is a deterministic state machine backed by the same append-only log. Integrations read from a local vault — never from env.',
+      title: 'The solution',
+      body: 'We built Staffist as a real-time staffing platform: a vetted staff pool with living compliance profiles, an engine that matches staff to shifts on availability and qualifications, and a console that shows the whole operation — coverage, gaps and compliance — at a glance.',
       approach: [
-        { step: 'Single binary', body: 'The CLI ships as one Bun-compiled binary with a stable plugin protocol — no node_modules, no wrapper.' },
-        { step: 'Deterministic runner', body: 'Automations are state machines; every transition is an event, so a crash is a replay, not a data loss.' },
-        { step: 'Vault-first secrets', body: 'Integrations resolve credentials from a local vault, never from env — secrets never reach logs or git.' },
-        { step: 'Templates that compile', body: 'Templates are typed configs, not copy-paste — `toolkit init` produces a project that type-checks on day one.' },
+        {
+          title: 'Living compliance profiles',
+          body: 'Right-to-work, training and certification documents with expiry tracking — the platform knows who is compliant before a shift is offered.',
+        },
+        {
+          title: 'Real-time matching',
+          body: 'Open shifts are matched against availability, qualifications and proximity — and offered to the best-fit staff first.',
+        },
+        {
+          title: 'Shift console',
+          body: 'A 24-hour coverage view with per-staff shift blocks, gaps visible instantly, and one-click fill actions.',
+        },
+        {
+          title: 'Placement pipeline',
+          body: 'From application through screening, interview and placement — every stage tracked with its own funnel metrics.',
+        },
       ],
     },
-    stack: [
-      { layer: 'Client', items: ['Bun binary', 'TypeScript', 'Ink (TUI)', 'Plugin host'] },
-      { layer: 'Runtime', items: ['Bun', 'State machine', 'Scheduler', 'Replay log'] },
-      { layer: 'Integrations', items: ['Slack', 'Linear', 'Stripe', 'Postgres'] },
-      { layer: 'Storage', items: ['SQLite', 'Vault', 'S3 cache', 'Local FS'] },
-    ],
     features: [
-      { icon: 'Terminal', title: 'One binary', body: 'A single Bun-compiled binary with a stable plugin protocol — no node_modules.' },
-      { icon: 'Workflow', title: 'Deterministic automations', body: 'State machines backed by an event log; a crash is a replay, not data loss.' },
-      { icon: 'Lock', title: 'Vault-first secrets', body: 'Credentials resolve from a local vault — never from env, never in logs.' },
-      { icon: 'Blocks', title: 'Typed templates', body: 'Templates are configs that type-check — `toolkit init` produces a project that compiles.' },
-      { icon: 'Plug', title: 'Integration pack', body: 'Slack, Linear, Stripe, Postgres — same adapters FaQ Core ships, no glue.' },
-      { icon: 'History', title: 'Replay console', body: 'Every automation run is inspectable step-by-step from the TUI.' },
-    ],
-    metrics: [
-      { value: '12,400+', label: 'Runs / week', sub: 'deterministic' },
-      { value: '0', label: 'Lost runs', sub: 'since v2' },
-      { value: '1 binary', label: 'Footprint', sub: 'no runtime' },
-      { value: '11ms', label: 'p99 dispatch', sub: 'event→handler' },
-    ],
-    gallery: [
       {
-        title: 'Automation health',
-        kind: 'kpi',
-        data: [
-          { label: 'Runs / week', value: '12,402', delta: '+11%', trend: 'up' },
-          { label: 'Success rate', value: '99.7%', delta: '+0.3pt', trend: 'up' },
-          { label: 'p99 dispatch', value: '11ms', delta: '-2ms', trend: 'down' },
-          { label: 'Replays', value: '47', delta: '+9', trend: 'up' },
-        ],
+        title: 'Shift scheduling',
+        body: 'A 24h coverage board — create, fill and track shifts in one view.',
       },
       {
-        title: 'Integration calls · last 12 weeks',
-        kind: 'bars',
-        unit: 'k calls',
-        data: [
-          { label: 'W1', value: 28 }, { label: 'W2', value: 34 }, { label: 'W3', value: 31 },
-          { label: 'W4', value: 44 }, { label: 'W5', value: 49 }, { label: 'W6', value: 52 },
-          { label: 'W7', value: 58 }, { label: 'W8', value: 61 }, { label: 'W9', value: 67 },
-          { label: 'W10', value: 71 }, { label: 'W11', value: 78 }, { label: 'W12', value: 84 },
-        ],
+        title: 'Compliance tracking',
+        body: 'Document and certification expiry monitored per staff member.',
       },
       {
-        title: 'Run log · live',
-        kind: 'list',
-        data: [
-          { title: 'stripe.refund.sync', meta: '4 records · 11ms', ts: '12:04:21', tone: 'cobalt' },
-          { title: 'linear.ticket.mirror', meta: '1 record · 7ms', ts: '12:04:18', tone: 'ink' },
-          { title: 'slack.digest.daily', meta: '3 channels · 24ms', ts: '12:03:59', tone: 'violet' },
-          { title: 'postgres.vacuum.notify', meta: 'skipped', ts: '12:03:40', tone: 'ink' },
-          { title: 's3.backup.rotate', meta: '7 objects · 88ms', ts: '12:03:12', tone: 'cobalt' },
-        ],
+        title: 'Real-time matching',
+        body: 'Shifts offered to best-fit available staff automatically.',
+      },
+      {
+        title: 'Staff availability',
+        body: 'Live on / soon / off status so dispatch never calls the wrong person.',
+      },
+      {
+        title: 'Placement funnel',
+        body: 'Applications to placements tracked stage by stage with metrics.',
+      },
+      {
+        title: 'Audit-ready records',
+        body: 'Every placement, check-in and change logged and exportable.',
       },
     ],
-    testimonial: {
-      quote:
-        'The CLI replaced a glue repo we had been hating for two years. The automations stopped dying on Fridays. That is worth the subscription alone.',
-      author: 'Staff Engineer',
-      role: 'Logistics scale-up',
-    },
-    nextStep: {
-      title: 'Try the binary',
-      body: 'The CLI is free for local use; the automation runner and integration pack are a flat monthly subscription. One founder handles onboarding.',
-      cta: 'Request a demo',
-    },
-  },
-  {
-    slug: 'faq-labs',
-    name: 'FaQ Labs',
-    sector: 'Incubating Experiments',
-    tag: 'Incubating',
-    tagline: 'Early-stage bets on uncomfortable problems. Some graduate into products — most teach us something first.',
-    accent: 'violet',
-    summary:
-      'A small lab for prototypes, AI tooling, and research. Public write-ups, honest post-mortems, and the occasional open-source release.',
-    cardTags: ['Prototypes', 'AI tooling', 'Research', 'Open source'],
-    heroMetric: { value: '7', label: 'Experiments in flight' },
-    status: 'Incubating · rolling',
-    challenge: {
-      title: 'The problem',
-      body:
-        'A product company that stops experimenting stops being a product company. We wanted a sanctioned place to chase uncomfortable problems — where the goal is to learn, not to ship a logo. The hard part was making the lab honest: kill the things that do not work, in public.',
-      painPoints: [
-        'No sanctioned space for high-variance bets — they leaked into product work',
-        'Experiments with no kill criteria ran for months and burned focus',
-        'No public record, so the same dead-end got tried twice',
-        'AI prototypes with no eval harness — vibes as a metric',
+    tech: [
+      { layer: 'Client', stack: ['Next.js', 'TypeScript', 'Tailwind CSS'] },
+      { layer: 'Services', stack: ['Node.js', 'Matching engine', 'Notifications'] },
+      { layer: 'Data', stack: ['PostgreSQL', 'Scheduling store', 'Audit trail'] },
+      { layer: 'Integrations', stack: ['Payments', 'SMS/Email', 'Calendar sync'] },
+    ],
+    outcomes: [
+      { value: '340', label: 'active staff', note: 'in the vetted, compliant pool' },
+      { value: '99.1%', label: 'compliance rate', note: 'gaps surface before deadlines, not after' },
+      { value: '42', label: 'placements / month', note: 'application to clock-in, fully tracked' },
+      { value: '128', label: 'shifts daily', note: 'scheduled and filled through the console' },
+    ],
+    dashboard: {
+      url: 'console.staffist.co.uk',
+      title: 'Shift Console',
+      panels: [
+        {
+          kind: 'kpis',
+          title: 'Operations today',
+          kpis: [
+            { label: 'Active staff', value: '340', trend: '+12 this week', up: true },
+            { label: 'Shifts today', value: '128', trend: '96% filled', up: true },
+            { label: 'Compliance', value: '99.1%', trend: '2 docs expiring soon', up: false },
+            { label: 'Placements', value: '42', trend: 'this month', up: true },
+          ],
+        },
+        {
+          kind: 'gantt',
+          title: 'Shift coverage — next 24h',
+          rows: [
+            { name: 'Amelia R.', blocks: [{ start: 0, width: 25 }, { start: 55, width: 30 }] },
+            { name: 'Daniel K.', blocks: [{ start: 15, width: 30, solid: true }] },
+            { name: 'Priya S.', blocks: [{ start: 40, width: 35 }, { start: 85, width: 15 }] },
+            { name: 'Marcus T.', blocks: [{ start: 60, width: 25, solid: true }] },
+          ],
+        },
+        {
+          kind: 'availability',
+          title: 'Staff availability',
+          staff: [
+            { name: 'Amelia R.', status: 'on' },
+            { name: 'Daniel K.', status: 'on' },
+            { name: 'Priya S.', status: 'soon' },
+            { name: 'Marcus T.', status: 'soon' },
+            { name: 'Elena V.', status: 'off' },
+            { name: 'Jonas B.', status: 'off' },
+          ],
+        },
+        {
+          kind: 'funnel',
+          title: 'Placement funnel — 30 days',
+          stages: [
+            { label: 'Applied', value: 1240 },
+            { label: 'Screened', value: 480 },
+            { label: 'Interviewed', value: 180 },
+            { label: 'Placed', value: 42 },
+          ],
+        },
       ],
     },
-    solution: {
-      title: 'How we run it',
-      body:
-        'FaQ Labs is a lightweight process, not a product. Each experiment is a one-page brief with a falsifiable thesis, a kill metric, and a two-week budget. Results — including the kills — are published as write-ups. The few that graduate become products; the rest become lessons.',
-      approach: [
-        { step: 'One-page brief', body: 'Every experiment starts with a falsifiable thesis, a kill metric, and a two-week budget — written before the first commit.' },
-        { step: 'Eval harness for AI', body: 'AI prototypes ship with a golden-set eval from day one — no vibes-as-a-metric.' },
-        { step: 'Public post-mortems', body: 'Kills are published with the same care as launches — so the next team does not repeat the dead-end.' },
-        { step: 'Graduation gate', body: 'An experiment becomes a product only after a real user pays or a real workload runs for 30 days.' },
-      ],
+    quote: {
+      text: 'FaQ Systems took our mess of calls and spreadsheets and turned it into one console we actually trust. Compliance is no longer a surprise.',
+      author: 'Operations Lead',
+      role: 'Staffist, UK',
     },
-    stack: [
-      { layer: 'Brief', items: ['Thesis', 'Kill metric', 'Budget'] },
-      { layer: 'Prototype', items: ['Bun', 'Next.js', 'LLM SDK', 'Eval set'] },
-      { layer: 'Eval', items: ['Golden set', 'Regression', 'Cost / token'] },
-      { layer: 'Publish', items: ['Write-up', 'Post-mortem', 'Open source'] },
-    ],
-    features: [
-      { icon: 'FlaskConical', title: 'One-page briefs', body: 'A falsifiable thesis, a kill metric, and a two-week budget — before the first commit.' },
-      { icon: 'Microscope', title: 'Eval harness', body: 'AI prototypes ship with a golden-set eval from day one — no vibes as a metric.' },
-      { icon: 'FileText', title: 'Public post-mortems', body: 'Kills are published with the same care as launches — the next team does not repeat the dead-end.' },
-      { icon: 'GitBranch', title: 'Open source releases', body: 'When a primitive is generally useful, it ships to GitHub under a permissive license.' },
-      { icon: 'Scale', title: 'Graduation gate', body: 'A real user pays or a real workload runs 30 days before an experiment becomes a product.' },
-      { icon: 'Timer', title: 'Two-week budgets', body: 'Time-boxed by default — focus is the scarcest resource in a two-person company.' },
-    ],
-    metrics: [
-      { value: '7', label: 'In flight', sub: 'this cycle' },
-      { value: '23', label: 'Killed', sub: 'in public' },
-      { value: '4', label: 'Graduated', sub: 'to products' },
-      { value: '100%', label: 'Post-mortems', sub: 'published' },
-    ],
-    gallery: [
-      {
-        title: 'Lab board',
-        kind: 'kpi',
-        data: [
-          { label: 'In flight', value: '7', delta: '+2', trend: 'up' },
-          { label: 'Killed (cycle)', value: '3', delta: '+1', trend: 'flat' },
-          { label: 'Graduated (yr)', value: '4', delta: '+1', trend: 'up' },
-          { label: 'Open PRs', value: '18', delta: '+5', trend: 'up' },
-        ],
-      },
-      {
-        title: 'Eval scores · AI experiments',
-        kind: 'bars',
-        unit: 'pass %',
-        data: [
-          { label: 'E1', value: 62 }, { label: 'E2', value: 71 }, { label: 'E3', value: 58 },
-          { label: 'E4', value: 79 }, { label: 'E5', value: 84 }, { label: 'E6', value: 67 },
-          { label: 'E7', value: 91 }, { label: 'E8', value: 74 }, { label: 'E9', value: 88 },
-          { label: 'E10', value: 81 }, { label: 'E11', value: 93 }, { label: 'E12', value: 86 },
-        ],
-      },
-      {
-        title: 'Cycle timeline · 8 weeks',
-        kind: 'gantt',
-        weeks: 8,
-        data: [
-          { label: 'Eval harness', start: 0, len: 2, tone: 'violet' },
-          { label: 'Briefs ×3', start: 1, len: 2, tone: 'ink' },
-          { label: 'Prototype', start: 2, len: 4, tone: 'cobalt' },
-          { label: 'Graduation gate', start: 6, len: 2, tone: 'violet' },
-        ],
-      },
-    ],
-    nextStep: {
-      title: 'Read the write-ups',
-      body: 'Every experiment — killed or graduated — has a one-page public post-mortem. We publish the dead-ends with the same care as the launches.',
-      cta: 'See the lab notes',
+    cta: {
+      title: 'Want a system like this?',
+      body: 'Bring us the workflow that eats your week — we\u2019ll show you the platform that gives it back.',
     },
   },
 ];

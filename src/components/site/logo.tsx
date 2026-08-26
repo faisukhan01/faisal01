@@ -33,13 +33,13 @@ export function FaqLogo({
 }
 
 /**
- * Serif brand wordmark for the customer marquee.
+ * Display wordmark for the customer marquee.
  */
 export function BrandWordmark({ name, className }: { name: string; className?: string }) {
   return (
     <span
       className={cn(
-        'whitespace-nowrap font-serif text-[19px] tracking-tight text-ink/40 transition-colors duration-500 hover:text-ink',
+        'whitespace-nowrap font-display text-[19px] font-bold tracking-tight text-ink/40 transition-colors duration-500 hover:text-ink',
         className
       )}
     >

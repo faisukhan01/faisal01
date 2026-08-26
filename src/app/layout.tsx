@@ -1,33 +1,33 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "FaQ Systems — Productized SaaS, Built by Founders",
+  title: "FaQ Systems — Intelligent Software & Digital Systems",
   description:
-    "FaQ Systems is a productized software company building focused SaaS products — designed, engineered, and operated end-to-end by its two founders.",
+    "FaQ Systems builds intelligent software, automation and digital systems that help modern businesses operate smarter, faster and more efficiently.",
   keywords: [
     "FaQ Systems",
-    "SaaS",
-    "productized software",
     "software company",
-    "FaQ Core",
-    "FaQ Toolkit",
-    "FaQ Labs",
+    "SaaS",
+    "intelligent software",
+    "automation",
+    "digital transformation",
+    "Concordia",
+    "Staffist",
     "startup",
   ],
   authors: [{ name: "FaQ Systems" }],
@@ -35,17 +35,17 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "FaQ Systems — Productized SaaS, Built by Founders",
+    title: "FaQ Systems — Intelligent Software & Digital Systems",
     description:
-      "Small surface, polished detail, honest pricing. SaaS products designed, engineered, and operated by two founders.",
+      "We build intelligent software, automation and digital systems that help modern businesses operate smarter, faster and more efficiently.",
     siteName: "FaQ Systems",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FaQ Systems — Productized SaaS, Built by Founders",
+    title: "FaQ Systems — Intelligent Software & Digital Systems",
     description:
-      "Small surface, polished detail, honest pricing. SaaS products built by two founders.",
+      "Intelligent software, automation and digital systems for modern businesses.",
   },
 };
 
@@ -59,7 +59,7 @@ const jsonLd = {
       url: "https://faq.systems/",
       logo: "https://faq.systems/faq-logo.png",
       description:
-        "A productized software company building focused SaaS products, run end-to-end by its two founders.",
+        "An intelligent software company building digital systems, automation and SaaS products, run end-to-end by its two founders.",
       founder: [
         { "@type": "Person", name: "Faisal Khan", jobTitle: "Co-Founder, Software Engineer" },
         { "@type": "Person", name: "Abdul Qayyum", jobTitle: "Co-Founder, Software Engineer" },
@@ -89,7 +89,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${fraunces.variable} ${inter.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${dmSans.variable} ${plusJakarta.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />

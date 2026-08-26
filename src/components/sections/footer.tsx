@@ -8,17 +8,16 @@ const FOOTER_COLUMNS = [
   {
     heading: 'Products',
     links: [
-      { label: 'FaQ Core', href: '#products' },
-      { label: 'FaQ Toolkit', href: '#products' },
-      { label: 'FaQ Labs', href: '#products' },
-      { label: 'Approach', href: '#approach' },
+      { label: 'Concordia', href: '#products' },
+      { label: 'Staffist', href: '#products' },
+      { label: 'Case studies', href: '#products' },
     ],
   },
   {
     heading: 'Company',
     links: [
+      { label: 'Services', href: '#services' },
       { label: 'Founders', href: '#founders' },
-      { label: 'FAQ', href: '#faq' },
       { label: 'Contact', href: '#contact' },
     ],
   },
@@ -92,8 +91,8 @@ export function Footer() {
           <div>
             <FaqLogo />
             <p className="mt-5 max-w-xs text-[13.5px] leading-[1.75] text-muted-foreground">
-              A productized software company. Small team, sharp tools, honest
-              software.
+              Intelligent software, automation and digital systems — built
+              end-to-end by two founders.
             </p>
             <p className="eyebrow mt-8 text-muted-foreground/70">Product updates</p>
             <NewsletterForm />

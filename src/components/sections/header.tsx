@@ -8,9 +8,9 @@ import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
   { label: "Products", href: "#products" },
-  { label: "Approach", href: "#approach" },
+  { label: "Services", href: "#services" },
   { label: "Founders", href: "#founders" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function SiteHeader() {
@@ -72,7 +72,7 @@ export function SiteHeader() {
                 href={link.href}
                 aria-current={active === link.href ? 'true' : undefined}
                 className={cn(
-                  'link-underline text-[13.5px] font-medium transition-colors duration-300',
+                  'link-underline font-display text-[13.5px] font-bold tracking-tight transition-colors duration-300',
                   active === link.href ? 'text-ink' : 'text-ink/65 hover:text-ink'
                 )}
               >
@@ -140,7 +140,7 @@ export function SiteHeader() {
                   <span className="tabular text-[11px] tracking-[0.2em] text-muted-foreground/70">
                     0{i + 1}
                   </span>
-                  <span className="font-serif text-[30px] leading-none text-ink">
+                  <span className="font-display text-[30px] font-extrabold leading-none text-ink">
                     {link.label}
                   </span>
                 </motion.a>
