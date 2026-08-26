@@ -22,11 +22,11 @@ export function FaqLogo({
       <Image
         src="/faq-logo.png"
         alt="FaQ Systems"
-        width={210}
-        height={36}
+        width={180}
+        height={31}
         priority={priority}
-        sizes="210px"
-        className="h-[30px] w-auto object-contain md:h-[34px]"
+        sizes="180px"
+        className="h-[26px] w-auto object-contain md:h-[28px]"
       />
     </a>
   );

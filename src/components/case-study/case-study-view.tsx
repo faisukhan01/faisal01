@@ -118,10 +118,7 @@ function FeedPanel({ panel }: { panel: Extract<Panel, { kind: 'feed' }> }) {
         <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/40">
           {panel.title}
         </p>
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-crimson opacity-60" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-crimson" />
-        </span>
+        <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
       </div>
       <ul className="mt-3.5 space-y-3">
         {panel.items.map((item) => (
@@ -262,11 +259,8 @@ function DashboardWindow({ dashboard }: { dashboard: { url: string; title: strin
             {dashboard.url}
           </span>
         </div>
-        <span className="hidden items-center gap-1.5 rounded-full bg-ink/[0.05] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-ink/45 sm:flex">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-crimson opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-crimson" />
-          </span>
+        <span className="flex items-center gap-1.5 rounded-full bg-ink/[0.05] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-ink/45 sm:flex">
+          <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
           Live
         </span>
       </div>
@@ -301,10 +295,10 @@ function DashboardWindow({ dashboard }: { dashboard: { url: string; title: strin
 function NumberedHeading({ n, title }: { n: string; title: string }) {
   return (
     <div className="flex items-baseline gap-4">
-      <span className="tabular font-display text-[13px] font-extrabold tracking-[0.1em] text-crimson">
+      <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-crimson">
         {n}
       </span>
-      <h2 className="font-display text-[28px] font-extrabold tracking-[-0.02em] text-ink md:text-[34px]">
+      <h2 className="font-display text-[24px] font-extrabold tracking-[-0.02em] text-ink md:text-[28px]">
         {title}
       </h2>
     </div>
@@ -358,11 +352,8 @@ export function CaseStudyView({ slug }: { slug: string }) {
               height={40}
               className="h-6 w-auto object-contain sm:h-7"
             />
-            <span className="hidden items-center gap-1.5 rounded-full bg-ink/[0.05] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-ink/50 md:inline-flex">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-crimson opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-crimson" />
-              </span>
+            <span className="hidden items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/45 md:flex">
+              <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
               Live
             </span>
           </div>
@@ -378,59 +369,54 @@ export function CaseStudyView({ slug }: { slug: string }) {
       </div>
 
       {/* — Hero — */}
-      <header className="relative overflow-hidden border-b border-hairline bg-gradient-to-b from-crimson/[0.06] via-white to-white">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[-220px] h-[440px] w-[720px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(0_122_255/0.16),transparent_70%)] blur-2xl"
-        />
-        <div className="container-luxe relative py-14 md:py-20">
+      <header className="relative overflow-hidden border-b border-hairline bg-cream/40">
+        <div className="container-luxe relative py-16 md:py-24">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto max-w-3xl text-center"
           >
-            <p className="eyebrow text-crimson">Case Study — {study.sector}</p>
-            <h1 className="mt-4 font-display text-[36px] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-[44px]">
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-ink/45">
+              Case study · {study.sector}
+            </p>
+            <h1 className="mt-5 font-display text-[36px] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-[44px]">
               {study.name}
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-[15px] leading-[1.75] text-muted-foreground md:text-base">
+            <p className="mx-auto mt-5 max-w-xl font-serif text-[19px] italic leading-[1.55] text-ink/70 md:text-[21px]">
               {study.tagline}
             </p>
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-1.5 text-[11px] font-semibold text-white">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-crimson opacity-70" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-crimson" />
-                </span>
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12px] font-medium text-ink/50">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
                 {study.status}
               </span>
-              <span className="rounded-full border border-crimson/25 bg-crimson/[0.06] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-crimson">
-                {study.badge}
-              </span>
+              <span className="hidden h-3 w-px bg-ink/15 sm:block" aria-hidden="true" />
+              <span>{study.badge}</span>
             </div>
           </motion.div>
 
-          {/* key metrics */}
-          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-            {study.keyMetrics.map((m, i) => (
-              <motion.div
-                key={m.label}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-2xl border border-hairline bg-white p-5 text-center shadow-[0_10px_40px_-20px_rgb(26_35_50/0.15)]"
-              >
-                <p className="tabular font-display text-[26px] font-extrabold leading-none text-ink md:text-[30px]">
+          {/* key metrics — quiet stat strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-12 grid max-w-4xl grid-cols-2 divide-x divide-hairline border-y border-hairline bg-white md:grid-cols-4"
+          >
+            {study.keyMetrics.map((m) => (
+              <div key={m.label} className="px-4 py-6 text-center">
+                <p className="tabular font-display text-[24px] font-extrabold leading-none text-ink md:text-[27px]">
                   {m.value}
                 </p>
-                <p className="mt-2 text-[10.5px] font-bold uppercase tracking-[0.1em] text-crimson">
+                <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.11em] text-crimson">
                   {m.label}
                 </p>
-                <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">{m.note}</p>
-              </motion.div>
+                <p className="mx-auto mt-1.5 max-w-[180px] text-[10.5px] leading-snug text-muted-foreground">
+                  {m.note}
+                </p>
+              </div>
             ))}
-          </div>
+          </motion.div>
 
           {/* the live dashboard */}
           <div className="mx-auto mt-12 max-w-4xl">
@@ -471,7 +457,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
             <p className="text-[15px] leading-[1.85] text-muted-foreground">
               {study.challenge.body}
             </p>
-            <ul className="mt-7 space-y-4">
+            <ul className="mt-7 divide-y divide-hairline border-t border-hairline">
               {study.challenge.painPoints.map((point, i) => (
                 <motion.li
                   key={point}
@@ -479,9 +465,9 @@ export function CaseStudyView({ slug }: { slug: string }) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.5, delay: i * 0.07 }}
-                  className="flex items-start gap-4 rounded-2xl border border-hairline bg-white p-4.5 px-5 py-4"
+                  className="flex items-start gap-4 py-4"
                 >
-                  <span className="tabular mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink/[0.06] text-[10.5px] font-bold text-ink/50">
+                  <span className="tabular mt-0.5 font-mono text-[11px] font-medium text-crimson">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <p className="text-[13.5px] leading-[1.7] text-ink/75">{point}</p>
@@ -503,7 +489,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
               {study.solution.body}
             </p>
           </div>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
             {study.solution.approach.map((step, i) => (
               <motion.div
                 key={step.title}
@@ -511,15 +497,15 @@ export function CaseStudyView({ slug }: { slug: string }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.55, delay: i * 0.08 }}
-                className="group rounded-2xl border border-hairline bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:border-crimson/25 hover:shadow-[0_24px_60px_-24px_rgb(0_122_255/0.3)]"
+                className="border-t-2 border-ink/10 pt-5 transition-colors duration-500 hover:border-crimson/60"
               >
-                <span className="tabular font-display text-[12px] font-extrabold tracking-[0.12em] text-crimson">
+                <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-crimson">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <h3 className="mt-3 font-display text-[17px] font-bold leading-snug text-ink">
+                <h3 className="mt-3 font-display text-[16px] font-bold leading-snug text-ink">
                   {step.title}
                 </h3>
-                <p className="mt-2.5 text-[12.5px] leading-[1.7] text-muted-foreground">
+                <p className="mt-2 text-[12.5px] leading-[1.7] text-muted-foreground">
                   {step.body}
                 </p>
               </motion.div>
@@ -542,7 +528,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.55, delay: (i % 3) * 0.08 }}
-                  className="group rounded-2xl border border-hairline bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:border-crimson/25 hover:shadow-[0_24px_60px_-24px_rgb(0_122_255/0.3)]"
+                  className="group rounded-2xl border border-hairline bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:border-crimson/25 hover:shadow-[0_20px_50px_-24px_rgb(0_122_255/0.22)]"
                 >
                   <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-crimson/10 text-crimson transition-colors duration-500 group-hover:bg-crimson group-hover:text-white">
                     <Icon className="h-5 w-5" aria-hidden="true" />
@@ -566,7 +552,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
           <div>
             <NumberedHeading n="05" title="Tech & architecture" />
           </div>
-          <div className="space-y-4">
+          <div className="space-y-0 divide-y divide-hairline border-y border-hairline">
             {study.tech.map((layer, i) => (
               <motion.div
                 key={layer.layer}
@@ -574,16 +560,16 @@ export function CaseStudyView({ slug }: { slug: string }) {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.55, delay: i * 0.08 }}
-                className="flex flex-col gap-3 rounded-2xl border border-hairline bg-white p-5 sm:flex-row sm:items-center"
+                className="flex flex-col gap-3 py-5 sm:flex-row sm:items-center sm:gap-6"
               >
-                <span className="w-28 shrink-0 font-display text-[13px] font-extrabold uppercase tracking-[0.1em] text-ink">
+                <span className="w-32 shrink-0 font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-ink/50">
                   {layer.layer}
                 </span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-x-5 gap-y-2">
                   {layer.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="rounded-full bg-crimson/[0.07] px-3.5 py-1.5 text-[11.5px] font-semibold text-crimson"
+                      className="text-[13px] font-medium text-ink/75"
                     >
                       {tech}
                     </span>
@@ -599,10 +585,10 @@ export function CaseStudyView({ slug }: { slug: string }) {
       <section className="border-b border-hairline bg-night py-16 text-white md:py-24" aria-label="Outcomes">
         <div className="container-luxe">
           <div className="flex items-baseline gap-4">
-            <span className="tabular font-display text-[13px] font-extrabold tracking-[0.1em] text-[#4da3ff]">
+            <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-[#4da3ff]">
               06
             </span>
-            <h2 className="font-display text-[28px] font-extrabold tracking-[-0.02em] md:text-[34px]">
+            <h2 className="font-display text-[24px] font-extrabold tracking-[-0.02em] md:text-[28px]">
               Outcomes
             </h2>
           </div>
@@ -633,9 +619,9 @@ export function CaseStudyView({ slug }: { slug: string }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.7 }}
-            className="mx-auto mt-16 max-w-3xl border-l-2 border-crimson pl-6 md:pl-8"
+            className="mx-auto mt-16 max-w-3xl text-center"
           >
-            <p className="font-display text-[20px] font-medium leading-[1.5] text-white/90 md:text-[24px]">
+            <p className="font-serif text-[24px] italic leading-[1.5] text-white/90 md:text-[28px]">
               &ldquo;{study.quote.text}&rdquo;
             </p>
             <footer className="mt-5">
@@ -653,7 +639,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
           className="pointer-events-none absolute left-1/2 top-1/2 h-[380px] w-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(0_122_255/0.12),transparent_70%)] blur-2xl"
         />
         <div className="container-luxe relative text-center">
-          <h2 className="mx-auto max-w-xl font-display text-[32px] font-extrabold leading-[1.1] tracking-[-0.02em] text-ink md:text-[44px]">
+          <h2 className="mx-auto max-w-xl font-display text-[28px] font-extrabold leading-[1.1] tracking-[-0.02em] text-ink md:text-[36px]">
             {study.cta.title}
           </h2>
           <p className="mx-auto mt-5 max-w-lg text-[15px] leading-[1.75] text-muted-foreground">

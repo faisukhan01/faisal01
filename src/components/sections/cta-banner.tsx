@@ -46,7 +46,7 @@ export function CTABanner() {
 
             <h2 className="relative mt-8 font-display text-[30px] font-extrabold leading-[1.1] tracking-[-0.025em] text-ink sm:text-[38px] md:text-[44px]">
               Ready to build something{' '}
-              <span className="bg-gradient-to-r from-crimson to-[#0057b8] bg-clip-text text-transparent">
+              <span className="font-serif font-normal italic tracking-[-0.01em]">
                 smarter?
               </span>
             </h2>
@@ -82,10 +82,7 @@ export function CTABanner() {
 
             {/* reply-time micro-line */}
             <p className="relative mt-8 flex items-center justify-center gap-2 text-[12px] font-medium text-muted-foreground/80">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-crimson opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-crimson" />
-              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
               A founder replies — usually within a day.
             </p>
           </div>

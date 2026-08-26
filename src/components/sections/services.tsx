@@ -58,7 +58,9 @@ export function Services() {
       <div className="container-luxe">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <p className="eyebrow text-muted-foreground">Services</p>
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-ink/45">
+              Services
+            </p>
             <h2 className="mt-4 font-display text-[30px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[36px]">
               Everything your business needs to operate smarter.
             </h2>

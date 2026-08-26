@@ -226,8 +226,8 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: 'staffist',
     name: 'Staffist',
-    logo: '/products/staffist.png',
-    logoHeightClass: 'h-24 sm:h-28 w-auto',
+    logo: '/products/staffist-logo.png',
+    logoHeightClass: 'h-[58px] sm:h-[68px] w-auto',
     sector: 'Recruitment · UK',
     badge: 'Client Project',
     accent: 'navy',

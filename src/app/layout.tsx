@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
+import { DM_Sans, Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -12,6 +12,14 @@ const dmSans = DM_Sans({
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -89,7 +97,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${dmSans.variable} ${plusJakarta.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${dmSans.variable} ${plusJakarta.variable} ${instrumentSerif.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />

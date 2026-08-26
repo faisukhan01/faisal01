@@ -92,7 +92,7 @@ export function SiteHeader() {
               href="#contact"
               className="btn-primary hidden h-10 px-5 text-[13px] sm:inline-flex"
             >
-              Request a demo
+              Start a project
               <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
             </a>
             <button
@@ -159,7 +159,7 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
                 className="btn-primary h-12 w-full px-6 text-sm"
               >
-                Request a demo
+                Start a project
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
               <p className="mt-5 text-center text-[12px] text-muted-foreground">

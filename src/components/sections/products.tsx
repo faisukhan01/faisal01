@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
 import { useCaseStudy } from '@/components/case-study/case-study-router';
@@ -12,6 +13,46 @@ const BAND_TINT: Record<string, string> = {
   concordia: 'bg-[#fdf6ee]',
   staffist: 'bg-[#eef5fd]',
 };
+
+/* — Animated metric number: parses "96.4%" / "4,200" and counts up — */
+function MetricNumber({ value, delay }: { value: string; delay: number }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  const match = value.match(/^([\d,.]+)(.*)$/);
+  const num = match ? parseFloat(match[1].replace(/,/g, '')) : null;
+  const suffix = match ? match[2] : '';
+  const decimals = match && match[1].includes('.') ? match[1].split('.')[1].length : 0;
+
+  const mv = useMotionValue(0);
+  const spring = useSpring(mv, { stiffness: 90, damping: 24 });
+
+  useEffect(() => {
+    if (inView && num !== null) {
+      const t = setTimeout(() => mv.set(num), delay * 1000);
+      return () => clearTimeout(t);
+    }
+  }, [inView, num, mv, delay]);
+
+  useEffect(() => {
+    if (num === null) return;
+    const unsub = spring.on('change', (v) => {
+      if (ref.current) {
+        const formatted = v.toLocaleString('en-US', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        });
+        ref.current.textContent = formatted + suffix;
+      }
+    });
+    return unsub;
+  }, [spring, num, decimals, suffix]);
+
+  return (
+    <p ref={ref} className="font-display text-[20px] font-extrabold leading-none text-ink">
+      {value}
+    </p>
+  );
+}
 
 export function Products() {
   const { openCase } = useCaseStudy();
@@ -25,7 +66,9 @@ export function Products() {
       <div className="container-luxe">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <p className="eyebrow text-muted-foreground">Products</p>
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.24em] text-ink/45">
+              Products
+            </p>
             <h2 className="mt-4 font-display text-[30px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[36px]">
               Built, shipped and running.
             </h2>
@@ -36,7 +79,7 @@ export function Products() {
           </Reveal>
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-[1080px] gap-7 md:grid-cols-2 md:gap-9">
+        <div className="mx-auto mt-12 grid max-w-[980px] gap-6 md:grid-cols-2 md:gap-7">
           {CASE_STUDIES.map((product, i) => (
             <Reveal key={product.slug} delay={i * 0.1}>
               <motion.button
@@ -60,23 +103,28 @@ export function Products() {
                     {product.status}
                   </span>
 
-                  {/* logo */}
-                  <div className="relative z-10 flex items-center justify-center transition-transform duration-500 ease-out group-hover:scale-[1.05]">
+                  {/* logo — spring entrance + hover scale */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.86, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ type: 'spring', stiffness: 210, damping: 20, delay: 0.25 + i * 0.12 }}
+                    className="relative z-10 flex items-center justify-center"
+                  >
                     <Image
                       src={product.logo}
                       alt={`${product.name} logo`}
-                      width={260}
-                      height={180}
-                      className={`${product.logoHeightClass} object-contain drop-shadow-[0_10px_24px_rgb(26_35_50/0.12)]`}
+                      width={280}
+                      height={200}
+                      className={`${product.logoHeightClass} object-contain drop-shadow-[0_10px_24px_rgb(26_35_50/0.12)] transition-transform duration-500 ease-out group-hover:scale-[1.06]`}
                       priority={i === 0}
                     />
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* — Body — */}
-                <div className="flex flex-1 flex-col p-7 sm:p-8">
+                <div className="flex flex-1 flex-col p-6 sm:p-7">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <h3 className="font-display text-[24px] font-extrabold tracking-tight text-ink">
+                    <h3 className="font-display text-[22px] font-extrabold tracking-tight text-ink">
                       {product.name}
                     </h3>
                     <span className="h-1 w-1 rounded-full bg-ink/20" aria-hidden="true" />
@@ -87,12 +135,12 @@ export function Products() {
                       {product.badge}
                     </span>
                   </div>
-                  <p className="mt-3 text-[13.5px] leading-[1.7] text-muted-foreground">
+                  <p className="mt-3 text-[13px] leading-[1.7] text-muted-foreground">
                     {product.summary}
                   </p>
 
-                  {/* metrics — clean inline row, no boxes */}
-                  <div className="mt-7 grid grid-cols-3">
+                  {/* metrics — animated count-up on scroll into view */}
+                  <div className="mt-6 grid grid-cols-3">
                     {product.cardMetrics.map((m, mi) => (
                       <div
                         key={m.label}
@@ -102,9 +150,7 @@ export function Products() {
                             : `border-l border-hairline px-4 ${mi === 2 ? 'pl-4' : ''}`
                         }
                       >
-                        <p className="font-display text-[20px] font-extrabold leading-none text-ink">
-                          {m.value}
-                        </p>
+                        <MetricNumber value={m.value} delay={0.15 + mi * 0.12} />
                         <p className="mt-1.5 text-[9.5px] font-semibold uppercase tracking-[0.11em] text-ink/40">
                           {m.label}
                         </p>
@@ -130,7 +176,7 @@ export function Products() {
                   </div>
 
                   {/* CTA — editorial link row */}
-                  <div className="mt-auto flex items-center justify-between border-t border-hairline pt-7">
+                  <div className="mt-auto flex items-center justify-between border-t border-hairline pt-6">
                     <span className="link-underline text-[13.5px] font-semibold text-ink transition-colors duration-300 group-hover:text-crimson">
                       View case study
                     </span>
