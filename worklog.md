@@ -1993,3 +1993,22 @@ Stage Summary:
 - Commit: round-45 commit created locally (GitHub push still blocked on fresh token from user).
 - AI dashboard PNGs in public/slider/ kept on disk but UNUSED (HTML slides won) — can delete later if desired.
 - Next-phase candidates: per-product pricing anchors (Concordia/Staffist tiers), services grid polish, case-study interior consistency with new blue accents, OG image regeneration.
+
+---
+Task ID: 46
+Agent: Z.ai Code (main)
+Task: User round 5 — "the image in the header is worse; use the image in the BG of the header as sliding bg header"; pricing $230 / $500 / Custom and DON'T mention monthly/annually; founders heading NOT "The Fa and the Q." (something better/aesthetic); founder portraits reveal natural colors on hover (both).
+
+Work Log:
+- HERO REBUILT as full-bleed dark section: dashboard images now slide as the BACKGROUND behind the headline (what user actually wanted). min-h-92svh bg-night; AnimatePresence crossfade+slide (x 5%→0) + slow Ken Burns scale 1.04→1.11 per slide, blur-[2px]; navy veil stack (night/72 + top/bottom gradients + radial vignette) keeps white type crisp. 3 slides: concordia-console / staffist-console / NEW ops-console.png (dark monitoring dashboard generated at 1344x768). Slide row: mono caption (name · label) + clickable dots; auto-rotate 6s, pause on hover, reduced-motion aware. Stat strip moved into hero floor (white/14 hairlines). Deleted product-showcase.tsx (framed carousel user rejected). Blue italic accents switched to #3d9dff (brighter for dark bg).
+- NAVBAR OVER DARK HERO via pure CSS :has() (zero JS/flash): hero section has .hero-dark; header gets .site-header + .is-scrolled; globals.css unlayered rules flip nav links/hamburger to white, logo to white monochrome (brightness(0) invert(1)), CTA to white pill — ONLY while hero is mounted AND at top. Verified: case-study pages (?case=) automatically fall back to dark-text navbar because Hero unmounts (logoFilter=none, navColor=ink). Scrolled state = cream bar + dark text.
+- PRICING: Starter $230, Growth $500 (featured dark card), Enterprise Custom. REMOVED monthly/yearly toggle, "/mo" suffix, and ALL billing-period text (DOM textContent regex check: no monthly|month|annual|yearly). Neutral caption: "Flat rate · everything included" / "Scoped to your infrastructure". Kept feature lists, Most popular badge, included strip, 14-day pilot note.
+- FOUNDERS: heading "The Fa and the Q." → "Engineers by craft. Founders by choice." (Founders = blue serif italic). 
+- FOUNDER PHOTOS → COLOR FILES + CSS grayscale: Faisal's only source was B&W (git history a61a8c9 was RGB-but-saturation-0.1; WhatsApp uploads were logo/B&W) → COLORIZED via z-ai image-edit (864x1152, VLM-verified same person/pose, natural tones). Qayyum color = /tmp/qayyum_clean.png cropped 3:4. Saved as color files faisal-khan-2.png + abdul-qayyum-3.png (RENAMED to bust stale next/image browser cache — canvas pixel sampling proved old URLs served grayscale-0-saturation even after filter:none; new URLs now sample sat 17.8/14.9). CSS: grayscale contrast-[1.04] default, group-hover:grayscale-0 group-hover:contrast-100 transition-all 700ms.
+- NOTE: agent-browser context emulates no-hover (matchMedia hover:hover = false) so Tailwind's @media(hover:hover) group-hover rules can't be screenshot-verified there; verified via computed style with equivalent injected rule (filter transitioned contrast(1.04) grayscale(1) → contrast(1) grayscale(0)) + color asset confirmed by VLM. Works on real desktops.
+
+Stage Summary:
+- VERIFIED (agent-browser): lint 0 errors; desktop 1440 — hero VLM 9/10 (full-bleed bg behind text, white navbar, blue italics, white stat floor), slide auto-rotation works (aria-selected → FaQ Ops after 6.5s, VLM confirms different dark dashboard bg), scrolled navbar = cream/dark/border (VLM confirmed); pricing: $230/$500/Custom present, zero billing-period strings, no toggle; founders heading renders, portraits serve COLOR files with CSS grayscale default; case study ?case=concordia renders with normal dark navbar (logo filter none); mobile 390px — no overflow, hero VLM 9/10; console clean; dev.log all 200s.
+- Commits: round-46 code + this worklog commit (GitHub push still blocked on fresh token).
+- Cron: 15-min webDevReview job active (id 338010).
+- Next-phase candidates: maybe caption/CTA tweaks on slide indicator, services grid rhythm, case-study interior polish, OG image regeneration with new hero.
