@@ -2054,3 +2054,24 @@ Stage Summary:
 - Site state: single-image light hero verified working on :3000.
 - Git: remote wired, history clean fast-forward, commit ready at local main.
 - BLOCKER: needs GitHub PAT (Contents: Read & Write on faisal01) from user to push; Vercel (faisal-seven-ruby) auto-deploys from the repo once pushed.
+
+---
+Task ID: github-vercel-deploy
+Agent: main (Z.ai Code)
+Task: Push all pending work to github.com/faisukhan01/faisal01 (repo was stuck at task-41 build) so Vercel (faisal-seven-ruby.vercel.app) auto-deploys the current site; ensure commit graph attribution.
+
+Work Log:
+- Root cause: local repo had NO remote and sandbox had no GitHub credentials — every round since task 41 (08:39) was stranded locally. Vercel deploys from the repo, so it served the old orb-hero build.
+- User supplied a GitHub PAT; validated via API (login faisukhan01, id 193670919 — matches commit noreply email, so contributions count).
+- Rewrote the one UUID-message commit via rebase → "Hero: aesthetic natural light imagery..." for a clean history. All 11 unpushed commits authored as Faisal Arslan Khan <193670919+...>.
+- Pushed with token inline (not stored in .git/config — verified clean): 3e24cf7..922bffa main -> main.
+- Verified via API: repo HEAD = 922bffa, pushed_at 2026-08-26T11:40:08Z, PushEvent registered, 12/12 recent commits linked to faisukhan01 (graph-attributed).
+- Vercel auto-deployed within ~25s of push: live HTML references /hero/hero-shore.jpg (all responsive widths), serif italic accents present, old orb hero gone (remaining "orb" string match = substring of "forbidden").
+- Visual QA on production URL via agent-browser + VLM: single calm coastline hero, navy logo legible, blue italic "smarter"/"better", two CTAs, no stats strip, no slider indicators. Clean.
+
+Stage Summary:
+- GitHub repo github.com/faisukhan01/faisal01 → up to date at 922bffa (11 commits: rounds 42–46 + hero light rework + single-image hero).
+- Vercel https://faisal-seven-ruby.vercel.app → serving current build (single-image light hero verified on production).
+- Commit graph: all commits attributed to faisukhan01 → today's contribution square green.
+- Housekeeping: token used inline only; recommend user revokes the PAT after confirming.
+- Next-phase suggestions: keep remote wired (origin now configured); commit+push each round; consider README + repo description polish.
