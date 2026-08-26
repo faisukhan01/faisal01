@@ -243,6 +243,41 @@
   }
 }
 
+/* ————————————————————————————————————————————————
+   Navbar over the dark hero — when the landing hero
+   (.hero-dark) is in the DOM and the header is at the
+   top of the page, the chrome flips to light. Pure CSS
+   via :has() so it reacts instantly to the hero
+   mounting/unmounting (case-study views) and scrolling.
+   ———————————————————————————————————————————————— */
+body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-link {
+  color: rgb(255 255 255 / 0.68);
+}
+body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-link:hover,
+body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-link[aria-current='true'] {
+  color: #ffffff;
+}
+body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-icon-btn {
+  color: #ffffff;
+}
+body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-icon-btn:hover {
+  background-color: rgb(255 255 255 / 0.1);
+}
+/* logo → clean white monochrome over the dark hero */
+body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-logo {
+  filter: brightness(0) invert(1);
+}
+/* primary CTA → white pill over the dark hero */
+body:has(.hero-dark) .site-header:not(.is-scrolled) .btn-primary {
+  background-color: #ffffff;
+  color: #131c2e;
+  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.45);
+}
+body:has(.hero-dark) .site-header:not(.is-scrolled) .btn-primary:hover {
+  background-color: #eef2f8;
+  box-shadow: 0 16px 40px -14px rgb(0 0 0 / 0.55);
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

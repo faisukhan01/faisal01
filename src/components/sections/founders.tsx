@@ -11,7 +11,7 @@ const FOUNDERS = [
     index: '01',
     name: 'Faisal Khan',
     role: 'Co-Founder · Software Engineer',
-    photo: '/founders/faisal-khan.png',
+    photo: '/founders/faisal-khan-2.png',
     quote: 'Build the system you\u2019d want to inherit.',
     bio: 'Faisal architects FaQ Systems\u2019 platforms end-to-end — from the first schema to the live deploy. He leads product and full-stack engineering across Concordia and Staffist.',
     focus: ['Platform architecture', 'Product design', 'Full-stack engineering'],
@@ -21,7 +21,7 @@ const FOUNDERS = [
     index: '02',
     name: 'Abdul Qayyum',
     role: 'Co-Founder · Software Engineer',
-    photo: '/founders/abdul-qayyum-2.png',
+    photo: '/founders/abdul-qayyum-3.png',
     quote: 'Boring reliability is a feature.',
     bio: 'Qayyum builds the engines under the surface — data models, integrations and automations that keep thousands of records consistent. He leads backend and systems engineering.',
     focus: ['Systems engineering', 'Data architecture', 'Automation'],
@@ -39,10 +39,11 @@ export function Founders() {
               Founders
             </p>
             <h2 className="mt-4 font-display text-[30px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[36px]">
-              The{' '}
-              <span className="font-serif font-normal italic">Fa</span> and
-              the{' '}
-              <span className="font-serif font-normal italic">Q</span>.
+              Engineers by craft.{' '}
+              <span className="font-serif font-normal italic text-crimson">
+                Founders
+              </span>{' '}
+              by choice.
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[14.5px] leading-[1.7] text-muted-foreground">
               FaQ stands for its founders — two engineers with an
@@ -76,7 +77,7 @@ export function Founders() {
                           alt={`Portrait of ${person.name}, ${person.role} at FaQ Systems`}
                           fill
                           sizes="(max-width: 768px) 90vw, 380px"
-                          className="object-cover grayscale contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.04]"
+                          className="object-cover grayscale contrast-[1.04] transition-all duration-700 ease-out group-hover:scale-[1.04] group-hover:grayscale-0 group-hover:contrast-100"
                           priority={i === 0}
                         />
                         <span

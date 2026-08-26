@@ -57,9 +57,9 @@ export function SiteHeader() {
     <>
       <header
         className={cn(
-          'fixed inset-x-0 top-0 z-50 transition-all duration-500',
+          'site-header fixed inset-x-0 top-0 z-50 transition-all duration-500',
           scrolled
-            ? 'border-b border-hairline bg-cream/85 backdrop-blur-xl'
+            ? 'is-scrolled border-b border-hairline bg-cream/85 backdrop-blur-xl'
             : 'border-b border-transparent bg-transparent'
         )}
       >
@@ -78,7 +78,7 @@ export function SiteHeader() {
                   href={link.href}
                   aria-current={active === link.href ? 'true' : undefined}
                   className={cn(
-                    'link-underline text-[13.5px] font-medium transition-colors duration-300',
+                    'nav-link link-underline text-[13.5px] font-medium transition-colors duration-300',
                     active === link.href ? 'text-ink' : 'text-ink/65 hover:text-ink'
                   )}
                 >
@@ -101,7 +101,7 @@ export function SiteHeader() {
               onClick={() => setOpen(true)}
               aria-label="Open navigation menu"
               aria-expanded={open}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-ink/5 lg:hidden"
+              className="nav-icon-btn flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-ink/5 lg:hidden"
             >
               <Menu className="h-5 w-5" aria-hidden="true" />
             </button>

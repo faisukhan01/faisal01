@@ -1,23 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Check } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
 import { cn } from '@/lib/utils';
 
 /* ————————————————————————————————————————————————
    Pricing — productized SaaS plans.
-   One subscription covers design, build AND operations.
+   One price covers design, build AND operations.
    ———————————————————————————————————————————————— */
-
-type Billing = 'monthly' | 'yearly';
 
 interface Plan {
   name: string;
   tagline: string;
-  monthly: number | null; // null → custom
-  yearly: number | null;
+  price: number | null; // null → custom
   cta: { label: string; href: string };
   featured?: boolean;
   features: string[];
@@ -27,8 +23,7 @@ const PLANS: Plan[] = [
   {
     name: 'Starter',
     tagline: 'One workflow, fully handled.',
-    monthly: 290,
-    yearly: 232,
+    price: 230,
     cta: { label: 'Start with Starter', href: '#contact' },
     features: [
       '1 product module — your pick',
@@ -41,8 +36,7 @@ const PLANS: Plan[] = [
   {
     name: 'Growth',
     tagline: 'Run the whole operation.',
-    monthly: 890,
-    yearly: 712,
+    price: 500,
     cta: { label: 'Scale with Growth', href: '#contact' },
     featured: true,
     features: [
@@ -57,8 +51,7 @@ const PLANS: Plan[] = [
   {
     name: 'Enterprise',
     tagline: 'Your infrastructure. Our engineers.',
-    monthly: null,
-    yearly: null,
+    price: null,
     cta: { label: 'Talk to us', href: '#contact' },
     features: [
       'Unlimited modules & users',
@@ -77,69 +70,7 @@ const INCLUDED = [
   'Continuous updates',
 ];
 
-function Price({ plan, billing }: { plan: Plan; billing: Billing }) {
-  const amount = billing === 'monthly' ? plan.monthly : plan.yearly;
-
-  if (amount === null) {
-    return (
-      <div className="flex items-baseline gap-2">
-        <span
-          className={cn(
-            'font-display text-[38px] font-extrabold leading-none tracking-tight',
-            plan.featured ? 'text-white' : 'text-ink'
-          )}
-        >
-          Custom
-        </span>
-        <span className={cn('text-[13px]', plan.featured ? 'text-white/60' : 'text-muted-foreground')}>
-          annual contract
-        </span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex items-baseline gap-1.5">
-      <span
-        className={cn(
-          'font-display text-[44px] font-extrabold leading-none tracking-tight',
-          plan.featured ? 'text-white' : 'text-ink'
-        )}
-      >
-        $
-      </span>
-      <span className="relative inline-flex h-[44px] overflow-hidden">
-        <AnimatePresence mode="popLayout" initial={false}>
-          <motion.span
-            key={amount}
-            initial={{ y: 26, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -26, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className={cn(
-              'tabular font-display text-[44px] font-extrabold leading-none tracking-tight',
-              plan.featured ? 'text-white' : 'text-ink'
-            )}
-          >
-            {amount.toLocaleString('en-US')}
-          </motion.span>
-        </AnimatePresence>
-      </span>
-      <span
-        className={cn(
-          'text-[13px] font-medium',
-          plan.featured ? 'text-white/60' : 'text-muted-foreground'
-        )}
-      >
-        /mo
-      </span>
-    </div>
-  );
-}
-
 export function Pricing() {
-  const [billing, setBilling] = useState<Billing>('yearly');
-
   return (
     <section
       id="pricing"
@@ -159,52 +90,9 @@ export function Pricing() {
               </span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[14.5px] leading-[1.7] text-muted-foreground">
-              One subscription covers design, build and operations — no
-              agencies, no handoffs, no surprise invoices.
+              One price covers design, build and operations — no agencies, no
+              handoffs, no surprise invoices.
             </p>
-          </Reveal>
-
-          {/* billing toggle */}
-          <Reveal delay={0.08}>
-            <div
-              role="group"
-              aria-label="Billing period"
-              className="mx-auto mt-8 inline-flex items-center rounded-full border border-hairline bg-white p-1 shadow-[0_4px_20px_-8px_rgb(26_35_50/0.12)]"
-            >
-              {(['monthly', 'yearly'] as Billing[]).map((b) => (
-                <button
-                  key={b}
-                  type="button"
-                  onClick={() => setBilling(b)}
-                  aria-pressed={billing === b}
-                  className={cn(
-                    'relative rounded-full px-5 py-2 text-[13px] font-semibold capitalize transition-colors duration-300',
-                    billing === b ? 'text-white' : 'text-ink/60 hover:text-ink'
-                  )}
-                >
-                  {billing === b && (
-                    <motion.span
-                      layoutId="billing-pill"
-                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                      className="absolute inset-0 rounded-full bg-ink"
-                    />
-                  )}
-                  <span className="relative flex items-center gap-1.5">
-                    {b}
-                    {b === 'yearly' && (
-                      <span
-                        className={cn(
-                          'rounded-full px-1.5 py-0.5 text-[10px] font-bold',
-                          billing === b ? 'bg-crimson/25 text-white' : 'bg-crimson/10 text-crimson'
-                        )}
-                      >
-                        −20%
-                      </span>
-                    )}
-                  </span>
-                </button>
-              ))}
-            </div>
           </Reveal>
         </div>
 
@@ -255,21 +143,45 @@ export function Pricing() {
                   {plan.tagline}
                 </p>
 
-                <div className="mt-7">
-                  <Price plan={plan} billing={billing} />
-                  <p
-                    className={cn(
-                      'mt-2 text-[11.5px]',
-                      plan.featured ? 'text-white/50' : 'text-muted-foreground/80'
-                    )}
-                  >
-                    {plan.monthly === null
-                      ? 'Scoped to your infrastructure'
-                      : billing === 'yearly'
-                        ? 'per month, billed annually'
-                        : 'per month, billed monthly'}
-                  </p>
+                <div className="mt-7 flex items-baseline gap-1.5">
+                  {plan.price !== null ? (
+                    <>
+                      <span
+                        className={cn(
+                          'font-display text-[24px] font-extrabold leading-none tracking-tight',
+                          plan.featured ? 'text-white/60' : 'text-ink/50'
+                        )}
+                      >
+                        $
+                      </span>
+                      <span
+                        className={cn(
+                          'tabular font-display text-[46px] font-extrabold leading-none tracking-tight',
+                          plan.featured ? 'text-white' : 'text-ink'
+                        )}
+                      >
+                        {plan.price.toLocaleString('en-US')}
+                      </span>
+                    </>
+                  ) : (
+                    <span
+                      className={cn(
+                        'font-display text-[38px] font-extrabold leading-none tracking-tight',
+                        plan.featured ? 'text-white' : 'text-ink'
+                      )}
+                    >
+                      Custom
+                    </span>
+                  )}
                 </div>
+                <p
+                  className={cn(
+                    'mt-2 text-[11.5px]',
+                    plan.featured ? 'text-white/50' : 'text-muted-foreground/80'
+                  )}
+                >
+                  {plan.price !== null ? 'Flat rate · everything included' : 'Scoped to your infrastructure'}
+                </p>
 
                 <ul
                   className={cn(
