@@ -62,16 +62,10 @@ export function Hero() {
           <Reveal delay={0.08}>
             <h1 className="mt-7 font-display text-[40px] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-[50px] lg:text-[60px]">
               Build{' '}
-              <span className="font-serif font-normal italic tracking-[-0.01em] text-[#007aff]">
-                smarter
-              </span>{' '}
-              systems.
+              <span className="text-[#007aff]">smarter</span> systems.
               <br />
               Scale{' '}
-              <span className="font-serif font-normal italic tracking-[-0.01em] text-[#007aff]">
-                better
-              </span>{' '}
-              businesses.
+              <span className="text-[#007aff]">better</span> businesses.
             </h1>
           </Reveal>
 

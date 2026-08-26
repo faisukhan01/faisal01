@@ -24,6 +24,13 @@ export function useCaseStudy(): CaseStudyContextValue {
   return ctx;
 }
 
+/* Read the active case slug from anywhere — even outside the provider
+   (the store is module-level and URL-backed). */
+export function useActiveCaseSlug(): string | null {
+  const slug = useSyncExternalStore(subscribeCase, getCaseSnapshot, getCaseServerSnapshot);
+  return slug || null;
+}
+
 /* — External store for the current case slug, backed by the URL — */
 const listeners = new Set<() => void>();
 

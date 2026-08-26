@@ -149,7 +149,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.35 }}
-      className="min-h-screen bg-background"
+      className="min-h-screen bg-background pt-16 md:pt-[76px]"
       aria-label={`${study.name} case study`}
     >
       {/* — Sticky sub-header — */}

@@ -39,11 +39,8 @@ export function Founders() {
               Founders
             </p>
             <h2 className="mt-4 font-display text-[30px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[36px]">
-              Engineers by craft.{' '}
-              <span className="font-serif font-normal italic text-crimson">
-                Founders
-              </span>{' '}
-              by choice.
+              Engineers by craft. <span className="text-crimson">Founders</span> by
+              choice.
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[14.5px] leading-[1.7] text-muted-foreground">
               FaQ stands for its founders — two engineers with an

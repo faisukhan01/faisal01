@@ -84,10 +84,7 @@ export function Pricing() {
               Pricing
             </p>
             <h2 className="mt-4 font-display text-[30px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[36px]">
-              Productized.{' '}
-              <span className="font-serif font-normal italic tracking-[-0.01em] text-crimson">
-                Predictable.
-              </span>
+              Productized. <span className="text-crimson">Predictable.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[14.5px] leading-[1.7] text-muted-foreground">
               One price covers design, build and operations — no agencies, no
