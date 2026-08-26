@@ -1,6 +1,7 @@
 import { SiteHeader } from '@/components/sections/header';
 import { Hero } from '@/components/sections/hero';
 import { Products } from '@/components/sections/products';
+import { Pricing } from '@/components/sections/pricing';
 import { Services } from '@/components/sections/services';
 import { Founders } from '@/components/sections/founders';
 import { CTABanner } from '@/components/sections/cta-banner';
@@ -15,6 +16,7 @@ export default function Home() {
         <main className="flex-1">
           <Hero />
           <Products />
+          <Pricing />
           <Services />
           <Founders />
           <CTABanner />

@@ -46,7 +46,7 @@ export function CTABanner() {
 
             <h2 className="relative mt-8 font-display text-[30px] font-extrabold leading-[1.1] tracking-[-0.025em] text-ink sm:text-[38px] md:text-[44px]">
               Ready to build something{' '}
-              <span className="font-serif font-normal italic tracking-[-0.01em]">
+              <span className="font-serif font-normal italic tracking-[-0.01em] text-crimson">
                 smarter?
               </span>
             </h2>

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
+import { ProductShowcase } from '@/components/site/product-showcase';
 
 const STATS = [
   { value: '99.9%', label: 'Platform uptime' },
@@ -31,13 +32,13 @@ export function Hero() {
           <Reveal delay={0.08}>
             <h1 className="mt-7 font-display text-[40px] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-[48px] lg:text-[56px]">
               Build{' '}
-              <span className="font-serif font-normal italic tracking-[-0.01em]">
+              <span className="font-serif font-normal italic tracking-[-0.01em] text-crimson">
                 smarter
               </span>{' '}
               systems.
               <br />
               Scale{' '}
-              <span className="font-serif font-normal italic tracking-[-0.01em]">
+              <span className="font-serif font-normal italic tracking-[-0.01em] text-crimson">
                 better
               </span>{' '}
               businesses.
@@ -75,13 +76,20 @@ export function Hero() {
           </Reveal>
         </div>
 
+        {/* — product showcase: auto-rotating live console views — */}
+        <Reveal delay={0.3}>
+          <div className="mt-14 md:mt-16">
+            <ProductShowcase />
+          </div>
+        </Reveal>
+
         {/* — quiet stat strip: plain numbers, hairline dividers, no boxes — */}
-        <Reveal delay={0.34}>
+        <Reveal delay={0.1}>
           <motion.dl
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mt-20 grid max-w-[860px] grid-cols-2 divide-x divide-hairline border-y border-hairline md:grid-cols-4"
+            transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-16 grid max-w-[860px] grid-cols-2 divide-x divide-hairline border-y border-hairline md:grid-cols-4 md:mt-20"
           >
             {STATS.map((s) => (
               <div key={s.label} className="px-4 py-7 text-center md:py-8">

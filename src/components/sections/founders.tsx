@@ -21,7 +21,7 @@ const FOUNDERS = [
     index: '02',
     name: 'Abdul Qayyum',
     role: 'Co-Founder · Software Engineer',
-    photo: '/founders/abdul-qayyum.png',
+    photo: '/founders/abdul-qayyum-2.png',
     quote: 'Boring reliability is a feature.',
     bio: 'Qayyum builds the engines under the surface — data models, integrations and automations that keep thousands of records consistent. He leads backend and systems engineering.',
     focus: ['Systems engineering', 'Data architecture', 'Automation'],
@@ -45,8 +45,9 @@ export function Founders() {
               <span className="font-serif font-normal italic">Q</span>.
             </h2>
             <p className="mx-auto mt-4 max-w-md text-[14.5px] leading-[1.7] text-muted-foreground">
-              FaQ stands for its founders — two engineers who design, build
-              and operate everything themselves.
+              FaQ stands for its founders — two engineers with an
+              entrepreneurial mindset who design, build and operate everything
+              themselves.
             </p>
           </Reveal>
         </div>
