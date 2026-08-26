@@ -54,7 +54,7 @@ const SERVICES = [
 
 export function Services() {
   return (
-    <section id="services" className="bg-background py-24 md:py-32" aria-label="Services">
+    <section id="services" className="bg-background py-20 md:py-28" aria-label="Services">
       <div className="container-luxe">
         <div className="grid items-end gap-8 lg:grid-cols-2">
           <Reveal>
@@ -62,19 +62,19 @@ export function Services() {
               <span aria-hidden="true" className="h-1.5 w-1.5 bg-crimson" />
               Services
             </p>
-            <h2 className="mt-5 max-w-xl font-display text-4xl font-extrabold leading-[1.1] tracking-[-0.02em] text-ink md:text-5xl">
+            <h2 className="mt-5 max-w-xl font-display text-[32px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[40px]">
               Everything your business needs to operate smarter.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="max-w-md text-[15px] leading-[1.75] text-muted-foreground lg:ml-auto">
+            <p className="max-w-md text-[14.5px] leading-[1.75] text-muted-foreground lg:ml-auto">
               From a single automation to a full platform — scoped honestly,
               built end-to-end, and operated by the people who built it.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service, i) => (
             <Reveal key={service.title} delay={(i % 3) * 0.08}>
               <motion.article

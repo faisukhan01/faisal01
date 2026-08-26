@@ -43,7 +43,7 @@ const FOUNDERS = [
 
 export function Founders() {
   return (
-    <section id="founders" className="bg-background py-24 md:py-32" aria-label="Founders">
+    <section id="founders" className="bg-background py-20 md:py-28" aria-label="Founders">
       <div className="container-luxe">
         <div className="grid items-end gap-8 lg:grid-cols-2">
           <Reveal>
@@ -51,19 +51,19 @@ export function Founders() {
               <span aria-hidden="true" className="h-1.5 w-1.5 bg-crimson" />
               Founders
             </p>
-            <h2 className="mt-5 max-w-xl font-display text-4xl font-extrabold leading-[1.1] tracking-[-0.02em] text-ink md:text-5xl">
+            <h2 className="mt-5 max-w-xl font-display text-[32px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[40px]">
               The Fa and the Q.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="max-w-md text-[15px] leading-[1.75] text-muted-foreground lg:ml-auto">
+            <p className="max-w-md text-[14.5px] leading-[1.75] text-muted-foreground lg:ml-auto">
               FaQ stands for its founders — Faisal and Qayyum, two software
               engineers who design, build, and operate everything themselves.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-16 space-y-16 md:mt-20 md:space-y-24">
+        <div className="mt-14 space-y-14 md:mt-16 md:space-y-20">
           {FOUNDERS.map((person, i) => {
             const flipped = i % 2 === 1;
             return (
@@ -116,7 +116,7 @@ export function Founders() {
                         </span>
                       </div>
 
-                      <h3 className="mt-5 font-display text-[34px] font-extrabold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[42px] lg:text-[52px]">
+                      <h3 className="mt-5 font-display text-[30px] font-extrabold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[36px] lg:text-[42px]">
                         {person.name}
                       </h3>
                       <p className="mt-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
@@ -160,7 +160,7 @@ export function Founders() {
                   </div>
                 </Reveal>
                 {i < FOUNDERS.length - 1 && (
-                  <div className="mt-16 border-t border-hairline md:mt-24" aria-hidden="true" />
+                  <div className="mt-14 border-t border-hairline md:mt-20" aria-hidden="true" />
                 )}
               </div>
             );

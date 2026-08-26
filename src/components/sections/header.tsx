@@ -72,7 +72,7 @@ export function SiteHeader() {
                 href={link.href}
                 aria-current={active === link.href ? 'true' : undefined}
                 className={cn(
-                  'link-underline font-display text-[13.5px] font-bold tracking-tight transition-colors duration-300',
+                  'link-underline text-[13.5px] font-medium transition-colors duration-300',
                   active === link.href ? 'text-ink' : 'text-ink/65 hover:text-ink'
                 )}
               >

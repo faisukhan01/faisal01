@@ -1907,3 +1907,25 @@ Stage Summary:
 - COMMIT ef62649 pushed to GitHub (temp token remote, removed after; token not persisted). Verified via API: HEAD=ef62649 authored by Faisal Arslan Khan <193670919+noreply> (contribution-graph eligible); public/products/concordia.png + staffist.png present on GitHub.
 - Vercel: faisal-seven-ruby.vercel.app auto-deploys from the GitHub main branch — the push should trigger a fresh deployment (takes a few minutes). Verify after build completes.
 - Known nitpicks (VLM): orb could use stronger inner glow; CTA secondary button hover contrast; Concordia logo vs Staffist logo visual weight slightly unequal (inherent to their aspect ratios — Staffist intentionally larger per user's earlier request).
+
+---
+Task ID: 42
+Agent: Z.ai Code (main)
+Task: Fix user-reported regressions — whole site felt "zoomed in", navbar not like previous, hero right side "too much/ugly", product cards ugly, Staffist logo too small; general polish pass.
+
+Work Log:
+- Diagnosed via agent-browser screenshots + VLM critique at 1440px: hero H1 at 64px + min-h-88svh + 1200px container + heavy orb-with-3-scattered-cards cluster = cramped "zoomed-in" feel; nav links had font-display bold (differs from previous); product cards had busy grid texture + breathing glow + 2 clashing badge styles + wireframe metric boxes; Staffist logo (250x166 squarish) rendered ~96px wide vs Concordia's ~160px.
+- globals.css: container-luxe widened 1200px → 1280px (px-5 sm:px-8 lg:px-12).
+- logo.tsx: navbar logo enlarged h-26/30 → h-30/34px (width prop 210).
+- header.tsx: nav links restored to previous style (removed font-display font-bold → text-[13.5px] font-medium).
+- hero.tsx REWRITTEN: right side chaos (glass orb + 3 scattered floating cards + connector dots) replaced with ONE clean glass "faq.systems — operations" console window (traffic lights, LIVE chip, 3-KPI row, monospace activity feed w/ staggered entrance, animated system.load bar) + ONE floating "+42% efficiency" chip; single ambient cobalt wash; H1 de-zoomed 42/60/64 → 38/46/54px; paddings trimmed; feed text contrast bumped (ink/45, ink/70).
+- data/case-studies.ts: Concordia logo h-10/12 → h-12/14; Staffist logo h-14/16 → h-24/28 (≈3× visual area, now visually equal/weighted to Concordia).
+- products.tsx REDESIGNED: per-product brand-tint band (Concordia warm #fff4e8, Staffist cool #eaf3ff) with soft white halo, NO grid texture/glow/sheen; ONE unified status chip (top-left glass w/ ping); badge moved into title row as small cobalt chip; metrics as clean box-less 3-col row w/ hairline dividers; tags reduced to 3 ghost pills; heavy dark CTA block replaced by editorial link row (link-underline "View case study" + arrow circle that fills cobalt on hover); band h-60/64 for generous logo display.
+- De-zoom pass on all sections: services/founders/cta py-24/32 → py-20/28; all section H2s text-4xl/5xl → 32/40px; founders names 34/42/52 → 30/36/42px; CTA H2 34/48/56 → 30/38/44px; CTA panel py-16/20 → 14/16; case-study hero H1 42/60 → 36/44px, py-16/24 → 14/20; spacing rhythm tightened (mt-12/14 instead of 14/16).
+- Micro-fixes from VLM round 2: products metrics gap mt-6→mt-7, CTA row pt-6→pt-7.
+
+Stage Summary:
+- VERIFIED (agent-browser): lint 0 errors; desktop 1440px — hero renders new console + chip, navbar with bigger logo + light links; products cards show large Staffist logo; services/founders/CTA all render clean (VLM 9/10); case study /?case=concordia renders; mobile 390px — scrollWidth 390 = viewport (no horizontal overflow), products cards stack cleanly; dev.log all 200s, no runtime errors; console clean.
+- VLM scores after fix: hero 8.5/10 ("legitimate B2B SaaS agency site — Vercel/Linear/Stripe caliber"), products 8.5/10 ("production-ready, Staffist logo now commands respect"), services+founders+CTA 9/10.
+- Note: full-page (--full) screenshots show sections as invisible — that is a framer-motion whileInView capture artifact (sections animate in on real scroll), NOT a bug; verified by scrollIntoView screenshots.
+- Known nitpicks: navbar center links sit in open space (standard pattern, fine); case-study view interior typography not part of this pass beyond hero.

@@ -8,7 +8,7 @@ export function CTABanner() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden border-t border-hairline bg-[#f4f8ff] py-24 md:py-32"
+      className="relative overflow-hidden border-t border-hairline bg-[#f4f8ff] py-20 md:py-28"
       aria-label="Contact FaQ Systems"
     >
       {/* drifting cobalt halos */}
@@ -28,7 +28,7 @@ export function CTABanner() {
 
       <div className="container-luxe relative">
         <Reveal>
-          <div className="relative mx-auto max-w-3xl rounded-[2.5rem] border border-crimson/15 bg-white/70 px-6 py-16 text-center shadow-[0_30px_90px_-40px_rgb(0_122_255/0.3)] backdrop-blur-sm sm:px-12 md:py-20">
+          <div className="relative mx-auto max-w-3xl rounded-[2.5rem] border border-crimson/15 bg-white/70 px-6 py-14 text-center shadow-[0_30px_90px_-40px_rgb(0_122_255/0.3)] backdrop-blur-sm sm:px-12 md:py-16">
             {/* thin cobalt accent ring */}
             <span
               aria-hidden="true"
@@ -44,14 +44,14 @@ export function CTABanner() {
               hello@faq.systems
             </a>
 
-            <h2 className="relative mt-8 font-display text-[34px] font-extrabold leading-[1.08] tracking-[-0.025em] text-ink sm:text-5xl md:text-[56px]">
+            <h2 className="relative mt-8 font-display text-[30px] font-extrabold leading-[1.1] tracking-[-0.025em] text-ink sm:text-[38px] md:text-[44px]">
               Ready to build something{' '}
               <span className="bg-gradient-to-r from-crimson to-[#0057b8] bg-clip-text text-transparent">
                 smarter?
               </span>
             </h2>
 
-            <p className="relative mx-auto mt-6 max-w-xl text-[15px] leading-[1.8] text-muted-foreground">
+            <p className="relative mx-auto mt-6 max-w-xl text-[14.5px] leading-[1.8] text-muted-foreground">
               Let&rsquo;s turn your business challenge into a scalable digital
               system. Tell us what slows your team down — we&rsquo;ll show you
               what it looks like solved.

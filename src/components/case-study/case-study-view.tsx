@@ -383,7 +383,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-[-220px] h-[440px] w-[720px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(0_122_255/0.16),transparent_70%)] blur-2xl"
         />
-        <div className="container-luxe relative py-16 md:py-24">
+        <div className="container-luxe relative py-14 md:py-20">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -391,7 +391,7 @@ export function CaseStudyView({ slug }: { slug: string }) {
             className="mx-auto max-w-3xl text-center"
           >
             <p className="eyebrow text-crimson">Case Study — {study.sector}</p>
-            <h1 className="mt-4 font-display text-[42px] font-extrabold leading-[1.05] tracking-[-0.025em] text-ink sm:text-6xl">
+            <h1 className="mt-4 font-display text-[36px] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-[44px]">
               {study.name}
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-[15px] leading-[1.75] text-muted-foreground md:text-base">
