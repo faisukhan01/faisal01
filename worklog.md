@@ -2099,3 +2099,4 @@ Stage Summary:
 - Case study pages now showcase the actual products with real screenshots, real URLs, and prominent live-site links.
 - Product cards tease the real dashboards on hover.
 - Pushed to GitHub (fast-forward) → Vercel auto-deploy verified.
+- DEPLOY VERIFIED: push 893a86d..51a6fe1 → Vercel live at ~50s. Production QA passed: /?case=concordia + /?case=staffist serve the real screenshots (all responsive widths), homepage has both "Live site" links + hover-reveal dashboards, VLM confirmed no watermark on production.
