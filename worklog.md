@@ -2034,3 +2034,23 @@ Stage Summary:
 - Brand blue accents (#007aff) on "smarter"/"better" confirmed on light bg.
 - Remaining "99.9%" strings are legit pricing-plan uptime SLA copy, NOT hero stats.
 - Risks/next: hero images ~300-480KB each (acceptable); could add prefers-reduced-motion QA; case-study views unaffected (hero-dark CSS removed safely).
+
+---
+Task ID: hero-single-image + github-push-prep
+Agent: main (Z.ai Code)
+Task: Keep only the 1st hero image (coastline) as static background; wire up push to github.com/faisukhan01/faisal01 for Vercel auto-deploy.
+
+Work Log:
+- Rewrote hero.tsx: removed slider entirely (no SLIDES array, no progress bars, no pause logic) — single static '/hero/hero-shore.jpg' with slow 14s ken-burns drift (reduced-motion aware), airy cream veil stack + grain retained.
+- Deleted unused public/hero/hero-dunes.jpg and hero-clouds.jpg.
+- Verified via agent-browser + VLM: single ocean scene, no indicators, logo/headline/CTAs all clean. Lint clean.
+- Git forensics: local repo had NO remote configured; remote origin/main is at task-41 commit 3e24cf7 (pushed 08:39 today), local is 5+ rounds ahead, common ancestor = remote HEAD → fast-forward push possible.
+- Added remote origin → https://github.com/faisukhan01/faisal01.git, fetched OK (repo is public read).
+- Removed stray junk tracked at repo root: unsplash-forest1.jpg, unsplash-forest2.jpg, --viewport (2MB browser artifact).
+- Committed: "Hero: single calm-coastline background (light editorial), remove slider + stray files".
+- Push attempt: FAILED — sandbox has no GitHub write credentials (no token/SSH/gh CLI). Remote writes need auth; this is why the repo/Vercel stopped updating after task 41.
+
+Stage Summary:
+- Site state: single-image light hero verified working on :3000.
+- Git: remote wired, history clean fast-forward, commit ready at local main.
+- BLOCKER: needs GitHub PAT (Contents: Read & Write on faisal01) from user to push; Vercel (faisal-seven-ruby) auto-deploys from the repo once pushed.

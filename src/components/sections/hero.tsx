@@ -1,104 +1,42 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
-import { cn } from '@/lib/utils';
 
 /* ————————————————————————————————————————————————
-   Hero — a light, editorial opening. Full-bleed natural
-   scenes (shore → dunes → sky) drift slowly behind an
-   airy cream veil, so the navy wordmark and ink type
-   stay crisp while the page breathes.
+   Hero — a light, editorial opening. A single natural
+   scene (calm coastline) sits behind an airy cream
+   veil, so the navy wordmark and ink type stay crisp
+   while the page breathes.
    ———————————————————————————————————————————————— */
 
-const SLIDES = [
-  {
-    src: '/hero/hero-shore.jpg',
-    name: 'Coastline',
-    line: 'Calm under load',
-  },
-  {
-    src: '/hero/hero-dunes.jpg',
-    name: 'Dunes',
-    line: 'Order in motion',
-  },
-  {
-    src: '/hero/hero-clouds.jpg',
-    name: 'Skyward',
-    line: 'Room to scale',
-  },
-];
-
-const DURATION = 6400; // ms per scene
+const SCENE = '/hero/hero-shore.jpg';
 
 export function Hero() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [elapsed, setElapsed] = useState(0);
-  const elapsedRef = useRef(0);
   const reduced = useReducedMotion();
 
-  /* Pause-aware auto-advance. The clock accrues in a ref so
-     hovering (pause) freezes mid-scene and resumes exactly
-     where it left off. Re-running on `index` also resets the
-     countdown after a manual indicator click. */
-  useEffect(() => {
-    if (paused || reduced) return;
-    const started = performance.now() - elapsedRef.current;
-    const iv = setInterval(() => {
-      const e = performance.now() - started;
-      if (e >= DURATION) {
-        elapsedRef.current = 0;
-        setElapsed(0);
-        setIndex((i) => (i + 1) % SLIDES.length);
-      } else {
-        elapsedRef.current = e;
-        setElapsed(e);
-      }
-    }, 100);
-    return () => clearInterval(iv);
-  }, [index, paused, reduced]);
-
-  const slide = SLIDES[index];
-
   return (
-    <section
-      className="hero-light relative flex min-h-[92svh] flex-col overflow-hidden bg-cream text-ink"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      {/* — drifting natural backdrops (all mounted → preloaded, opacity crossfade) — */}
+    <section className="hero-light relative flex min-h-[92svh] flex-col overflow-hidden bg-cream text-ink">
+      {/* — single natural backdrop, slow ken-burns drift — */}
       <div className="absolute inset-0" aria-hidden="true">
-        {SLIDES.map((s, i) => (
-          <motion.div
-            key={s.src}
-            initial={false}
-            animate={{ opacity: i === index ? 1 : 0 }}
-            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            {/* slow ken-burns drift while this scene is on stage */}
-            <motion.div
-              initial={false}
-              animate={{ scale: i === index && !reduced ? 1.09 : 1.02 }}
-              transition={{ duration: 9.5, ease: 'linear' }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={s.src}
-                alt=""
-                fill
-                sizes="100vw"
-                priority={i === 0}
-                loading="eager"
-                className="object-cover"
-              />
-            </motion.div>
-          </motion.div>
-        ))}
+        <motion.div
+          initial={false}
+          animate={{ scale: reduced ? 1 : 1.07 }}
+          transition={{ duration: 14, ease: 'linear' }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={SCENE}
+            alt=""
+            fill
+            sizes="100vw"
+            priority
+            loading="eager"
+            className="object-cover"
+          />
+        </motion.div>
 
         {/* airy veil — the scene stays visible while ink type stays crisp */}
         <div className="absolute inset-0 bg-cream/[0.5]" />
@@ -163,52 +101,6 @@ export function Hero() {
               >
                 Talk to us
               </a>
-            </div>
-          </Reveal>
-
-          {/* scene indicator — quiet progress bars */}
-          <Reveal delay={0.32}>
-            <div className="mt-14 flex items-center justify-center gap-4">
-              <span
-                aria-live="polite"
-                className="font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-ink/50"
-              >
-                {slide.name} · {slide.line}
-              </span>
-              <span className="h-3 w-px bg-ink/15" aria-hidden="true" />
-              <div
-                className="flex items-center gap-2"
-                role="tablist"
-                aria-label="Background scenes"
-              >
-                {SLIDES.map((s, i) => (
-                  <button
-                    key={s.src}
-                    type="button"
-                    role="tab"
-                    aria-selected={i === index}
-                    aria-label={`Show ${s.name} scene`}
-                    onClick={() => {
-                      elapsedRef.current = 0;
-                      setElapsed(0);
-                      setIndex(i);
-                    }}
-                    className={cn(
-                      'relative h-[3px] overflow-hidden rounded-full transition-colors duration-500',
-                      i === index ? 'w-10 bg-ink/[0.14]' : 'w-5 bg-ink/[0.14] hover:bg-ink/25'
-                    )}
-                  >
-                    {i === index && (
-                      <span
-                        className="absolute inset-y-0 left-0 rounded-full bg-ink"
-                        style={{
-                          width: reduced ? '100%' : `${(elapsed / DURATION) * 100}%`,
-                        }}
-                      />
-                    )}
-                  </button>
-                ))}
-              </div>
             </div>
           </Reveal>
         </div>
