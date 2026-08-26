@@ -2012,3 +2012,25 @@ Stage Summary:
 - Commits: round-46 code + this worklog commit (GitHub push still blocked on fresh token).
 - Cron: 15-min webDevReview job active (id 338010).
 - Next-phase candidates: maybe caption/CTA tweaks on slide indicator, services grid rhythm, case-study interior polish, OG image regeneration with new hero.
+
+---
+Task ID: hero-light-rework
+Agent: main (Z.ai Code)
+Task: Remove hero stats strip; replace ugly dark console bg images with aesthetic, natural, light-themed images (Pinterest/Unsplash style); make header/logo look impressive on light theme.
+
+Work Log:
+- Sourced candidates via image-search skill (6 queries: ocean, mountain, dunes, clouds, forest).
+- Vetted every candidate with VLM (watermarks, brightness, aesthetic rating) — rejected all Alamy/Shutterstock/Unsplash+ watermarked hits.
+- Final picks: Unsplash "turquoise waves on white sand" (9/10), Pexels "white sand dunes" (8/10), Pexels "fluffy white clouds" (8/10) — all light, natural, clean.
+- Processed with PIL: cropped to 16:9 (2400x1350), editorial brightening (+5-8%), calm saturation (0.85), progressive JPEG → public/hero/hero-{shore,dunes,clouds}.jpg.
+- Rewrote hero.tsx: light editorial design (bg-cream + airy veil stack: cream/50 base, radial center lift, top/bottom melts, ink vignette, SVG grain). Removed STATS strip entirely. "smarter"/"better" accents now brand blue #007aff. Scene captions: Coastline·Calm under load / Dunes·Order in motion / Skyward·Room to scale. Progress-bar slide indicators (pause-aware clock via elapsedRef, 100ms tick, hover freezes & resumes). All 3 images stay mounted (opacity crossfade + ken-burns 1.02→1.09) → preloaded, no first-cycle flash. loading=eager on all hero images (all above fold). Removed AnimatePresence from caption (aria-live polite instead).
+- globals.css: removed obsolete .hero-dark header-flip block; added .hero-grain (SVG feTurbulence noise, 180px tile).
+- logo.tsx: added style width/height auto to silence Next aspect warning.
+- Deleted unused public/slider/* console screenshots.
+- QA via agent-browser: hero renders light & premium (VLM verdict "Premium & Editorial"), slider auto-advances, indicator clicks switch scenes, mobile 390px flawless, scrolled header state OK, lint clean, no console errors. Full-page screenshot "blank middle" was a scroll-reveal artifact — verified all sections render on real scroll (Products, Pricing 3 tiers, Services, Founders, Footer).
+
+Stage Summary:
+- Hero is now a light, editorial, natural-imagery slider; navy logo reads crisply (no white filter needed); stats strip gone.
+- Brand blue accents (#007aff) on "smarter"/"better" confirmed on light bg.
+- Remaining "99.9%" strings are legit pricing-plan uptime SLA copy, NOT hero stats.
+- Risks/next: hero images ~300-480KB each (acceptable); could add prefers-reduced-motion QA; case-study views unaffected (hero-dark CSS removed safely).

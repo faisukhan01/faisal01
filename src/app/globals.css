@@ -218,6 +218,13 @@
     transform-origin: left;
   }
 
+  /* Fine print grain for the light hero — editorial paper feel */
+  .hero-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.055'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    pointer-events: none;
+  }
+
   /* Logo marquee */
   .mask-fade-x {
     -webkit-mask-image: linear-gradient(
@@ -241,41 +248,6 @@
   .marquee-hover-pause:hover .animate-marquee {
     animation-play-state: paused;
   }
-}
-
-/* ————————————————————————————————————————————————
-   Navbar over the dark hero — when the landing hero
-   (.hero-dark) is in the DOM and the header is at the
-   top of the page, the chrome flips to light. Pure CSS
-   via :has() so it reacts instantly to the hero
-   mounting/unmounting (case-study views) and scrolling.
-   ———————————————————————————————————————————————— */
-body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-link {
-  color: rgb(255 255 255 / 0.68);
-}
-body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-link:hover,
-body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-link[aria-current='true'] {
-  color: #ffffff;
-}
-body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-icon-btn {
-  color: #ffffff;
-}
-body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-icon-btn:hover {
-  background-color: rgb(255 255 255 / 0.1);
-}
-/* logo → clean white monochrome over the dark hero */
-body:has(.hero-dark) .site-header:not(.is-scrolled) .nav-logo {
-  filter: brightness(0) invert(1);
-}
-/* primary CTA → white pill over the dark hero */
-body:has(.hero-dark) .site-header:not(.is-scrolled) .btn-primary {
-  background-color: #ffffff;
-  color: #131c2e;
-  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.45);
-}
-body:has(.hero-dark) .site-header:not(.is-scrolled) .btn-primary:hover {
-  background-color: #eef2f8;
-  box-shadow: 0 16px 40px -14px rgb(0 0 0 / 0.55);
 }
 
 @keyframes marquee {

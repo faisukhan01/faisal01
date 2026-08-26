@@ -26,6 +26,7 @@ export function FaqLogo({
         height={31}
         priority={priority}
         sizes="180px"
+        style={{ width: 'auto', height: 'auto' }}
         className="nav-logo h-[26px] w-auto object-contain transition-[filter] duration-500 md:h-[28px]"
       />
     </a>
