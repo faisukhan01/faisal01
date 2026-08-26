@@ -1948,3 +1948,26 @@ Stage Summary:
 - Commits ready to push: 43e385c + 4ba1b71 (+ worklog commit to follow).
 - BLOCKED: GitHub push requires a fresh personal access token from the user (old one scrubbed). Vercel will auto-deploy once pushed.
 - Next-phase recommendations: push once token arrives; then consider case-study-view interior polish (section headers still left-aligned 2-col there), services grid "empty middle" nitpick, maybe testimonials/logos row.
+
+---
+Task ID: 44
+Agent: Z.ai Code (main)
+Task: User round 3 — navbar logo "very larger, make a bit smaller"; header looks "vibe coded", wants human/pro-made feel; product cards "very ugly, make smaller + aesthetic + animated"; founders "why cards?? NO cards, pictures should be LARGE"; Staffist logo still very small; case-study page "very ugly and worse".
+
+Work Log:
+- ROOT CAUSE FOUND for Staffist logo: the PNG canvas was 250x166 but actual content bbox was only 144x53 — 88% of the canvas was empty transparency, so the logo ALWAYS rendered tiny regardless of height class. Auto-cropped with PIL to true content; renamed to staffist-logo.png to bust next/image browser cache (stale optimized variant kept serving old aspect even after optimizer cache clear — new filename guarantees fresh URL).
+- Instrument Serif (400 + italic) added via next/font as --font-serif — the classic human-designer signature.
+- logo.tsx: navbar logo h-30/34 → h-[26px]/[28px] ("just a bit smaller").
+- header.tsx: CTA copy "Request a demo" → "Start a project" (nav + mobile menu).
+- hero.tsx DE-VIBED: gradient text REMOVED → "smarter"/"better" as Instrument Serif italic accents; eyebrow pill+ping → plain mono uppercase tracking text; CTA "Explore Solutions"→"See our work" + quiet "Talk to us" text link (link-underline). VLM: "no longer reads as vibe-coded... 8.5/10, classic high-end pattern".
+- products.tsx: cards SMALLER (grid capped 980px, p-6/7, name 22px, tighter gaps) + ANIMATED (MetricNumber component: framer-motion useSpring/useInView count-up parsing "96.4%"/"4,200"; logo spring pop-in 0.86→1 with stagger; hover scale 1.06) + Staffist logo h-[58px]/[68px] → renders 185x68 vs Concordia 187x56 (Staffist now the prominent one, per user's repeated demands; VLM products 9/10 "equally prominent and well-balanced").
+- founders.tsx REWRITTEN: NO CARDS. Editorial zigzag restored with LARGE 3:4 portraits (max-w-380px, rounded-1.5rem, deep shadow, grayscale) + text column: mono "01 — Co-Founder · Software Engineer" eyebrow, 30/34px name, Instrument Serif italic quote 22/24px, bio, focus as middot-joined uppercase line, email as link-underline w/ arrow. Hairline divider between founders. VLM 8/10 "premium, human-centric, breaks card monotony".
+- case-study-view.tsx REDESIGNED (quiet-editorial): hero — cream bg, mono eyebrow, serif-italic tagline, status+badge as quiet text row (ping pills gone), key metrics as hairline stat strip (matching landing hero) instead of 4 shadow cards; NumberedHeading quieter (mono number + 24/28px title); pain points de-boxed → numbered list with divide-y hairlines; solution approach → borderless top-rule columns w/ hover accent; tech section → mono layer labels + plain text stack (cobalt pill chips gone); outcomes heading + centered serif italic pull quote; final CTA h2 de-zoomed; DashboardWindow Live chip + feed ping dots removed (static dots).
+- cta-banner.tsx: gradient "smarter?" → serif italic; reply-line ping → static dot. services/products eyebrows → mono style (site-wide consistent).
+- Cleared .next/cache/images (stale staffist variant).
+
+Stage Summary:
+- VERIFIED (agent-browser): lint 0 errors; 1440px — hero/navbar VLM 8.5/10 ("deliberate, professional agency landing page"), products VLM 9/10 with Staffist=185x68 vs Concordia=187x56 measured in DOM, founders VLM 8/10; mobile 390px — no horizontal overflow; /?case=concordia renders (h1=Concordia); console clean; dev.log all 200s.
+- Commits: 9da7078 (+ this worklog commit). GitHub push STILL BLOCKED on a fresh token from user (old token scrubbed by platform secret-filter).
+- VLM nitpicks remaining: founders email slightly detached from bio (minor); "+N more" tags hide info; nav active-state subtlety.
+- Next-phase candidates: services dark card + grid rhythm polish, case-study dashboard panels micro-typography, footer refresh to match mono/serif system, OG image regeneration.
