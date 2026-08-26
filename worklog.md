@@ -1971,3 +1971,25 @@ Stage Summary:
 - Commits: 9da7078 (+ this worklog commit). GitHub push STILL BLOCKED on a fresh token from user (old token scrubbed by platform secret-filter).
 - VLM nitpicks remaining: founders email slightly detached from bio (minor); "+N more" tags hide info; nav active-state subtlety.
 - Next-phase candidates: services dark card + grid rhythm polish, case-study dashboard panels micro-typography, footer refresh to match mono/serif system, OG image regeneration.
+
+---
+Task ID: 45
+Agent: Z.ai Code (main)
+Task: User round 4 — "make the smarter and better in blue color"; "add SaaS based slider images to the header as per our system as we are productized"; founders line → "two engineers with entrepreneurial mindset"; add a pricing section; new Qayyum photo (remove #OPENTOWORK badge, make B&W like Faisal's).
+
+Work Log:
+- Qayyum portrait: uploaded 400x400 LinkedIn photo had green "#OPENTOWORK" ribbon bottom-left. Removed via z-ai image-edit SDK (base64, 1024x1024), VLM-verified no banner/artifacts/face drift, then PIL post-process: grayscale + contrast 1.04 + center 3:4 crop → saved public/founders/abdul-qayyum-2.png (new filename busts next/image cache). founders.tsx photo path updated.
+- Hero "smarter"/"better" (and CTA banner "smarter?") → text-crimson (#007aff brand blue) on the Instrument Serif italic accents.
+- Product slider: FIRST tried AI-generated dashboard screenshots (1440→1344x768) — VLM review killed them (Concordia 4/10: gibberish "Alnoisions"/"Badiges" text, broken table headers; Staffist 7/10 but "Employets"/"Statusos" typos). Rejected — exactly the AI-fake feel user hates. REBUILT as REAL HTML dashboards: new src/components/site/product-showcase.tsx — a browser-chrome framed carousel (traffic lights + animated URL pill + Live chip) with three 1024x640 artboard slides scaled to container via useSyncExternalStore+ResizeObserver (no setState-in-effect, passes react-hooks lint):
+  1. Concordia campus console (sidebar nav, 4 KPI cards, SVG attendance area chart, fee bars, admissions rows w/ status badges)
+  2. Staffist shift console (24h timeline board w/ shift blocks + amber gap, availability rail w/ status dots, compliance bar, placements)
+  3. FaQ Ops status view (uptime SVG chart, 30-day availability strip, deploy feed, 12-module grid all green)
+  Auto-rotates every 6.5s, pauses on hover/focus, respects prefers-reduced-motion; dots + prev/next arrows + AnimatePresence crossfade; caption row shows slide meta. Placed in hero between CTAs and stat strip.
+- Pricing section: new src/components/sections/pricing.tsx — "Productized. Predictable." (Predictable in blue serif italic). Monthly/Yearly toggle (−20% badge, layoutId pill, animated price roll via popLayout). 3 plans: Starter $290/$232, Growth $890/$712 (dark ink featured card, "Most popular" blue pill, 6 features), Enterprise Custom. "Every plan includes" strip (deployment/monitoring/backups/updates) + 14-day pilot note. Section order now: Hero → Products → Pricing → Services → Founders → CTA; nav gained "Pricing" link.
+- Founders copy: "two engineers with an entrepreneurial mindset who design, build and operate everything themselves."
+
+Stage Summary:
+- VERIFIED (agent-browser): lint 0 errors; desktop 1440px — hero w/ slider VLM 9/10 (blue accents confirmed, dashboard crisp in frame), slider auto-rotate + next-arrow both work (aria-selected updates), slide 3 renders flawlessly; pricing VLM 9/10 (toggle flips $232↔$290 & $712↔$890 correctly, math exact, no overlaps); founders copy + clean B&W Qayyum portrait confirmed (no badge); mobile 390px — scrollWidth 390 = viewport, hero + pricing stack cleanly, VLM 9/10; /?case=staffist renders (h1=Staffist); console clean; dev.log all 200s.
+- Commit: round-45 commit created locally (GitHub push still blocked on fresh token from user).
+- AI dashboard PNGs in public/slider/ kept on disk but UNUSED (HTML slides won) — can delete later if desired.
+- Next-phase candidates: per-product pricing anchors (Concordia/Staffist tiers), services grid polish, case-study interior consistency with new blue accents, OG image regeneration.
