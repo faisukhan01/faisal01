@@ -2100,3 +2100,33 @@ Stage Summary:
 - Product cards tease the real dashboards on hover.
 - Pushed to GitHub (fast-forward) → Vercel auto-deploy verified.
 - DEPLOY VERIFIED: push 893a86d..51a6fe1 → Vercel live at ~50s. Production QA passed: /?case=concordia + /?case=staffist serve the real screenshots (all responsive widths), homepage has both "Live site" links + hover-reveal dashboards, VLM confirmed no watermark on production.
+
+---
+Task ID: 47
+Agent: Z.ai Code (main)
+Task: User round 6 — professional section sequence; fix blue heading fonts (serif-italic disliked); redesign header to feel like a SaaS productized company; full mobile responsiveness; push to GitHub/Vercel.
+
+Work Log:
+- SECTION SEQUENCE (page.tsx): Hero → Products → Services → Pricing → Founders → CTA — the classic productized-SaaS narrative (proof → capability → pricing → trust → convert). Pricing moved after Services; nav order matches.
+- BLUE HEADING FONTS: removed font-serif/italic from every blue accent span — hero "smarter"/"better", pricing "Predictable.", founders "Founders", CTA "smarter?" — all now use the same font-display extrabold as the rest of the heading (color stays brand blue). Case-study serif quotes were left as-is (not blue, not headings).
+- HEADER REDESIGNED (SaaS productized, Linear/Stripe/Vercel patterns):
+  - Dark launch announcement bar (dismissible, session state): "Concordia & Staffist — two products live in production · Explore →" — collapses on scroll via PURE CSS (see fix below).
+  - Products dropdown (desktop): hover/click-open 560px panel with both product cards (logo, name, sector, tagline, "Case study →"), "Live products / 2 in production" header, footer "Both operational — monitored 24/7" + See pricing link. Opens case studies from anywhere via pushState + popstate dispatch.
+  - Right cluster: "Systems operational" status chip (emerald dot, xl+) + "Start a project" CTA. On case pages the CTA swaps to mailto (no #contact anchor exists there).
+  - Mobile menu: "PRODUCTS — LIVE" group with 2 tappable product cards (logo tile, LIVE badge, sector, arrow) above the numbered 01-04 nav links; CTA + "Remote-first · Two products live" footer.
+  - Nav links from case pages: closeCaseAndGo() — replaceState(case→anchor URL) + popstate + polled scrollIntoView (no history traversal).
+- exported useActiveCaseSlug() hook from case-study-router (module-level store readable outside the provider) — header shows solid cream bar on case pages and hides the announcement.
+- BUG FIXES FOUND VIA BROWSER QA:
+  1. Case pages at scroll-top: transparent global header overlapped the sticky sub-header — case view now gets pt-16/md:pt-[76px] and header renders solid when a case is open.
+  2. Dropdown hover-open + click-toggle race (stale closure) closed the panel on click — click now only OPENS; closing = mouse-leave (140ms intent), outside mousedown, Escape (capture-phase, stopImmediatePropagation so case pages don't also close), or product select.
+  3. CRITICAL: framer-motion height animation of the announcement bar's scroll-collapse CANCELLED all in-flight smooth scrolls on the page (scroll froze at 73px — reproduced on plain landing with scrollIntoView). Replaced with pure CSS transition-[height,opacity,visibility]; smooth scrolls now complete exactly (pricingTop=96).
+  4. Chrome same-document scroll restoration fought back() traversals — replaced with replaceState navigation (no traversal, no restoration).
+  5. Active-section IntersectionObserver went stale after visiting a case study (sections unmount/remount) — now re-attaches with retry polling when caseSlug changes.
+- MOBILE AUDIT (390px + 360px, agent-browser + VLM): hero 10/10 (announcement readable, CTAs stacked), mobile menu PASS (product cards + numbered links), products/services/pricing/founders/CTA/footer all PASS, case-study page + dashboard frame PASS, zero horizontal overflow at both widths.
+- DESKTOP AUDIT (1440px): header VLM 9/10, dropdown 9/10 (centered, no clipping), section order verified in DOM + visually, all sections 9-9.5/10, case pages clean, console + dev.log clean, lint 0 errors.
+
+Stage Summary:
+- Commit: 5a78b23 "Professional section sequence, SaaS productized header, unified heading typography, mobile polish" (8 files, +450/−83).
+- ALL QA GREEN locally. PUSH BLOCKED: no GitHub credentials in sandbox (previous PAT was used inline-only and not stored — presumably revoked as advised). Needs a fresh PAT (Contents: Read & Write) from the user to push → Vercel auto-deploys.
+- Cron webDevReview job (15-min) already active from previous round — verified still listed.
+- Next-phase candidates: per-product pricing anchors from dropdown footer, OG image refresh with new header/hero, services grid rhythm polish, footer refresh to mono/serif system.
