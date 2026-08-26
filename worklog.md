@@ -2075,3 +2075,27 @@ Stage Summary:
 - Commit graph: all commits attributed to faisukhan01 → today's contribution square green.
 - Housekeeping: token used inline only; recommend user revokes the PAT after confirming.
 - Next-phase suggestions: keep remote wired (origin now configured); commit+push each round; consider README + repo description polish.
+
+---
+Task ID: real-product-screenshots
+Agent: main (Z.ai Code)
+Task: Use the user's attached Concordia + Staffist dashboard screenshots in the case study pages (aesthetically), remove "Activate Windows" watermarks, wire real live links (concordiacollegecanalcampus.com / staffs-websites.uk), push to GitHub + Vercel.
+
+Work Log:
+- Identified attachments: pasted_image_1787745416572 = Staffist admin portal, pasted_image_1787745421533 = Concordia admin console.
+- Watermark removal (surgical, no AI regeneration to preserve UI text fidelity):
+  - Programmatic pixel analysis located watermark bboxes precisely (grey semi-transparent detection: channel spread < 16, luminance band).
+  - Staffist: white-wiped the label/watermark zones, redrew axis labels "Wk 2"–"Wk 5" with Liberation Sans 11px in sampled slate grey (#808893-family) at measured positions (x 954/1069/1184/1294, top y 551).
+  - Concordia: white-wiped corner excluding the orange FAB + its green notification badge; rebuilt FAB (orange disk r24 + mirrored-clean gear icon via 4-fold symmetry); redrew 5-color legend (dots #ff630e/#f29f23/#0ebd8b/#248feb/#9463eb + matching text, font 11px calibrated to fit between dots).
+  - VLM QA confirmed: no watermark traces, no repair seams, authentic look on both.
+- Saved to public/products/{concordia,staffist}-dashboard.png.
+- case-studies.ts: replaced mock Panel system with real screenshot data (image, imageAlt, dimensions, liveUrl) + real site URLs.
+- case-study-view.tsx: DashboardWindow now frames the REAL screenshot in the browser chrome; URL pill links to live site; footer strip "real interface, live in production" + "Visit live site"; hero shows live URL link; final CTA adds "Explore {name} live" button. Removed all mock panel components (~260 lines).
+- products.tsx: cards now hover-reveal the real dashboard screenshot in the logo band (crossfade + slide, "Live product" chip); "Live site ↗" link added to card footers (card converted from <button> to role=button article for valid nested links, keyboard Enter/Space support).
+- QA via agent-browser + VLM: Concordia case study (browser frame + real orange console verified), Staffist case study (dark sidebar portal verified), live URLs correct (https://www.concordiacollegecanalcampus.com/ + https://staffs-websites.uk/), mobile 390px clean, lint clean.
+- NOTE: headless test browser reports (hover: none) so Tailwind group-hover effects can't be verified there — verified via forced-style test instead; works in real browsers.
+
+Stage Summary:
+- Case study pages now showcase the actual products with real screenshots, real URLs, and prominent live-site links.
+- Product cards tease the real dashboards on hover.
+- Pushed to GitHub (fast-forward) → Vercel auto-deploy verified.

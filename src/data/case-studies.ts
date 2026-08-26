@@ -2,27 +2,6 @@
 
 export type Accent = 'cobalt' | 'navy';
 
-export type Panel =
-  | {
-      kind: 'kpis';
-      title: string;
-      kpis: { label: string; value: string; trend: string; up: boolean }[];
-    }
-  | { kind: 'bars'; title: string; bars: { label: string; value: number }[] }
-  | { kind: 'modules'; title: string; modules: { name: string; pct: number }[] }
-  | { kind: 'feed'; title: string; items: { text: string; time: string }[] }
-  | {
-      kind: 'gantt';
-      title: string;
-      rows: { name: string; blocks: { start: number; width: number; solid?: boolean }[] }[];
-    }
-  | {
-      kind: 'availability';
-      title: string;
-      staff: { name: string; status: 'on' | 'soon' | 'off' }[];
-    }
-  | { kind: 'funnel'; title: string; stages: { label: string; value: number }[] };
-
 export interface CaseStudy {
   slug: string;
   name: string;
@@ -47,7 +26,15 @@ export interface CaseStudy {
   features: { title: string; body: string }[];
   tech: { layer: string; stack: string[] }[];
   outcomes: { value: string; label: string; note: string }[];
-  dashboard: { url: string; title: string; panels: Panel[] };
+  dashboard: {
+    url: string;
+    liveUrl: string;
+    title: string;
+    image: string;
+    imageAlt: string;
+    imageW: number;
+    imageH: number;
+  };
   quote: { text: string; author: string; role: string };
   cta: { title: string; body: string };
 }
@@ -158,60 +145,14 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: '1', label: 'source of truth', note: 'for every record on campus' },
     ],
     dashboard: {
-      url: 'admin.concordia.edu',
+      url: 'www.concordiacollegecanalcampus.com',
+      liveUrl: 'https://www.concordiacollegecanalcampus.com/',
       title: 'Admin Console',
-      panels: [
-        {
-          kind: 'kpis',
-          title: 'Today at a glance',
-          kpis: [
-            { label: 'Students', value: '4,200', trend: '+38 this term', up: true },
-            { label: 'Attendance', value: '96.4%', trend: '+1.2% vs last week', up: true },
-            { label: 'Fees collected', value: '87%', trend: 'on plan', up: true },
-            { label: 'Modules live', value: '12', trend: 'all systems normal', up: true },
-          ],
-        },
-        {
-          kind: 'bars',
-          title: 'Attendance — last 12 weeks',
-          bars: [
-            { label: 'W1', value: 91 },
-            { label: 'W2', value: 93 },
-            { label: 'W3', value: 92 },
-            { label: 'W4', value: 95 },
-            { label: 'W5', value: 94 },
-            { label: 'W6', value: 96 },
-            { label: 'W7', value: 95 },
-            { label: 'W8', value: 97 },
-            { label: 'W9', value: 96 },
-            { label: 'W10', value: 96 },
-            { label: 'W11', value: 97 },
-            { label: 'W12', value: 96 },
-          ],
-        },
-        {
-          kind: 'modules',
-          title: 'Module uptime',
-          modules: [
-            { name: 'Admissions', pct: 92 },
-            { name: 'Finance', pct: 88 },
-            { name: 'Examinations', pct: 95 },
-            { name: 'HR & Payroll', pct: 80 },
-            { name: 'Academic Records', pct: 90 },
-          ],
-        },
-        {
-          kind: 'feed',
-          title: 'Live activity',
-          items: [
-            { text: 'New admission inquiry — ICS Part 1', time: '2m ago' },
-            { text: 'Fee receipt #R-2481 issued — Rs 18,500', time: '9m ago' },
-            { text: 'Biometric sync complete — Block C', time: '14m ago' },
-            { text: 'Marks entry submitted — Physics XI-B', time: '31m ago' },
-            { text: 'Payroll run confirmed — October', time: '1h ago' },
-          ],
-        },
-      ],
+      image: '/products/concordia-dashboard.png',
+      imageAlt:
+        'Concordia admin console — students, teachers, fee collection and enrollment distribution at a glance',
+      imageW: 1365,
+      imageH: 615,
     },
     quote: {
       text: 'FaQ Systems delivered what three vendors said was impossible — one system for the whole campus, running on real devices, live within a term.',
@@ -327,52 +268,14 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: '128', label: 'shifts daily', note: 'scheduled and filled through the console' },
     ],
     dashboard: {
-      url: 'console.staffist.co.uk',
-      title: 'Shift Console',
-      panels: [
-        {
-          kind: 'kpis',
-          title: 'Operations today',
-          kpis: [
-            { label: 'Active staff', value: '340', trend: '+12 this week', up: true },
-            { label: 'Shifts today', value: '128', trend: '96% filled', up: true },
-            { label: 'Compliance', value: '99.1%', trend: '2 docs expiring soon', up: false },
-            { label: 'Placements', value: '42', trend: 'this month', up: true },
-          ],
-        },
-        {
-          kind: 'gantt',
-          title: 'Shift coverage — next 24h',
-          rows: [
-            { name: 'Amelia R.', blocks: [{ start: 0, width: 25 }, { start: 55, width: 30 }] },
-            { name: 'Daniel K.', blocks: [{ start: 15, width: 30, solid: true }] },
-            { name: 'Priya S.', blocks: [{ start: 40, width: 35 }, { start: 85, width: 15 }] },
-            { name: 'Marcus T.', blocks: [{ start: 60, width: 25, solid: true }] },
-          ],
-        },
-        {
-          kind: 'availability',
-          title: 'Staff availability',
-          staff: [
-            { name: 'Amelia R.', status: 'on' },
-            { name: 'Daniel K.', status: 'on' },
-            { name: 'Priya S.', status: 'soon' },
-            { name: 'Marcus T.', status: 'soon' },
-            { name: 'Elena V.', status: 'off' },
-            { name: 'Jonas B.', status: 'off' },
-          ],
-        },
-        {
-          kind: 'funnel',
-          title: 'Placement funnel — 30 days',
-          stages: [
-            { label: 'Applied', value: 1240 },
-            { label: 'Screened', value: 480 },
-            { label: 'Interviewed', value: 180 },
-            { label: 'Placed', value: 42 },
-          ],
-        },
-      ],
+      url: 'staffs-websites.uk',
+      liveUrl: 'https://staffs-websites.uk/',
+      title: 'Staffist Admin Portal',
+      image: '/products/staffist-dashboard.png',
+      imageAlt:
+        'Staffist admin portal — revenue, active placements, fill rate and weekly placement trends',
+      imageW: 1366,
+      imageH: 605,
     },
     quote: {
       text: 'FaQ Systems took our mess of calls and spreadsheets and turned it into one console we actually trust. Compliance is no longer a surprise.',

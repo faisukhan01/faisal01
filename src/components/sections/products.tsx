@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
 import { useCaseStudy } from '@/components/case-study/case-study-router';
 import { CASE_STUDIES } from '@/data/case-studies';
@@ -82,14 +82,21 @@ export function Products() {
         <div className="mx-auto mt-12 grid max-w-[980px] gap-6 md:grid-cols-2 md:gap-7">
           {CASE_STUDIES.map((product, i) => (
             <Reveal key={product.slug} delay={i * 0.1}>
-              <motion.button
-                type="button"
+              <motion.article
+                role="button"
+                tabIndex={0}
                 onClick={() => openCase(product.slug)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openCase(product.slug);
+                  }
+                }}
                 whileHover={{ y: -6 }}
                 whileTap={{ scale: 0.99 }}
                 transition={{ type: 'spring', stiffness: 320, damping: 26 }}
                 aria-label={`Open the ${product.name} case study`}
-                className="group relative flex w-full flex-col overflow-hidden rounded-[1.75rem] border border-hairline bg-white text-left shadow-[0_6px_30px_-14px_rgb(26_35_50/0.12)] transition-all duration-500 hover:border-crimson/30 hover:shadow-[0_32px_80px_-28px_rgb(0_122_255/0.3)]"
+                className="group relative flex w-full cursor-pointer flex-col overflow-hidden rounded-[1.75rem] border border-hairline bg-white text-left shadow-[0_6px_30px_-14px_rgb(26_35_50/0.12)] transition-all duration-500 hover:border-crimson/30 hover:shadow-[0_32px_80px_-28px_rgb(0_122_255/0.3)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-crimson/50"
               >
                 {/* — quiet inset logo area — */}
                 <div
@@ -108,17 +115,36 @@ export function Products() {
                     initial={{ opacity: 0, scale: 0.86, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ type: 'spring', stiffness: 210, damping: 20, delay: 0.25 + i * 0.12 }}
-                    className="relative z-10 flex items-center justify-center"
+                    className="relative z-10 flex items-center justify-center transition-opacity duration-500 group-hover:opacity-0"
                   >
                     <Image
                       src={product.logo}
                       alt={`${product.name} logo`}
                       width={280}
                       height={200}
-                      className={`${product.logoHeightClass} object-contain drop-shadow-[0_10px_24px_rgb(26_35_50/0.12)] transition-transform duration-500 ease-out group-hover:scale-[1.06]`}
+                      className={`${product.logoHeightClass} object-contain drop-shadow-[0_10px_24px_rgb(26_35_50/0.12)]`}
                       priority={i === 0}
                     />
                   </motion.div>
+
+                  {/* real product — screenshot revealed on hover */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 z-[5] translate-y-[6%] scale-[1.03] opacity-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100"
+                  >
+                    <Image
+                      src={product.dashboard.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 768px) 470px, 92vw"
+                      className="object-cover object-top"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent" />
+                    <span className="absolute bottom-3 left-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[9.5px] font-bold uppercase tracking-[0.12em] text-ink/60 backdrop-blur-sm">
+                      <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
+                      Live product
+                    </span>
+                  </div>
                 </div>
 
                 {/* — Body — */}
@@ -176,11 +202,24 @@ export function Products() {
                   </div>
 
                   {/* CTA — editorial link row */}
-                  <div className="mt-auto flex items-center justify-between border-t border-hairline pt-6">
-                    <span className="link-underline text-[13.5px] font-semibold text-ink transition-colors duration-300 group-hover:text-crimson">
-                      View case study
-                    </span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-ink/[0.05] text-ink transition-all duration-300 group-hover:bg-crimson group-hover:text-white">
+                  <div className="mt-auto flex items-center justify-between gap-3 border-t border-hairline pt-6">
+                    <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                      <span className="link-underline text-[13.5px] font-semibold text-ink transition-colors duration-300 group-hover:text-crimson">
+                        View case study
+                      </span>
+                      <a
+                        href={product.dashboard.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1 text-[12px] font-semibold text-ink/45 transition-colors duration-300 hover:text-crimson"
+                        aria-label={`Visit the live ${product.name} site (opens in a new tab)`}
+                      >
+                        Live site
+                        <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                      </a>
+                    </div>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink/[0.05] text-ink transition-all duration-300 group-hover:bg-crimson group-hover:text-white">
                       <ArrowRight
                         className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
                         aria-hidden="true"
@@ -194,7 +233,7 @@ export function Products() {
                   aria-hidden="true"
                   className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-gradient-to-r from-crimson to-[#0057b8] transition-transform duration-500 group-hover:scale-x-100"
                 />
-              </motion.button>
+              </motion.article>
             </Reveal>
           ))}
         </div>

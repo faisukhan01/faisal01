@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import {
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   CalendarClock,
   ClipboardList,
   Fingerprint,
@@ -21,7 +22,7 @@ import {
   X,
 } from 'lucide-react';
 import { useCaseStudy } from '@/components/case-study/case-study-router';
-import { getCaseStudy, type Panel } from '@/data/case-studies';
+import { getCaseStudy, type CaseStudy } from '@/data/case-studies';
 import { cn } from '@/lib/utils';
 
 /* — Feature icons per product — */
@@ -30,215 +31,9 @@ const FEATURE_ICONS: Record<string, typeof Fingerprint[]> = {
   staffist: [CalendarClock, ShieldCheck, Sparkles, Radio, Filter, ScrollText],
 };
 
-/* ——————————————— Dashboard panels ——————————————— */
+/* ——————————————— The live product window ——————————————— */
 
-function KpiPanel({ panel }: { panel: Extract<Panel, { kind: 'kpis' }> }) {
-  return (
-    <div className="col-span-full rounded-xl border border-ink/[0.06] bg-white p-4 sm:p-5">
-      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/40">
-        {panel.title}
-      </p>
-      <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {panel.kpis.map((k) => (
-          <div key={k.label} className="rounded-lg bg-cream/70 p-3">
-            <p className="font-display text-[20px] font-extrabold leading-none text-ink sm:text-[24px]">
-              {k.value}
-            </p>
-            <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-ink/45">
-              {k.label}
-            </p>
-            <p className="mt-1 text-[10px] font-medium text-crimson">{k.trend}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function BarsPanel({ panel }: { panel: Extract<Panel, { kind: 'bars' }> }) {
-  return (
-    <div className="rounded-xl border border-ink/[0.06] bg-white p-4 sm:p-5">
-      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/40">
-        {panel.title}
-      </p>
-      <div className="mt-4 flex h-28 items-end gap-1.5 sm:h-32">
-        {panel.bars.map((b, i) => (
-          <div key={b.label} className="flex h-full flex-1 flex-col justify-end">
-            <motion.div
-              initial={{ height: '8%' }}
-              whileInView={{ height: `${b.value}%` }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.9, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className={cn(
-                'w-full rounded-t-[3px]',
-                i >= panel.bars.length - 3 ? 'bg-gradient-to-t from-crimson to-[#3395ff]' : 'bg-ink/15'
-              )}
-            />
-            <p className="mt-1.5 text-center text-[8.5px] font-medium text-ink/35">{b.label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ModulesPanel({ panel }: { panel: Extract<Panel, { kind: 'modules' }> }) {
-  return (
-    <div className="rounded-xl border border-ink/[0.06] bg-white p-4 sm:p-5">
-      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/40">
-        {panel.title}
-      </p>
-      <div className="mt-4 space-y-3.5">
-        {panel.modules.map((m, i) => (
-          <div key={m.name}>
-            <div className="flex items-baseline justify-between">
-              <p className="text-[11.5px] font-medium text-ink/70">{m.name}</p>
-              <p className="tabular text-[10.5px] font-semibold text-crimson">{m.pct}%</p>
-            </div>
-            <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-ink/[0.07]">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${m.pct}%` }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 1.1, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="h-full rounded-full bg-gradient-to-r from-crimson to-[#0057b8]"
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function FeedPanel({ panel }: { panel: Extract<Panel, { kind: 'feed' }> }) {
-  return (
-    <div className="rounded-xl border border-ink/[0.06] bg-white p-4 sm:p-5">
-      <div className="flex items-center justify-between">
-        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/40">
-          {panel.title}
-        </p>
-        <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
-      </div>
-      <ul className="mt-3.5 space-y-3">
-        {panel.items.map((item) => (
-          <li key={item.text} className="flex items-start justify-between gap-3">
-            <span className="flex items-start gap-2.5">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-crimson/60" />
-              <span className="text-[11.5px] leading-snug text-ink/70">{item.text}</span>
-            </span>
-            <span className="shrink-0 text-[9.5px] font-medium uppercase tracking-wide text-ink/30">
-              {item.time}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function GanttPanel({ panel }: { panel: Extract<Panel, { kind: 'gantt' }> }) {
-  return (
-    <div className="col-span-full rounded-xl border border-ink/[0.06] bg-white p-4 sm:p-5">
-      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/40">
-        {panel.title}
-      </p>
-      <div className="mt-4 space-y-2.5">
-        {panel.rows.map((row, i) => (
-          <div key={row.name} className="flex items-center gap-3">
-            <p className="w-20 shrink-0 truncate text-[10.5px] font-medium text-ink/55 sm:w-24 sm:text-[11.5px]">
-              {row.name}
-            </p>
-            <div className="relative h-6 flex-1 rounded-md bg-ink/[0.05]">
-              {row.blocks.map((b, j) => (
-                <motion.div
-                  key={j}
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.8, delay: i * 0.1 + j * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ left: `${b.start}%`, width: `${b.width}%` }}
-                  className={cn(
-                    'absolute inset-y-0.5 origin-left rounded-[5px]',
-                    b.solid ? 'bg-gradient-to-r from-crimson to-[#0057b8]' : 'bg-crimson/35'
-                  )}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-3 flex justify-between pl-23 text-[8.5px] font-medium uppercase tracking-wide text-ink/25 sm:pl-27">
-        <span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span>
-      </div>
-    </div>
-  );
-}
-
-function AvailabilityPanel({ panel }: { panel: Extract<Panel, { kind: 'availability' }> }) {
-  const tone = { on: 'bg-crimson', soon: 'bg-amber-400', off: 'bg-ink/20' } as const;
-  const label = { on: 'On shift', soon: 'Soon', off: 'Off' } as const;
-  return (
-    <div className="rounded-xl border border-ink/[0.06] bg-white p-4 sm:p-5">
-      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/40">
-        {panel.title}
-      </p>
-      <ul className="mt-3.5 space-y-2.5">
-        {panel.staff.map((s) => (
-          <li key={s.name} className="flex items-center justify-between">
-            <span className="flex items-center gap-2.5">
-              <span className={cn('h-1.5 w-1.5 rounded-full', tone[s.status])} />
-              <span className="text-[11.5px] font-medium text-ink/70">{s.name}</span>
-            </span>
-            <span className="text-[9.5px] font-semibold uppercase tracking-[0.1em] text-ink/35">
-              {label[s.status]}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function FunnelPanel({ panel }: { panel: Extract<Panel, { kind: 'funnel' }> }) {
-  const max = panel.stages[0]?.value ?? 1;
-  return (
-    <div className="rounded-xl border border-ink/[0.06] bg-white p-4 sm:p-5">
-      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/40">
-        {panel.title}
-      </p>
-      <div className="mt-4 space-y-3">
-        {panel.stages.map((s, i) => (
-          <div key={s.label}>
-            <div className="flex items-baseline justify-between">
-              <p className="text-[11.5px] font-medium text-ink/70">{s.label}</p>
-              <p className="tabular text-[12px] font-bold text-ink">
-                {s.value.toLocaleString()}
-              </p>
-            </div>
-            <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-ink/[0.06]">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${Math.max((s.value / max) * 100, 6)}%` }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 1, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className={cn(
-                  'h-full rounded-full',
-                  i === panel.stages.length - 1
-                    ? 'bg-gradient-to-r from-crimson to-[#0057b8]'
-                    : 'bg-crimson/30'
-                )}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* — The app-window frame that hosts the panels — */
-function DashboardWindow({ dashboard }: { dashboard: { url: string; title: string; panels: Panel[] } }) {
+function DashboardWindow({ dashboard }: { dashboard: CaseStudy['dashboard'] }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
@@ -253,38 +48,63 @@ function DashboardWindow({ dashboard }: { dashboard: { url: string; title: strin
           <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         </div>
-        <div className="flex flex-1 justify-center">
-          <span className="flex items-center gap-2 rounded-full border border-ink/[0.06] bg-white px-4 py-1.5 text-[10.5px] font-medium text-ink/50">
-            <span className="h-1.5 w-1.5 rounded-full bg-crimson/70" />
-            {dashboard.url}
-          </span>
+        <div className="flex min-w-0 flex-1 justify-center">
+          <a
+            href={dashboard.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex min-w-0 items-center gap-2 rounded-full border border-ink/[0.06] bg-white px-4 py-1.5 text-[10.5px] font-medium text-ink/50 transition-colors duration-300 hover:border-crimson/30 hover:text-ink"
+            aria-label={`Open ${dashboard.url} in a new tab`}
+          >
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-crimson/70" />
+            <span className="truncate">{dashboard.url}</span>
+            <ArrowUpRight
+              className="h-3 w-3 shrink-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              aria-hidden="true"
+            />
+          </a>
         </div>
-        <span className="flex items-center gap-1.5 rounded-full bg-ink/[0.05] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-ink/45 sm:flex">
+        <span className="hidden items-center gap-1.5 rounded-full bg-ink/[0.05] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.12em] text-ink/45 sm:flex">
           <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
           Live
         </span>
       </div>
-      {/* panels */}
-      <div className="grid gap-3 bg-cream/40 p-3 sm:grid-cols-2 sm:gap-4 sm:p-4">
-        {dashboard.panels.map((panel, i) => {
-          const key = `${panel.kind}-${i}`;
-          switch (panel.kind) {
-            case 'kpis':
-              return <KpiPanel key={key} panel={panel} />;
-            case 'bars':
-              return <BarsPanel key={key} panel={panel} />;
-            case 'modules':
-              return <ModulesPanel key={key} panel={panel} />;
-            case 'feed':
-              return <FeedPanel key={key} panel={panel} />;
-            case 'gantt':
-              return <GanttPanel key={key} panel={panel} />;
-            case 'availability':
-              return <AvailabilityPanel key={key} panel={panel} />;
-            case 'funnel':
-              return <FunnelPanel key={key} panel={panel} />;
-          }
-        })}
+
+      {/* the real product — actual screenshot, live in production */}
+      <div className="relative bg-white">
+        <Image
+          src={dashboard.image}
+          alt={dashboard.imageAlt}
+          width={dashboard.imageW}
+          height={dashboard.imageH}
+          priority
+          className="block h-auto w-full"
+        />
+        {/* soft inset vignette to seat the screenshot in the frame */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 shadow-[inset_0_0_80px_rgb(26_35_50/0.05)]"
+        />
+      </div>
+
+      {/* footer strip */}
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-ink/[0.06] bg-cream/60 px-4 py-3 sm:px-5">
+        <p className="flex items-center gap-2 text-[11px] font-medium text-ink/50">
+          <span className="h-1.5 w-1.5 rounded-full bg-crimson" aria-hidden="true" />
+          {dashboard.title} — real interface, live in production
+        </p>
+        <a
+          href={dashboard.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline group inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-crimson"
+        >
+          Visit live site
+          <ArrowUpRight
+            className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+        </a>
       </div>
     </motion.div>
   );
@@ -391,6 +211,16 @@ export function CaseStudyView({ slug }: { slug: string }) {
                 <span className="h-1.5 w-1.5 rounded-full bg-crimson" />
                 {study.status}
               </span>
+              <span className="hidden h-3 w-px bg-ink/15 sm:block" aria-hidden="true" />
+              <a
+                href={study.dashboard.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline inline-flex items-center gap-1.5 font-semibold text-crimson"
+              >
+                {study.dashboard.url}
+                <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+              </a>
               <span className="hidden h-3 w-px bg-ink/15 sm:block" aria-hidden="true" />
               <span>{study.badge}</span>
             </div>
@@ -657,13 +487,18 @@ export function CaseStudyView({ slug }: { slug: string }) {
                 aria-hidden="true"
               />
             </a>
-            <button
-              type="button"
-              onClick={closeCase}
-              className="inline-flex h-12 items-center justify-center rounded-full border border-ink/15 bg-white px-8 text-[14px] font-semibold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/30 hover:shadow-[0_18px_44px_-20px_rgb(26_35_50/0.35)]"
+            <a
+              href={study.dashboard.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex h-12 items-center justify-center gap-2 rounded-full border border-ink/15 bg-white px-8 text-[14px] font-semibold text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/30 hover:shadow-[0_18px_44px_-20px_rgb(26_35_50/0.35)]"
             >
-              Back to products
-            </button>
+              Explore {study.name} live
+              <ArrowUpRight
+                className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </a>
           </div>
         </div>
       </section>
