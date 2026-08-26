@@ -62,26 +62,32 @@ export function SiteHeader() {
             : 'border-b border-transparent bg-transparent'
         )}
       >
-        <div className="container-luxe flex h-16 items-center justify-between gap-8 md:h-[76px]">
+        {/* 3-zone layout: logo left · nav CENTER · CTA right */}
+        <div className="container-luxe grid h-16 grid-cols-[auto_1fr_auto] items-center gap-6 md:h-[76px]">
           <FaqLogo priority />
 
-          <nav aria-label="Primary" className="hidden items-center gap-9 lg:flex">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                aria-current={active === link.href ? 'true' : undefined}
-                className={cn(
-                  'link-underline text-[13.5px] font-medium transition-colors duration-300',
-                  active === link.href ? 'text-ink' : 'text-ink/65 hover:text-ink'
-                )}
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav
+            aria-label="Primary"
+            className="hidden justify-center lg:flex"
+          >
+            <div className="flex items-center gap-10">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active === link.href ? 'true' : undefined}
+                  className={cn(
+                    'link-underline text-[13.5px] font-medium transition-colors duration-300',
+                    active === link.href ? 'text-ink' : 'text-ink/65 hover:text-ink'
+                  )}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-end gap-3">
             <a
               href="#contact"
               className="btn-primary hidden h-10 px-5 text-[13px] sm:inline-flex"

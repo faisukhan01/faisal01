@@ -43,128 +43,111 @@ const FOUNDERS = [
 
 export function Founders() {
   return (
-    <section id="founders" className="bg-background py-20 md:py-28" aria-label="Founders">
+    <section id="founders" className="bg-background py-20 md:py-24" aria-label="Founders">
       <div className="container-luxe">
-        <div className="grid items-end gap-8 lg:grid-cols-2">
+        <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <p className="eyebrow flex items-center gap-2.5 text-muted-foreground">
-              <span aria-hidden="true" className="h-1.5 w-1.5 bg-crimson" />
-              Founders
-            </p>
-            <h2 className="mt-5 max-w-xl font-display text-[32px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[40px]">
+            <p className="eyebrow text-muted-foreground">Founders</p>
+            <h2 className="mt-4 font-display text-[30px] font-extrabold leading-[1.12] tracking-[-0.02em] text-ink md:text-[36px]">
               The Fa and the Q.
             </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="max-w-md text-[14.5px] leading-[1.75] text-muted-foreground lg:ml-auto">
-              FaQ stands for its founders — Faisal and Qayyum, two software
-              engineers who design, build, and operate everything themselves.
+            <p className="mx-auto mt-4 max-w-md text-[14.5px] leading-[1.7] text-muted-foreground">
+              FaQ stands for its founders — Faisal and Qayyum, two engineers
+              who design, build and operate everything themselves.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-14 space-y-14 md:mt-16 md:space-y-20">
-          {FOUNDERS.map((person, i) => {
-            const flipped = i % 2 === 1;
-            return (
-              <div key={person.name}>
-                <Reveal>
-                  <div
-                    className={cn(
-                      'grid items-center gap-10 lg:grid-cols-2 lg:gap-16',
-                      flipped && 'lg:[&>*:first-child]:order-2'
-                    )}
-                  >
-                    {/* — Photo: a clean floating image, no card chrome — */}
-                    <motion.div
-                      whileHover={{ scale: 1.015 }}
-                      transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-                      className="group relative mx-auto w-full max-w-[440px]"
-                    >
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-[radial-gradient(closest-side,rgb(0_122_255/0.08),transparent_75%)] blur-xl"
-                      />
-                      <div className="relative aspect-[3/4] overflow-hidden rounded-3xl shadow-[0_36px_90px_-30px_rgb(26_35_50/0.45)]">
-                        <Image
-                          src={person.photo}
-                          alt={`Portrait of ${person.name}, ${person.role} at FaQ Systems`}
-                          fill
-                          sizes="(max-width: 1024px) 90vw, 460px"
-                          className="object-cover grayscale contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.04]"
-                          priority={i === 0}
-                        />
-                        {/* soft cobalt veil */}
-                        <span
-                          aria-hidden="true"
-                          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-crimson/[0.14] via-transparent to-transparent"
-                        />
-                      </div>
-                    </motion.div>
-
-                    {/* — Content column — */}
-                    <div className={cn(flipped && 'lg:pr-4')}>
-                      <div className="flex items-center gap-3.5">
-                        <span className="tabular font-display text-[13px] font-extrabold tracking-[0.14em] text-crimson">
-                          {person.index}
-                        </span>
-                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-crimson to-[#0057b8] font-display text-[11px] font-extrabold text-white">
-                          {person.initials}
-                        </span>
-                        <span className="rounded-full border border-crimson/25 bg-crimson/[0.06] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-crimson">
-                          Co-Founder
-                        </span>
-                      </div>
-
-                      <h3 className="mt-5 font-display text-[30px] font-extrabold leading-[1.05] tracking-[-0.02em] text-ink sm:text-[36px] lg:text-[42px]">
-                        {person.name}
-                      </h3>
-                      <p className="mt-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                        {person.role}
-                      </p>
-
-                      <blockquote className="mt-7 border-l-[3px] border-crimson pl-5">
-                        <p className="font-display text-[19px] font-medium italic leading-[1.5] text-ink/85 md:text-[22px]">
-                          &ldquo;{person.quote}&rdquo;
-                        </p>
-                      </blockquote>
-
-                      <p className="mt-6 max-w-md text-[14px] leading-[1.8] text-muted-foreground">
-                        {person.bio}
-                      </p>
-
-                      <div className="mt-6 flex flex-wrap gap-2">
-                        {person.focus.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full border border-hairline bg-white px-3.5 py-1.5 text-[11.5px] font-medium text-ink/65"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="mt-8 flex items-center gap-2.5">
-                        {person.socials.map(({ label, href, Icon }) => (
-                          <a
-                            key={label}
-                            href={href}
-                            aria-label={`${person.name} on ${label}`}
-                            className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-white text-ink/55 transition-all duration-300 hover:-translate-y-0.5 hover:border-crimson/40 hover:text-crimson hover:shadow-[0_12px_30px_-12px_rgb(0_122_255/0.4)]"
-                          >
-                            <Icon className="h-4 w-4" aria-hidden="true" />
-                          </a>
-                        ))}
-                      </div>
-                    </div>
+        <div className="mx-auto mt-14 grid max-w-[1080px] gap-8 md:mt-16 md:grid-cols-2 md:gap-10">
+          {FOUNDERS.map((person, i) => (
+            <Reveal key={person.name} delay={i * 0.12}>
+              <motion.article
+                whileHover={{ y: -5 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 26 }}
+                className="group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-hairline bg-white p-7 shadow-[0_6px_30px_-16px_rgb(26_35_50/0.12)] transition-shadow duration-500 hover:border-crimson/25 hover:shadow-[0_28px_64px_-28px_rgb(0_122_255/0.28)] sm:p-8"
+              >
+                {/* photo + header row */}
+                <div className="flex items-center gap-5">
+                  <div className="relative h-[104px] w-[84px] shrink-0 overflow-hidden rounded-2xl shadow-[0_14px_36px_-14px_rgb(26_35_50/0.4)]">
+                    <Image
+                      src={person.photo}
+                      alt={`Portrait of ${person.name}`}
+                      fill
+                      sizes="84px"
+                      className="object-cover grayscale contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.05]"
+                      priority={i === 0}
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-crimson/[0.15] via-transparent to-transparent"
+                    />
                   </div>
-                </Reveal>
-                {i < FOUNDERS.length - 1 && (
-                  <div className="mt-14 border-t border-hairline md:mt-20" aria-hidden="true" />
-                )}
-              </div>
-            );
-          })}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2.5">
+                      <span className="tabular font-display text-[11px] font-extrabold tracking-[0.14em] text-crimson">
+                        {person.index}
+                      </span>
+                      <span className="rounded-full bg-crimson/[0.08] px-2.5 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.1em] text-crimson">
+                        Co-Founder
+                      </span>
+                    </div>
+                    <h3 className="mt-2 font-display text-[24px] font-extrabold leading-none tracking-tight text-ink sm:text-[26px]">
+                      {person.name}
+                    </h3>
+                    <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.13em] text-muted-foreground">
+                      {person.role}
+                    </p>
+                  </div>
+                </div>
+
+                {/* quote */}
+                <blockquote className="mt-6 border-l-2 border-crimson/60 pl-4">
+                  <p className="font-display text-[16px] font-medium italic leading-[1.5] text-ink/80">
+                    &ldquo;{person.quote}&rdquo;
+                  </p>
+                </blockquote>
+
+                {/* bio */}
+                <p className="mt-4 text-[13px] leading-[1.7] text-muted-foreground">
+                  {person.bio}
+                </p>
+
+                {/* focus */}
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {person.focus.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-cream px-3 py-1 text-[11px] font-medium text-ink/55"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* socials + baseline */}
+                <div className="mt-auto pt-6">
+                  <div className="flex items-center justify-between border-t border-hairline pt-5">
+                    <div className="flex items-center gap-2">
+                      {person.socials.map(({ label, href, Icon }) => (
+                        <a
+                          key={label}
+                          href={href}
+                          aria-label={`${person.name} on ${label}`}
+                          className="flex h-9 w-9 items-center justify-center rounded-full text-ink/50 transition-all duration-300 hover:-translate-y-0.5 hover:bg-crimson/[0.08] hover:text-crimson"
+                        >
+                          <Icon className="h-4 w-4" aria-hidden="true" />
+                        </a>
+                      ))}
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="h-[3px] w-10 origin-left rounded-full bg-gradient-to-r from-crimson to-[#0057b8] transition-transform duration-500 group-hover:scale-x-[1.6]"
+                    />
+                  </div>
+                </div>
+              </motion.article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
