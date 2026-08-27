@@ -61,7 +61,6 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false); // mobile menu
   const [dropOpen, setDropOpen] = useState(false); // products dropdown
-  const [dismissed, setDismissed] = useState(false); // announcement bar
   const [active, setActive] = useState<string | null>(null);
 
   const caseSlug = useActiveCaseSlug();
@@ -189,47 +188,6 @@ export function SiteHeader() {
             : 'border-b border-transparent bg-transparent'
         )}
       >
-        {/* — Launch strip: the classic productized-SaaS announcement bar.
-             Pure-CSS collapse (framer-motion height animations here were
-             cancelling in-flight smooth scrolls on this page). — */}
-        {!dismissed && !caseOpen && (
-          <div
-            className={cn(
-              'bg-night ease-[cubic-bezier(0.22,1,0.36,1)]',
-              'transition-[height,opacity,visibility] duration-300',
-              scrolled
-                ? 'pointer-events-none invisible h-0 overflow-hidden opacity-0'
-                : 'visible h-10 opacity-100'
-            )}
-            role="region"
-            aria-label="Announcement"
-          >
-            <div className="container-luxe relative flex h-10 items-center justify-center">
-              <p className="flex items-center gap-2.5 text-center text-[11.5px] font-medium tracking-wide text-white/75">
-                <span className="hidden sm:inline">
-                  Concordia &amp; Staffist —
-                </span>
-                <span>two products live in production</span>
-                <a
-                  href="#products"
-                  className="link-underline inline-flex items-center gap-1 font-semibold text-[#79b8ff] transition-colors hover:text-white"
-                >
-                  Explore
-                  <ArrowRight className="h-3 w-3" aria-hidden="true" />
-                </a>
-              </p>
-              <button
-                type="button"
-                onClick={() => setDismissed(true)}
-                aria-label="Dismiss announcement"
-                className="absolute right-5 flex h-7 w-7 items-center justify-center rounded-full text-white/40 transition-colors hover:bg-white/10 hover:text-white/80 sm:right-8 lg:right-12"
-              >
-                <X className="h-3.5 w-3.5" aria-hidden="true" />
-              </button>
-            </div>
-          </div>
-        )}
-
         {/* — Main bar: logo · nav (+ products dropdown) · CTA — */}
         <div className="container-luxe grid h-16 grid-cols-[auto_1fr_auto] items-center gap-6 md:h-[76px]">
           <FaqLogo priority />
@@ -390,13 +348,18 @@ export function SiteHeader() {
               />
               Systems operational
             </a>
-            <a
-              href={ctaHref}
-              className="btn-primary hidden h-10 px-5 text-[13px] sm:inline-flex"
-            >
-              Start a project
-              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-            </a>
+            {/* .btn-primary carries its own display:inline-flex, which would
+                beat the `hidden` utility — so visibility is owned by this
+                wrapper (CTA appears from sm up; mobile uses the menu CTA). */}
+            <div className="hidden h-10 items-center sm:flex">
+              <a
+                href={ctaHref}
+                className="btn-primary h-10 px-5 text-[13px]"
+              >
+                Start a project
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+            </div>
             <button
               type="button"
               onClick={() => setOpen(true)}

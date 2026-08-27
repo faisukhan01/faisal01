@@ -24,6 +24,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://faisal-seven-ruby.vercel.app"),
   title: "FaQ Systems — Intelligent Software & Digital Systems",
   description:
     "FaQ Systems builds intelligent software, automation and digital systems that help modern businesses operate smarter, faster and more efficiently.",
@@ -48,12 +49,21 @@ export const metadata: Metadata = {
       "We build intelligent software, automation and digital systems that help modern businesses operate smarter, faster and more efficiently.",
     siteName: "FaQ Systems",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "FaQ Systems — Build smarter systems. Scale better businesses.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "FaQ Systems — Intelligent Software & Digital Systems",
     description:
       "Intelligent software, automation and digital systems for modern businesses.",
+    images: ["/og-image.png"],
   },
 };
 
