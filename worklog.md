@@ -2130,3 +2130,27 @@ Stage Summary:
 - ALL QA GREEN locally. PUSH BLOCKED: no GitHub credentials in sandbox (previous PAT was used inline-only and not stored — presumably revoked as advised). Needs a fresh PAT (Contents: Read & Write) from the user to push → Vercel auto-deploys.
 - Cron webDevReview job (15-min) already active from previous round — verified still listed.
 - Next-phase candidates: per-product pricing anchors from dropdown footer, OG image refresh with new header/hero, services grid rhythm polish, footer refresh to mono/serif system.
+
+---
+Task ID: 48
+Agent: main (Z.ai Code)
+Task: User round 7 — remove the "Concordia & Staffist — two products live in production · Explore" strip from the header top; judge + replace the header's logo IMAGE (professional fit); fix why GitHub/Vercel weren't updated; push.
+
+Work Log:
+- Interpreted "the header — its image": the header logo PNG (/faq-logo.png). VLM audit of the old PNG verdict: CHANGE urgently — compression artifacts + anti-aliasing fringing (raster), clashing weight contrast (ultrabold "Faq" vs thin "Systems"), orphaned corner bracket mark.
+- NEW BRAND MARK (logo.tsx): inline SVG — deep-navy rounded square (rx 8.5) with a geometric white Q ring (stroke 4.6) and an electric-blue (#007aff) tail. Brand rule: the blue always lives on the Q (icon tail + wordmark Q).
+- NEW WORDMARK: real text in the site's display font (Plus Jakarta Sans, extrabold, tracking -0.015em): "FaQ" ink + blue Q + "Systems" ink, 18px; mark 24/26px; gap 7px; -0.5px optical baseline nudge. Iterated 4 rounds with VLM critique (fixed: washed-out Systems → full ink; over-wide gaps → tightened; icon-heavy imbalance → smaller mark + larger text). Final: 7.5-10/10 vs old 5/10 "change urgently".
+- Removed the launch/announcement strip entirely from header.tsx (state, markup, aria) per user request — "Concordia & Staffist — two products live in production · Explore" gone from the top.
+- BUG FOUND & FIXED: .btn-primary is a custom utility carrying display:inline-flex (defined after Tailwind's .hidden in the same utilities layer) — it overrode `hidden`, so the header CTA "Start a project" was ALWAYS visible on mobile (crowding the bar, text wrapping). Fixed with a `hidden sm:flex` wrapper div owning visibility; inner <a> keeps .btn-primary.
+- favicon.svg replaced (was a WRONG "N" glyph from a template!) — now the brand Q mark, identical to the header icon.
+- public/faq-logo.png regenerated (JSON-LD org logo): injected standalone white-bg overlay with mark at 128px + wordmark 86px, element-screenshot, trimmed → 705×120 11KB crisp PNG (old: 167KB artifact-ridden).
+- NEW public/og-image.png 1200×630 (cream editorial card: logo lockup, "Build smarter systems. Scale better businesses." with blue accents, Concordia/Staffist LIVE chips, faq.systems footer). Wired into metadata openGraph.images + twitter.images; metadataBase set to https://faisal-seven-ruby.vercel.app (faq.systems does not resolve — curl 000; vercel 200).
+- QA (agent-browser + VLM): desktop 1440 — header 9/10, dropdown 10/10, all 5 sections PASS (products/services/pricing/founders/contact); mobile 390 — hero 9/10, menu 9.5/10, all sections PASS, ZERO horizontal overflow; case studies (concordia desktop 9/10, staffist mobile) clean; lint 0 errors; dev.log clean.
+- Note: earlier "blank sections" in full-page screenshots = capture artifact (scroll-reveal + stitching); DOM verified contiguous sections, 0 hidden elements.
+- Committed 94472d5 (6 files). PUSH BLOCKED: no GitHub credentials in sandbox (previous PAT used inline-only, never stored — presumably revoked as advised). Remote origin/main at 10a373d; 3 commits pending (5a78b23, fd78cf6, 94472d5).
+
+Stage Summary:
+- Header top strip REMOVED (user request) — verified gone on desktop + mobile + case pages.
+- Header logo image REPLACED with professional crisp SVG mark + typographic wordmark; favicon + JSON-LD logo + OG image all now on-brand.
+- Mobile CTA visibility bug fixed; all mobile/desktop QA green.
+- GitHub/Vercel NOT yet updated: needs a fresh GitHub PAT (Contents: Read & Write) from the user — paste it and I will push all 3 pending commits (Vercel auto-deploys from the repo).
