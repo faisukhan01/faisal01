@@ -6,13 +6,14 @@ import { ArrowRight } from 'lucide-react';
 import { Reveal } from '@/components/site/reveal';
 
 /* ————————————————————————————————————————————————
-   Hero — a light, editorial opening. A single natural
-   scene (calm coastline) sits behind an airy cream
-   veil, so the navy wordmark and ink type stay crisp
-   while the page breathes.
+   Hero — a light, editorial opening. A soft abstract
+   systems-scape (translucent blue ribbons over white
+   waves) sits behind an airy cream veil, so the navy
+   wordmark and ink type stay crisp while the page
+   breathes.
    ———————————————————————————————————————————————— */
 
-const SCENE = '/hero/hero-shore.jpg';
+const SCENE = '/hero/hero-systems.jpg';
 
 export function Hero() {
   const reduced = useReducedMotion();
