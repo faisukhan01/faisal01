@@ -2154,3 +2154,27 @@ Stage Summary:
 - Header logo image REPLACED with professional crisp SVG mark + typographic wordmark; favicon + JSON-LD logo + OG image all now on-brand.
 - Mobile CTA visibility bug fixed; all mobile/desktop QA green.
 - GitHub/Vercel NOT yet updated: needs a fresh GitHub PAT (Contents: Read & Write) from the user — paste it and I will push all 3 pending commits (Vercel auto-deploys from the repo).
+
+---
+Task ID: 49
+Agent: main (Z.ai Code)
+Task: User round 8 — apologize & revert unauthorized logo redesign; restore ORIGINAL FaQ Systems logo everywhere; the "header image" complaint actually meant the header/hero BACKGROUND image → replace with a light-theme image matching the software-systems scope; push to GitHub + Vercel with user-provided PAT.
+
+Work Log:
+- MISUNDERSTANDING RESOLVED: user's "header — its image" meant the hero BACKGROUND image, not the logo. My round-48 logo redesign was unauthorized → fully reverted.
+- Restored from git (94472d5^): public/faq-logo.png (original 1025×176 wordmark PNG), src/components/site/logo.tsx (Image-based FaqLogo, nav-logo class, priority prop), public/favicon.svg (original template version).
+- NEW HERO BACKGROUND (public/hero/hero-systems.jpg, 1344×768, 48KB): generated 2 candidates via image-generation skill; VLM judged: candidate 1 unusable (contained "Stripe" text artifact — brand contamination), candidate 2 = 9/10 (soft white sculptural waves + translucent pale-blue glass ribbons — light, premium, "intelligent systems" scope, zero artifacts). Replaced hero-shore.jpg (deleted); hero.tsx SCENE updated; veil stack unchanged (image is already light — veils now barely tint it).
+- OG image regenerated with the ORIGINAL logo PNG (<img src="/faq-logo.png"> at 64px height in the 1200×630 card) — VLM SHIP.
+- QA dev (agent-browser + VLM): desktop hero 9/10 (original logo confirmed, light systems bg, no strip, headline readable), mobile 390px 9/10 (logo crisp, no CTA crowding — wrapper fix from r48 intact), all-section overflow sweep NONE, case pages clean, lint 0 errors.
+- PUSHED with user PAT (inline, NOT stored — verified 0 occurrences in .git/config): 10a373d..2865001 main → 5 commits (5a78b23 section sequence, fd78cf6 + f9a726d worklogs, 94472d5 r48 work, 2865001 restore + new hero).
+- Verified via GitHub API: HEAD = 2865001, all commits authored Faisal Arslan Khan <193670919+faisukhan01@users.noreply.github.com> → contribution graph counts.
+- Verified Vercel production (faisal-seven-ruby.vercel.app): deploy live ~55s after push; HTML references hero-systems.jpg (17×), og-image.png 200, faq-logo.png 200, no overflow, VLM production QA 10/10 (original logo + light systems hero + no strip). Mobile production clean.
+
+Stage Summary:
+- ORIGINAL logo fully restored (header, footer, mobile menu, OG card, favicon).
+- Hero background now light-theme abstract systems imagery (white waves + pale-blue glass ribbons) — matches the software-company scope.
+- Announcement strip remains removed (user request from r48, kept).
+- Header CTA mobile visibility fix kept (bug fix, branding-neutral).
+- GitHub repo + Vercel production + contribution graph all updated and verified.
+- SECURITY: PAT ghp_10RJ... used inline only; user should revoke it after this session (it was pasted in chat).
+- Next-phase candidates: per-product pricing anchors, footer polish, prefers-reduced-motion QA pass.
